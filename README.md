@@ -17,7 +17,7 @@ Model "1..1" -- "0..*" Vehicle
 
 Brand "1..1" -- "0..*" Model
 
-EmployeStatus -- Employee
+EmployeeStatus -- Employee
 
 EmployeeType -- Employee
 
@@ -36,7 +36,7 @@ LocalDate birthDate
 String cpf
 BigDecimal salary
 Integer commission
-EmployeStatus employeStatus
+EmployeeStatus employeeStatus
 EmployeeType employeeType
 List~Sale~ sales
 }
@@ -54,12 +54,12 @@ List~Sale~ sales
 class Sale {
 <<Entity>>
 Stirng id
-LocalDate salleDate
+LocalDate saleDate
 PaymentType paymentType
 BigDecimal totalValue
 Employee employee
 Customer customer
-List~SaleCar~ saleCars
+List~Item~ items
 }
 
 class Item {
@@ -95,7 +95,7 @@ String name
 List~Model~ models
 }
 
-class EmployeStatus {
+class EmployeeStatus {
 <<Enum>>
 ACTIVE, INACTIVE
 } 
