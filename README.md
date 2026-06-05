@@ -27,72 +27,72 @@ Vehicle -- TransmissionType
 
 class Employee {
 <<Entity>>
-String id
-String name
-String matriculation
-String email
-String phone
-LocalDate birthDate
-String cpf
-BigDecimal salary
-Integer commission
-EmployeeStatus employeeStatus
-EmployeeType employeeType
-List~Sale~ sales
+- String id
+- String name
+- String matriculation
+- String email
+- String phone
+- LocalDate birthDate
+- String cpf
+- BigDecimal salary
+- Integer commission
+- EmployeeStatus employeeStatus
+- EmployeeType employeeType
+- List~Sale~ sales
 }
 
 class Customer {
 <<Entity>>
-String id
-String name
-String document
-String email
-String phone
-List~Sale~ sales
+- String id
+- String name
+- String document
+- String email
+- String phone
+- List~Sale~ sales
 }
 
 class Sale {
 <<Entity>>
-Stirng id
-LocalDate saleDate
-PaymentType paymentType
-BigDecimal totalValue
-Employee employee
-Customer customer
-List~Item~ items
+- String id
+- LocalDate saleDate
+- PaymentType paymentType
+- BigDecimal totalValue
+- Employee employee
+- Customer customer
+- List~Item~ items
 }
 
 class Item {
 <<Entity>>
-String id
-Sale sale
-Vehicle vehicle 
+- String id
+- Sale sale
+- Vehicle vehicle 
 }
 
 class Vehicle {
 <<Entity>>
-String id
-String placa
-TransmissionType transmissionType
-String cor
-BigDecimal price
-Model model
-List~Item~ items
+- String id
+- String placa
+- TransmissionType transmissionType
+- String cor
+- BigDecimal price
+- Model model
+- List~Item~ items
 }
 
 class Model {
 <<Entity>>
-String id
-String name
-Brand brand
-List~Vehicle~ vehicles
+- String id
+- String name
+- Brand brand
+- List~Vehicle~ vehicles
 }
 
 class Brand {
 <<Entity>>
-String id
-String name
-List~Model~ models
+- String id
+- String name
+- List~Model~ models
 }
 
 class EmployeeStatus {
@@ -114,5 +114,4 @@ class TransmissionType {
 <<Enum>>
 MANUAL, AUTOMATIC
 }
-
 ```
