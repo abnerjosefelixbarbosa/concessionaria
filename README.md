@@ -1,1 +1,118 @@
 # Concessionria
+
+## Modelo
+
+```mermaid
+classDiagram
+
+Employee "1..1" -- "0..*" Sale
+
+Customer "1..1" -- "0..*" Sale
+
+Item "0..*" -- "1..1" Vehicle 
+
+Item "0..*" -- "1..1" Sale 
+
+Model "1..1" -- "0..*" Vehicle 
+
+Brand "1..1" -- "0..*" Model
+
+EmployeStatus -- Employee
+
+EmployeeType -- Employee
+
+Sale -- PaymentType
+
+Vehicle -- TransmissionType 
+
+class Employee {
+<<Entity>>
+String id
+String name
+String matriculation
+String email
+String phone
+LocalDate birthDate
+String cpf
+BigDecimal salary
+Integer commission
+EmployeStatus employeStatus
+EmployeeType employeeType
+List~Sale~ sales
+}
+
+class Customer {
+<<Entity>>
+String id
+String name
+String document
+String email
+String phone
+List~Sale~ sales
+}
+
+class Sale {
+<<Entity>>
+Stirng id
+LocalDate salleDate
+PaymentType paymentType
+BigDecimal totalValue
+Employee employee
+Customer customer
+List~SaleCar~ saleCars
+}
+
+class Item {
+<<Entity>>
+String id
+Sale sale
+Vehicle vehicle 
+}
+
+class Vehicle {
+<<Entity>>
+String id
+String placa
+TransmissionType transmissionType
+String cor
+BigDecimal price
+Model model
+List~Item~ items
+}
+
+class Model {
+<<Entity>>
+String id
+String name
+Brand brand
+List~Vehicle~ vehicles
+}
+
+class Brand {
+<<Entity>>
+String id
+String name
+List~Model~ models
+}
+
+class EmployeStatus {
+<<Enum>>
+ACTIVE, INACTIVE
+} 
+
+class EmployeeType {
+<<Enum>>
+MANAGER, ASSISTANT_MANAGER, SALLER
+} 
+
+class PaymentType {
+<<Enum>>
+CASH, CREDIT_CARD, DEBIT_CARD, PIX
+}
+
+class TransmissionType {
+<<Enum>>
+MANUAL, AUTOMATIC
+}
+
+```
