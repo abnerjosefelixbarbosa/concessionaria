@@ -126,3 +126,10 @@ MANUAL, AUTOMATIC
 - Spring Data JPA
 - MVC
 - SOLID
+
+## Fucionalidades
+
+- Registra funcionario.
+- Atualizar funcionario pelo id.
+- Listar funcionario com filtro pelo nome, status do funcionario e tipo do funcionario.
+- Procurar funcionario pelo id.
