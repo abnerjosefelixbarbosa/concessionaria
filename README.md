@@ -115,3 +115,14 @@ class TransmissionType {
 MANUAL, AUTOMATIC
 }
 ```
+
+# Recursos do projeto
+
+## Backend
+
+- Spring Boot
+- H2 DB
+- PostgreeSQL
+- Spring Data JPA
+- MVC
+- SOLID
