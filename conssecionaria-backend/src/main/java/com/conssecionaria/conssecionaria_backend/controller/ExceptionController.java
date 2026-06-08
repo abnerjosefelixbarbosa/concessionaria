@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.RestControllerAdvice;
 
 import com.conssecionaria.conssecionaria_backend.model.dto.ExceptionResponseDTO;
 import com.conssecionaria.conssecionaria_backend.model.exception.ApplicationException;
+import com.conssecionaria.conssecionaria_backend.model.exception.NotFoundException;
 
 import jakarta.servlet.http.HttpServletRequest;
 
@@ -30,16 +31,20 @@ public class ExceptionController {
 		});
 		return errors;
 	}
-	
+
 	@ExceptionHandler(ApplicationException.class)
-	public ResponseEntity<ExceptionResponseDTO> handleValidationParamException(Exception e, HttpServletRequest request) {
-		ExceptionResponseDTO response = new ExceptionResponseDTO(
-				LocalDateTime.now(),
-				400,
-				e.getMessage(),
-				request.getRequestURI()
-		);
-		
+	public ResponseEntity<ExceptionResponseDTO> handleApplicationException(Exception e, HttpServletRequest request) {
+		ExceptionResponseDTO response = new ExceptionResponseDTO(LocalDateTime.now(), 400, e.getMessage(),
+				request.getRequestURI());
+
 		return ResponseEntity.status(400).body(response);
+	}
+
+	@ExceptionHandler(NotFoundException.class)
+	public ResponseEntity<ExceptionResponseDTO> handleNotFoundException(Exception e, HttpServletRequest request) {
+		ExceptionResponseDTO response = new ExceptionResponseDTO(LocalDateTime.now(), 404, e.getMessage(),
+				request.getRequestURI());
+
+		return ResponseEntity.status(404).body(response);
 	}
 }
