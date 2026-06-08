@@ -38,7 +38,7 @@ public class Employee {
 	@Column(nullable = false, unique = true, length = 11)
 	private String cpf;
 	@Column(nullable = false, scale = 2)
-	private BigDecimal salary;
+	private BigDecimal salary = BigDecimal.ZERO;
 	@Column(nullable = false)
 	private Integer commission;
 	@Column(nullable = false)
