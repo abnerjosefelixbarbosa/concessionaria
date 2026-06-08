@@ -1,11 +1,13 @@
 package com.conssecionaria.conssecionaria_backend.model.service.impl;
 
+import org.springframework.beans.BeanUtils;
 import org.springframework.stereotype.Service;
 
 import com.conssecionaria.conssecionaria_backend.model.dto.EmployeeRequestDTO;
 import com.conssecionaria.conssecionaria_backend.model.dto.EmployeeResponseDTO;
 import com.conssecionaria.conssecionaria_backend.model.entity.Employee;
 import com.conssecionaria.conssecionaria_backend.model.exception.ApplicationException;
+import com.conssecionaria.conssecionaria_backend.model.exception.NotFoundException;
 import com.conssecionaria.conssecionaria_backend.model.mapper.EmployeeMapper;
 import com.conssecionaria.conssecionaria_backend.model.repository.EmployeeRepository;
 import com.conssecionaria.conssecionaria_backend.model.service.EmployeeService;
@@ -30,12 +32,26 @@ public class EmployeeServiceImpl implements EmployeeService {
 		return employeeMapper.toEmployeeResponseDTO(employeeSaved);
 	}
 
+	public EmployeeResponseDTO updateEmployeeById(String id, EmployeeRequestDTO dto) {
+		Employee employee = employeeMapper.toEmployee(dto);
+		
+		validateEmployee(employee);
+
+		Employee employeeFound = findById(id);
+
+		BeanUtils.copyProperties(employee, employeeFound, "id");
+
+		Employee employeeSaved = employeeRepository.save(employeeFound);
+
+		return employeeMapper.toEmployeeResponseDTO(employeeSaved);
+	}
+
 	private void validateEmployee(Employee employee) {
 		if (employee.getEmployeeType().ordinal() == 2) {
 			if (employee.getCommission() == null) {
 				throw new ApplicationException("Comissão deve ser obrigatório para funcionário vendedor.");
 			}
-			
+
 			if (employee.getCommission().longValue() == 0) {
 				throw new ApplicationException("Comissão deve ser obrigatório para funcionário vendedor.");
 			}
@@ -52,6 +68,10 @@ public class EmployeeServiceImpl implements EmployeeService {
 		if (existsByNameOrMatriculationOrEmailOrPhoneOrCpf(employee)) {
 			throw new ApplicationException("Nome, matrícula, email, telefone ou cpf não deve ser repetido.");
 		}
+	}
+
+	private Employee findById(String id) {
+		return employeeRepository.findById(id).orElseThrow(() -> new NotFoundException("Id deve ser existente."));
 	}
 
 	private boolean existsByNameOrMatriculationOrEmailOrPhoneOrCpf(Employee employee) {
