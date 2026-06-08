@@ -32,7 +32,11 @@ public class EmployeeServiceImpl implements EmployeeService {
 
 	private void validateEmployee(Employee employee) {
 		if (employee.getEmployeeType().ordinal() == 2) {
-			if (employee.getCommission() == null || employee.getCommission().longValue() == 0) {
+			if (employee.getCommission() == null) {
+				throw new ApplicationException("Comissão deve ser obrigatório para funcionário vendedor.");
+			}
+			
+			if (employee.getCommission().longValue() == 0) {
 				throw new ApplicationException("Comissão deve ser obrigatório para funcionário vendedor.");
 			}
 		}
