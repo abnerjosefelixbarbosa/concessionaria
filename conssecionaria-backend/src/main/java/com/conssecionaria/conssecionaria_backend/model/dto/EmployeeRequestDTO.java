@@ -13,31 +13,37 @@ import jakarta.validation.constraints.NotEmpty;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Pattern;
 import jakarta.validation.constraints.Size;
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 
-public record EmployeeRequestDTO(
-		@NotEmpty(message = "Nome deve ser obrigatório.")
-		@NotNull(message = "Nome deve ser obrigatório.")
-		@Size(message = "Nome deve ter até 100 caracteres.", max = 100)
-		String name,
-		@Pattern(message = "Matrícula deve ter 10 caracteres numéricos.", regexp = "^\\d{10}$")
-		String matriculation,
-		@NotEmpty(message = "Email deve ser valido.")
-		@NotNull(message = "Email deve ser valido.")
-		@Email(message = "Email deve ser valido.")
-		String email,
-		@NotEmpty(message = "Telefone deve ser obrigatório.")
-		@NotNull(message = "Telefone deve ser obrigatório.")
-		@Size(message = "Telefone deve ter até 30 caracteres.", max = 30)
-		String phone,
-		@NotNull(message = "Data de nascimento deve ser obrigatória.")
-		LocalDate birthDate,
-		@CPF(message = "CPF deve ser valido.")
-		String cpf,
-		@NotNull(message = "Salário deve ser obrigatório.")
-	    BigDecimal salary,
-		Integer commission,
-		@NotNull(message = "Status do funcionário deve ser obrigatório.")
-		EmployeeStatus employeeStatus,
-		@NotNull(message = "Tipo de funcionário deve ser obrigatório.")
-		EmployeeType employeeType
-) {}
+@Data
+@NoArgsConstructor
+@AllArgsConstructor
+public class EmployeeRequestDTO {
+	@NotEmpty(message = "Nome deve ser obrigatório.")
+	@NotNull(message = "Nome deve ser obrigatório.")
+	@Size(message = "Nome deve ter até 100 caracteres.", max = 100)
+	private String name;
+	@Pattern(message = "Matrícula deve ter 10 caracteres numéricos.", regexp = "^\\d{10}$")
+	private String matriculation;
+	@NotEmpty(message = "Email deve ser valido.")
+	@NotNull(message = "Email deve ser valido.")
+	@Email(message = "Email deve ser valido.")
+	private String email;
+	@NotEmpty(message = "Telefone deve ser obrigatório.")
+	@NotNull(message = "Telefone deve ser obrigatório.")
+	@Size(message = "Telefone deve ter até 30 caracteres.", max = 30)
+	private String phone;
+	@NotNull(message = "Data de nascimento deve ser obrigatória.")
+	private LocalDate birthDate;
+	@CPF(message = "CPF deve ser valido.")
+	private String cpf;
+	@NotNull(message = "Salário deve ser obrigatório.")
+	private BigDecimal salary;
+	private Integer commission;
+	@NotNull(message = "Status do funcionário deve ser obrigatório.")
+	private EmployeeStatus employeeStatus;
+	@NotNull(message = "Tipo de funcionário deve ser obrigatório.")
+	private EmployeeType employeeType;
+}
