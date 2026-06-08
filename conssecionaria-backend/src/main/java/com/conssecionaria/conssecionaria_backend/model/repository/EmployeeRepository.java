@@ -7,5 +7,6 @@ import com.conssecionaria.conssecionaria_backend.model.entity.Employee;
 
 @Repository
 public interface EmployeeRepository extends JpaRepository<Employee, String> {
-
+	boolean existsByNameOrMatriculationOrEmailOrPhoneOrCpf(String name, String matriculation, String email,
+			String phone, String cpf);
 }
