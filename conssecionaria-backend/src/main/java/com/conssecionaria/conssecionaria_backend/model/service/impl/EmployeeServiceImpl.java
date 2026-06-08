@@ -36,21 +36,22 @@ public class EmployeeServiceImpl implements EmployeeService {
 				throw new ApplicationException("Comissão deve ser obrigatório para funcionário vendedor.");
 			}
 		}
-		
+
 		if (employee.getSalary().scale() != 2) {
 			throw new ApplicationException("Salário deve ter 2 dígitos.");
 		}
-		
+
 		if (employee.getSalary().toString().equals("0.00")) {
 			throw new ApplicationException("Salário não deve 0.");
 		}
 
-		boolean isExistsNameOrMatriculationOrEmailOrPhoneOrCpf = employeeRepository
-				.existsByNameOrMatriculationOrEmailOrPhoneOrCpf(employee.getName(), employee.getMatriculation(),
-						employee.getEmail(), employee.getPhone(), employee.getCpf());
-
-		if (isExistsNameOrMatriculationOrEmailOrPhoneOrCpf) {
-			throw new ApplicationException("Nome, matricula, email, telefone ou cpf não deve ser repetido.");
+		if (existsByNameOrMatriculationOrEmailOrPhoneOrCpf(employee)) {
+			throw new ApplicationException("Nome, matrícula, email, telefone ou cpf não deve ser repetido.");
 		}
+	}
+
+	private boolean existsByNameOrMatriculationOrEmailOrPhoneOrCpf(Employee employee) {
+		return employeeRepository.existsByNameOrMatriculationOrEmailOrPhoneOrCpf(employee.getName(),
+				employee.getMatriculation(), employee.getEmail(), employee.getPhone(), employee.getCpf());
 	}
 }
