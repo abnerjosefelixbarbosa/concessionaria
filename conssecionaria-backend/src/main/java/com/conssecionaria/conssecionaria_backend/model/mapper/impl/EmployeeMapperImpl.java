@@ -19,10 +19,9 @@ public class EmployeeMapperImpl implements EmployeeMapper {
 	}
 
 	public EmployeeResponseDTO toEmployeeResponseDTO(Employee employee) {
-		EmployeeResponseDTO dto = new EmployeeResponseDTO(employee.getId(), employee.getName(),
-				employee.getMatriculation(), employee.getEmail(), employee.getPhone(), employee.getBirthDate(),
-				employee.getCpf(), employee.getSalary(), employee.getCommission(), employee.getEmployeeStatus(),
-				employee.getEmployeeType());
+		EmployeeResponseDTO dto = new EmployeeResponseDTO();
+		
+		BeanUtils.copyProperties(employee, dto);
 
 		return dto;
 	}
