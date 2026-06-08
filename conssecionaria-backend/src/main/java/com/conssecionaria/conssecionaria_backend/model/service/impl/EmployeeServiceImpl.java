@@ -12,6 +12,8 @@ import com.conssecionaria.conssecionaria_backend.model.mapper.EmployeeMapper;
 import com.conssecionaria.conssecionaria_backend.model.repository.EmployeeRepository;
 import com.conssecionaria.conssecionaria_backend.model.service.EmployeeService;
 
+import jakarta.transaction.Transactional;
+
 @Service
 public class EmployeeServiceImpl implements EmployeeService {
 	private final EmployeeRepository employeeRepository;
@@ -22,6 +24,7 @@ public class EmployeeServiceImpl implements EmployeeService {
 		this.employeeMapper = employeeMapper;
 	}
 
+	@Transactional
 	public EmployeeResponseDTO registerEmployee(EmployeeRequestDTO dto) {
 		Employee employee = employeeMapper.toEmployee(dto);
 
@@ -32,6 +35,7 @@ public class EmployeeServiceImpl implements EmployeeService {
 		return employeeMapper.toEmployeeResponseDTO(employeeSaved);
 	}
 
+	@Transactional
 	public EmployeeResponseDTO updateEmployeeById(String id, EmployeeRequestDTO dto) {
 		Employee employee = employeeMapper.toEmployee(dto);
 		
