@@ -38,10 +38,11 @@ public class EmployeeServiceImpl implements EmployeeService {
 	@Transactional
 	public EmployeeResponseDTO updateEmployeeById(String id, EmployeeRequestDTO dto) {
 		Employee employee = employeeMapper.toEmployee(dto);
-		
+
 		validateEmployee(employee);
 
-		Employee employeeFound = findById(id);
+		Employee employeeFound = employeeRepository.findById(id)
+				.orElseThrow(() -> new NotFoundException("Id deve ser existente."));
 
 		BeanUtils.copyProperties(employee, employeeFound, "id");
 
@@ -59,6 +60,10 @@ public class EmployeeServiceImpl implements EmployeeService {
 			if (employee.getCommission().longValue() == 0) {
 				throw new ApplicationException("Comissão deve ser obrigatório para funcionário vendedor.");
 			}
+		} else {
+			if (employee.getCommission() != null) {
+				throw new ApplicationException("Comissão deve ser obrigatório para funcionário vendedor.");
+			}
 		}
 
 		if (employee.getSalary().scale() != 2) {
@@ -72,10 +77,6 @@ public class EmployeeServiceImpl implements EmployeeService {
 		if (existsByNameOrMatriculationOrEmailOrPhoneOrCpf(employee)) {
 			throw new ApplicationException("Nome, matrícula, email, telefone ou cpf não deve ser repetido.");
 		}
-	}
-
-	private Employee findById(String id) {
-		return employeeRepository.findById(id).orElseThrow(() -> new NotFoundException("Id deve ser existente."));
 	}
 
 	private boolean existsByNameOrMatriculationOrEmailOrPhoneOrCpf(Employee employee) {

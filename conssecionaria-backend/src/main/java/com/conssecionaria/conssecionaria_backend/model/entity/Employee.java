@@ -43,7 +43,6 @@ public class Employee {
 	private String cpf;
 	@Column(nullable = false, scale = 2)
 	private BigDecimal salary = BigDecimal.ZERO;
-	@Column(nullable = false)
 	private Integer commission;
 	@Column(nullable = false)
 	@Enumerated(EnumType.STRING)
