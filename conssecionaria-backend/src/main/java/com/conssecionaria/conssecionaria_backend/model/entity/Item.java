@@ -1,5 +1,6 @@
 package com.conssecionaria.conssecionaria_backend.model.entity;
 
+import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -19,6 +20,7 @@ import lombok.NoArgsConstructor;
 public class Item {
 	@Id
 	@GeneratedValue(strategy = GenerationType.UUID)
+	@Column(name = "id")
 	private String id;
 	@ManyToOne
 	@JoinColumn(name = "sale_id", nullable = false)

@@ -29,13 +29,14 @@ import lombok.NoArgsConstructor;
 public class Sale {
 	@Id
 	@GeneratedValue(strategy = GenerationType.UUID)
+	@Column(name = "id")
 	private String id;
-	@Column(nullable = false)
+	@Column(name = "sale_date", nullable = false)
 	private LocalDate saleDate;
-	@Column(nullable = false)
 	@Enumerated(EnumType.STRING)
+	@Column(name = "payment_type", nullable = false)
 	private PaymentType paymentType;
-	@Column(nullable = false, scale = 2)
+	@Column(name = "total_value", nullable = false, scale = 2)
 	private BigDecimal totalValue;
 	@ManyToOne
 	@JoinColumn(name = "employee_id", nullable = false)

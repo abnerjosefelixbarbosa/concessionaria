@@ -21,7 +21,9 @@ import lombok.NoArgsConstructor;
 public class Brand {
 	@Id
 	@GeneratedValue(strategy = GenerationType.UUID)
-	private String id;@Column(nullable = false, unique = true, length = 30)
+	@Column(name = "id")
+	private String id;
+	@Column(name = "name", nullable = false, unique = true, length = 30)
 	private String name;
 	@OneToMany(mappedBy = "brand")
 	private List<Model> models;

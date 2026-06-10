@@ -21,14 +21,15 @@ import lombok.NoArgsConstructor;
 public class Customer {
 	@Id
 	@GeneratedValue(strategy = GenerationType.UUID)
+	@Column(name = "id")
 	private String id;
-	@Column(nullable = false, length = 100)
+	@Column(name = "name", nullable = false, length = 100)
 	private String name;
-	@Column(nullable = false, unique = true, length = 14)
+	@Column(name = "document", nullable = false, unique = true, length = 14)
 	private String document;
-	@Column(nullable = false, unique = true, length = 30)
+	@Column(name = "email", nullable = false, unique = true, length = 30)
 	private String email;
-	@Column(nullable = false, unique = true, length = 30)
+	@Column(name = "phone", nullable = false, unique = true, length = 30)
 	private String phone;
 	@OneToMany(mappedBy = "customer")
 	private List<Sale> sales;

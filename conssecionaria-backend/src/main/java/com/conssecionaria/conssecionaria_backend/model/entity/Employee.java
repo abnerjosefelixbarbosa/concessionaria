@@ -28,27 +28,29 @@ import lombok.NoArgsConstructor;
 public class Employee {
 	@Id
 	@GeneratedValue(strategy = GenerationType.UUID)
+	@Column(name = "id")
 	private String id;
-	@Column(nullable = false, length = 100)
+	@Column(name = "name", nullable = false, length = 100)
 	private String name;
-	@Column(nullable = false, unique = true, length = 10)
+	@Column(name = "matriculation", nullable = false, unique = true, length = 10)
 	private String matriculation;
-	@Column(nullable = false, unique = true, length = 30)
+	@Column(name = "email", nullable = false, unique = true, length = 30)
 	private String email;
-	@Column(nullable = false, unique = true, length = 30)
+	@Column(name = "phone", nullable = false, unique = true, length = 30)
 	private String phone;
-	@Column(nullable = false)
+	@Column(name = "birth_date", nullable = false)
 	private LocalDate birthDate;
-	@Column(nullable = false, unique = true, length = 11)
+	@Column(name = "cpf", nullable = false, unique = true, length = 11)
 	private String cpf;
-	@Column(nullable = false, scale = 2)
+	@Column(name = "salary", nullable = false, scale = 2)
 	private BigDecimal salary = BigDecimal.ZERO;
+	@Column(name = "commission")
 	private Integer commission;
-	@Column(nullable = false)
 	@Enumerated(EnumType.STRING)
+	@Column(name = "employee_status", nullable = false)
 	private EmployeeStatus employeeStatus;
-	@Column(nullable = false)
 	@Enumerated(EnumType.STRING)
+	@Column(name = "employee_type", nullable = false)
 	private EmployeeType employeeType;
 	@OneToMany(mappedBy = "employee")
 	private List<Sale> sales;

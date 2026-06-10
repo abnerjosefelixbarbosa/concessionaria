@@ -26,14 +26,15 @@ import lombok.NoArgsConstructor;
 public class Vehicle {
 	@Id
 	@GeneratedValue(strategy = GenerationType.UUID)
+	@Column(name = "id")
 	private String id;
-	@Column(nullable = false, unique = true, length = 15)
-	private String placa;
-	@Column(nullable = false)
+	@Column(name = "plate", nullable = false, unique = true, length = 15)
+	private String plate;
+	@Column(name = "transmission_type", nullable = false)
 	private TransmissionType transmissionType;
-	@Column(nullable = false, length = 20)
-	private String cor;
-	@Column(nullable = false, scale = 2)
+	@Column(name = "color", nullable = false, length = 20)
+	private String color;
+	@Column(name = "price", nullable = false, scale = 2)
 	private BigDecimal price;
 	@ManyToOne
 	@JoinColumn(name = "model_id", nullable = false)

@@ -23,8 +23,9 @@ import lombok.NoArgsConstructor;
 public class Model {
 	@Id
 	@GeneratedValue(strategy = GenerationType.UUID)
+	@Column(name = "id")
 	private String id;
-	@Column(nullable = false, unique = true, length = 30)
+	@Column(name = "name", nullable = false, unique = true, length = 30)
 	private String name;
 	@ManyToOne
 	@JoinColumn(name = "brand_id", nullable = false)
