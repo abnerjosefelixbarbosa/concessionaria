@@ -6,6 +6,7 @@ import org.springframework.stereotype.Service;
 import com.conssecionaria.conssecionaria_backend.model.dto.EmployeeRequestDTO;
 import com.conssecionaria.conssecionaria_backend.model.dto.EmployeeResponseDTO;
 import com.conssecionaria.conssecionaria_backend.model.entity.Employee;
+import com.conssecionaria.conssecionaria_backend.model.entity.enums.EmployeeType;
 import com.conssecionaria.conssecionaria_backend.model.exception.ApplicationException;
 import com.conssecionaria.conssecionaria_backend.model.exception.NotFoundException;
 import com.conssecionaria.conssecionaria_backend.model.mapper.EmployeeMapper;
@@ -52,13 +53,17 @@ public class EmployeeServiceImpl implements EmployeeService {
 	}
 
 	private void validateEmployee(Employee employee) {
-		if (employee.getEmployeeType().ordinal() == 2) {
+		if (employee.getEmployeeType() == EmployeeType.SALLER) {
 			if (employee.getCommission() == null) {
 				throw new ApplicationException("Comissão deve ser obrigatório para funcionário vendedor.");
 			}
 
 			if (employee.getCommission().longValue() == 0) {
 				throw new ApplicationException("Comissão deve ser obrigatório para funcionário vendedor.");
+			}
+			
+			if (employee.getCommission().longValue() > 100) {
+				throw new ApplicationException("Comissão deve ser maior que 100.");
 			}
 		} else {
 			if (employee.getCommission() != null) {
@@ -71,7 +76,7 @@ public class EmployeeServiceImpl implements EmployeeService {
 		}
 
 		if (employee.getSalary().toString().equals("0.00")) {
-			throw new ApplicationException("Salário não deve 0.");
+			throw new ApplicationException("Salário não deve 0.00.");
 		}
 
 		if (existsByNameOrMatriculationOrEmailOrPhoneOrCpf(employee)) {

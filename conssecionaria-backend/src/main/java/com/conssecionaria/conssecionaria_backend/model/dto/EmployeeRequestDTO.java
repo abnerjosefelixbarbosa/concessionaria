@@ -25,6 +25,7 @@ public class EmployeeRequestDTO {
 	@NotNull(message = "Nome deve ser obrigatório.")
 	@Size(message = "Nome deve ter até 100 caracteres.", max = 100)
 	private String name;
+	@NotNull(message = "Matrícula deve ser obrigatória.")
 	@Pattern(message = "Matrícula deve ter 10 caracteres numéricos.", regexp = "^\\d{10}$")
 	private String matriculation;
 	@NotEmpty(message = "Email deve ser valido.")
@@ -37,6 +38,7 @@ public class EmployeeRequestDTO {
 	private String phone;
 	@NotNull(message = "Data de nascimento deve ser obrigatória.")
 	private LocalDate birthDate;
+	@NotNull(message = "CPF deve ser valido.")
 	@CPF(message = "CPF deve ser valido.")
 	private String cpf;
 	@NotNull(message = "Salário deve ser obrigatório.")
