@@ -16,7 +16,7 @@ import com.conssecionaria.conssecionaria_backend.model.service.EmployeeService;
 import jakarta.validation.Valid;
 
 @RestController
-@RequestMapping("/employees")
+@RequestMapping(value = "/employees")
 public class EmployeeController {
 	private final EmployeeService employeeService;
 
@@ -24,14 +24,14 @@ public class EmployeeController {
 		this.employeeService = employeeService;
 	}
 
-	@PostMapping
+	@PostMapping(value = "/register-employee")
 	public ResponseEntity<EmployeeResponseDTO> registerEmployee(@RequestBody @Valid EmployeeRequestDTO dto) {
 		EmployeeResponseDTO response = employeeService.registerEmployee(dto);
 
 		return ResponseEntity.status(HttpStatus.CREATED).body(response);
 	}
 	
-	@PutMapping("/{id}")
+	@PutMapping(value = "/update-employee-by-id/{id}")
 	public ResponseEntity<EmployeeResponseDTO> updateEmployeeById(@PathVariable String id, @RequestBody @Valid EmployeeRequestDTO dto) {
 		EmployeeResponseDTO response = employeeService.updateEmployeeById(id, dto);
 		
