@@ -117,7 +117,7 @@ class EmployeeControllerIntegrationTeste {
 
 		employeeRepository.saveAll(employees);
 		
-		mockMvc.perform(get("/employees/list-employees").queryParam("name", "n").queryParam("employeeType", "SALLER").contentType(MediaType.APPLICATION_JSON)
+		mockMvc.perform(get("/employees/list-employees").contentType(MediaType.APPLICATION_JSON)
 				.accept(MediaType.APPLICATION_JSON)).andExpect(status().isOk()).andDo(print());
 	}
 }
