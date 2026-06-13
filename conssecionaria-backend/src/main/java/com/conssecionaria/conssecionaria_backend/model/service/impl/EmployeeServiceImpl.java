@@ -64,7 +64,6 @@ public class EmployeeServiceImpl implements EmployeeService {
 	@Override
 	public Page<EmployeeResponseDTO> listEmployees(Pageable pageable, String name, EmployeeStatus employeeStatus,
 			EmployeeType employeeType) {
-	    //Page<Employee> page = employeeRepository.findAll(pageable);
 	    
 		Page<Employee> page = employeeRepository.findAllByNameOrEmployeeStatusOrEmployeeType(name, employeeStatus, employeeType, pageable);
 		
