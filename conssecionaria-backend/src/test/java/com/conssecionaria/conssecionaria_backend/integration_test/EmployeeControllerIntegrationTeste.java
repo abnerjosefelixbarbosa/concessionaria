@@ -96,7 +96,7 @@ class EmployeeControllerIntegrationTeste {
 	}
 	
 	@Test
-	void shouldListEmployeesAndReturn200Status() throws Exception {
+	void shouldListEmployeesByNameOrEmployeeStatusOrEmployeeTypeAndReturn200Status() throws Exception {
 		Employee employee1 = new Employee(null, "name1", "1111111111",
 				"email1@gmail.com", "81911111111", LocalDate.now().withYear(1991), "09458274400", new BigDecimal("1500.00"),
 				100, EmployeeStatus.ACTIVE, EmployeeType.SALLER, null);
@@ -117,7 +117,7 @@ class EmployeeControllerIntegrationTeste {
 
 		employeeRepository.saveAll(employees);
 		
-		mockMvc.perform(get("/employees/list-employees").contentType(MediaType.APPLICATION_JSON)
+		mockMvc.perform(get("/employees/list-employees-by-name-or-employeestatus-or-employeetype").contentType(MediaType.APPLICATION_JSON)
 				.accept(MediaType.APPLICATION_JSON)).andExpect(status().isOk()).andDo(print());
 	}
 }
