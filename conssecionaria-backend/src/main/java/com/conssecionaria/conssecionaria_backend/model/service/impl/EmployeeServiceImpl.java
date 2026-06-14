@@ -61,11 +61,15 @@ public class EmployeeServiceImpl implements EmployeeService {
 		return employeeMapper.toEmployeeResponseDTO(employeeFound);
 	}
 	
-	@Override
 	public Page<EmployeeResponseDTO> listEmployees(Pageable pageable, String name, EmployeeStatus employeeStatus,
 			EmployeeType employeeType) {
-	    
-		Page<Employee> page = employeeRepository.findAllByNameOrEmployeeStatusOrEmployeeType(name, employeeStatus, employeeType, pageable);
+		Page<Employee> page = null;
+		
+		if (name == null && employeeStatus == null && employeeType == null) {
+			page = employeeRepository.findAll(pageable);
+		} else {
+			page = employeeRepository.findAllByNameContainingOrEmployeeStatusOrEmployeeType(name, employeeStatus, employeeType, pageable);
+		}
 		
 		return page.map(employeeMapper::toEmployeeResponseDTO);
 	}

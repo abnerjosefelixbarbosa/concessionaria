@@ -14,6 +14,6 @@ public interface EmployeeRepository extends JpaRepository<Employee, String> {
 	boolean existsByNameOrMatriculationOrEmailOrPhoneOrCpf(String name, String matriculation, String email,
 			String phone, String cpf);
 
-	Page<Employee> findAllByNameOrEmployeeStatusOrEmployeeType(String name, EmployeeStatus employeeStatus,
+	Page<Employee> findAllByNameContainingOrEmployeeStatusOrEmployeeType(String name, EmployeeStatus employeeStatus,
 			EmployeeType employeeType, Pageable pageable);
 }
