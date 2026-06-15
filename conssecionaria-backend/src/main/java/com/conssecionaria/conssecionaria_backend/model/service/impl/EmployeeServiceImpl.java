@@ -85,7 +85,7 @@ public class EmployeeServiceImpl implements EmployeeService {
 			}
 
 			if (employee.getCommission().longValue() > 100) {
-				throw new ApplicationException("Comissão deve ser maior que 100.");
+				throw new ApplicationException("Comissão deve ser menor que 100.");
 			}
 		} else {
 			if (employee.getCommission() != null) {
