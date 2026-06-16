@@ -65,7 +65,7 @@ public class EmployeeServiceImpl implements EmployeeService {
 			EmployeeType employeeType) {
 		Page<Employee> page = null;
 		
-		if (name == null && employeeStatus == null && employeeType == null) {
+		if (name == null || name.isEmpty() && employeeStatus == null && employeeType == null) {
 			page = employeeRepository.findAll(pageable);
 		} else {
 			page = employeeRepository.findAllByNameContainingOrEmployeeStatusOrEmployeeType(name, employeeStatus, employeeType, pageable);
