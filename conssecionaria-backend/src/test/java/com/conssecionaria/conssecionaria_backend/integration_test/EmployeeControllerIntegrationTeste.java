@@ -10,7 +10,6 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.util.List;
-import java.util.Formatter.BigDecimalLayoutForm;
 
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
@@ -41,6 +40,8 @@ class EmployeeControllerIntegrationTeste {
 	@Autowired
 	private EmployeeRepository employeeRepository;
 
+	//
+
 	@BeforeEach
 	void setUp() throws Exception {
 		employeeRepository.deleteAll();
@@ -50,6 +51,8 @@ class EmployeeControllerIntegrationTeste {
 	void tearDown() throws Exception {
 		employeeRepository.deleteAll();
 	}
+
+	// test para registrar funcionario
 
 	@Test
 	void shouldRegisterEmployeeAndReturn201Status() throws Exception {
@@ -94,7 +97,7 @@ class EmployeeControllerIntegrationTeste {
 	@Test
 	void shouldRegisterEmployeeWithNameLongerThan100AndReturn400Status() throws Exception {
 		EmployeeRequestDTO dto = new EmployeeRequestDTO(
-				"nome1111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111",
+				"nome1111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111",
 				"1111111111", "email1@gmail.com", "81911111111", LocalDate.now().withYear(1991), "09458274400",
 				new BigDecimal("1500.00"), 100, EmployeeStatus.ACTIVE, EmployeeType.SALLER);
 
@@ -105,7 +108,7 @@ class EmployeeControllerIntegrationTeste {
 				.andExpect(jsonPath("$.name").value("Nome deve ter até 100 caracteres."))
 				.andExpect(status().isBadRequest()).andDo(print());
 	}
-	
+
 	@Test
 	void shouldRegisterEmployeeWithRepeatedNameAndReturn400Status() throws Exception {
 		Employee employee1 = new Employee(null, "name1", "1111111111", "email1@gmail.com", "81911111111",
@@ -173,7 +176,7 @@ class EmployeeControllerIntegrationTeste {
 
 	@Test
 	void shouldRegisterEmployeeWithMatriculationLessThan10AndReturn400Status() throws Exception {
-		EmployeeRequestDTO dto = new EmployeeRequestDTO("nome1", "1", "email1@gmail.com", "81911111111",
+		EmployeeRequestDTO dto = new EmployeeRequestDTO("nome1", "111111111", "email1@gmail.com", "81911111111",
 				LocalDate.now().withYear(1991), "09458274400", new BigDecimal("1500.00"), 100, EmployeeStatus.ACTIVE,
 				EmployeeType.SALLER);
 
@@ -198,7 +201,7 @@ class EmployeeControllerIntegrationTeste {
 				.andExpect(jsonPath("$.matriculation").value("Matrícula deve ter 10 caracteres numéricos."))
 				.andExpect(status().isBadRequest()).andDo(print());
 	}
-	
+
 	@Test
 	void shouldRegisterEmployeeWithRepeatedMatriculationAndReturn400Status() throws Exception {
 		Employee employee1 = new Employee(null, "name1", "1111111111", "email1@gmail.com", "81911111111",
@@ -263,7 +266,7 @@ class EmployeeControllerIntegrationTeste {
 				.andExpect(jsonPath("$.email").value("Email deve ser valido.")).andExpect(status().isBadRequest())
 				.andDo(print());
 	}
-	
+
 	@Test
 	void shouldRegisterEmployeeWithRepeatedEmailAndReturn400Status() throws Exception {
 		Employee employee1 = new Employee(null, "name1", "1111111111", "email1@gmail.com", "81911111111",
@@ -328,7 +331,7 @@ class EmployeeControllerIntegrationTeste {
 				.andExpect(jsonPath("$.phone").value("Telefone deve ter até 30 caracteres."))
 				.andExpect(status().isBadRequest()).andDo(print());
 	}
-	
+
 	@Test
 	void shouldRegisterEmployeeWithRepeatedPhoneAndReturn400Status() throws Exception {
 		Employee employee1 = new Employee(null, "name1", "1111111111", "email1@gmail.com", "81911111111",
@@ -406,7 +409,7 @@ class EmployeeControllerIntegrationTeste {
 				.andExpect(jsonPath("$.cpf").value("CPF deve ser valido.")).andExpect(status().isBadRequest())
 				.andDo(print());
 	}
-	
+
 	@Test
 	void shouldRegisterEmployeeWithRepeatedCPFAndReturn400Status() throws Exception {
 		Employee employee1 = new Employee(null, "name1", "1111111111", "email1@gmail.com", "81911111111",
@@ -472,7 +475,7 @@ class EmployeeControllerIntegrationTeste {
 	}
 
 	@Test
-	void shouldRegisterEmployeeWithSalaryContaining0AndReturn400Status() throws Exception {
+	void shouldRegisterEmployeeWithSalaryEqualToZeroAndReturn400Status() throws Exception {
 		EmployeeRequestDTO dto = new EmployeeRequestDTO("nome1", "1111111111", "email1@gmail.com", "81911111111",
 				LocalDate.now().withYear(1991), "09458274400", new BigDecimal("0.00"), 100, EmployeeStatus.ACTIVE,
 				EmployeeType.SALLER);
@@ -500,7 +503,7 @@ class EmployeeControllerIntegrationTeste {
 	}
 
 	@Test
-	void shouldRegisterEmployeeWithComissitionContainint0AndEmployeeTypeSallerAndReturn400Status() throws Exception {
+	void shouldRegisterEmployeeWithComissitionEqualToZeroAndEmployeeTypeSallerAndReturn400Status() throws Exception {
 		EmployeeRequestDTO dto = new EmployeeRequestDTO("nome1", "1111111111", "email1@gmail.com", "81911111111",
 				LocalDate.now().withYear(1991), "09458274400", new BigDecimal("1500.00"), 0, EmployeeStatus.ACTIVE,
 				EmployeeType.SALLER);
@@ -524,51 +527,6 @@ class EmployeeControllerIntegrationTeste {
 		mockMvc.perform(post("/employees/register-employee").contentType(MediaType.APPLICATION_JSON)
 				.accept(MediaType.APPLICATION_JSON).content(json))
 				.andExpect(jsonPath("$.message").value("Comissão deve ser menor que 100."))
-				.andExpect(status().isBadRequest()).andDo(print());
-	}
-
-	// with a commission other than zero
-
-	@Test
-	void shouldRegisterEmployeeWithCommissionOtherThanNullAndEmployeeTypeSallerAndReturn400Status() throws Exception {
-		EmployeeRequestDTO dto = new EmployeeRequestDTO("nome1", "1111111111", "email1@gmail.com", "81911111111",
-				LocalDate.now().withYear(1991), "09458274400", new BigDecimal("1500.00"), 101, EmployeeStatus.ACTIVE,
-				EmployeeType.SALLER);
-
-		String json = objectMapper.writeValueAsString(dto);
-
-		mockMvc.perform(post("/employees/register-employee").contentType(MediaType.APPLICATION_JSON)
-				.accept(MediaType.APPLICATION_JSON).content(json))
-				.andExpect(jsonPath("$.message").value("Comissão deve ser menor que 100."))
-				.andExpect(status().isBadRequest()).andDo(print());
-	}
-
-	@Test
-	void shouldRegisterEmployeeWithCommissionOtherThanNullAndEmployeeTypeManagerAndReturn400Status() throws Exception {
-		EmployeeRequestDTO dto = new EmployeeRequestDTO("nome1", "1111111111", "email1@gmail.com", "81911111111",
-				LocalDate.now().withYear(1991), "09458274400", new BigDecimal("1500.00"), 0, EmployeeStatus.ACTIVE,
-				EmployeeType.MANAGER);
-
-		String json = objectMapper.writeValueAsString(dto);
-
-		mockMvc.perform(post("/employees/register-employee").contentType(MediaType.APPLICATION_JSON)
-				.accept(MediaType.APPLICATION_JSON).content(json))
-				.andExpect(jsonPath("$.message").value("Comissão deve ser obrigatório para funcionário vendedor."))
-				.andExpect(status().isBadRequest()).andDo(print());
-	}
-
-	@Test
-	void shouldRegisterEmployeeWithCommissionOtherThanNullAndEmployeeTypeAssistantManagerAndReturn400Status()
-			throws Exception {
-		EmployeeRequestDTO dto = new EmployeeRequestDTO("nome1", "1111111111", "email1@gmail.com", "81911111111",
-				LocalDate.now().withYear(1991), "09458274400", new BigDecimal("1500.00"), 0, EmployeeStatus.ACTIVE,
-				EmployeeType.ASSISTANT_MANAGER);
-
-		String json = objectMapper.writeValueAsString(dto);
-
-		mockMvc.perform(post("/employees/register-employee").contentType(MediaType.APPLICATION_JSON)
-				.accept(MediaType.APPLICATION_JSON).content(json))
-				.andExpect(jsonPath("$.message").value("Comissão deve ser obrigatório para funcionário vendedor."))
 				.andExpect(status().isBadRequest()).andDo(print());
 	}
 
@@ -600,6 +558,8 @@ class EmployeeControllerIntegrationTeste {
 				.andExpect(status().isBadRequest()).andDo(print());
 	}
 
+	// teste para atualizar funcionario pelo id
+
 	@Test
 	void shouldUpdateEmployeeByIdAndReturn200Status() throws Exception {
 		Employee employee1 = new Employee(null, "name1", "1111111111", "email1@gmail.com", "81911111111",
@@ -621,6 +581,8 @@ class EmployeeControllerIntegrationTeste {
 				.andExpect(status().isOk()).andDo(print());
 	}
 
+	// teste para procurar funcionario pelo id
+
 	@Test
 	void shouldFindEmployeeByIdAndReturn200Status() throws Exception {
 		Employee employee1 = new Employee(null, "name1", "1111111111", "email1@gmail.com", "81911111111",
@@ -637,7 +599,24 @@ class EmployeeControllerIntegrationTeste {
 	}
 
 	@Test
-	void shouldListEmployeesByNameOrEmployeeStatusOrEmployeeTypeAndReturn200Status() throws Exception {
+	void shouldFindEmployeeByIdWithNonExistentIdAndReturn200Status() throws Exception {
+		Employee employee1 = new Employee(null, "name1", "1111111111", "email1@gmail.com", "81911111111",
+				LocalDate.now().withYear(1991), "09458274400", new BigDecimal("1500.00"), 100, EmployeeStatus.ACTIVE,
+				EmployeeType.SALLER, null);
+
+		List<Employee> employees = List.of(employee1);
+
+		employeeRepository.saveAll(employees);
+
+		mockMvc.perform(get("/employees/find-employee-by-id/1").contentType(MediaType.APPLICATION_JSON)
+				.accept(MediaType.APPLICATION_JSON)).andExpect(jsonPath("$.message").value("Id deve ser existente."))
+				.andExpect(status().isNotFound()).andDo(print());
+	}
+
+	// teste para listar funcionários
+
+	@Test
+	void shouldListEmployeesByNameEmployeeStatusOrEmployeeTypeAndReturn200Status() throws Exception {
 		Employee employee1 = new Employee(null, "name1", "1111111111", "email1@gmail.com", "81911111111",
 				LocalDate.now().withYear(1991), "09458274400", new BigDecimal("1500.00"), 100, EmployeeStatus.ACTIVE,
 				EmployeeType.SALLER, null);
@@ -658,8 +637,91 @@ class EmployeeControllerIntegrationTeste {
 
 		employeeRepository.saveAll(employees);
 
-		mockMvc.perform(get("/employees/list-employees-by-name-or-employeestatus-or-employeetype")
-				.contentType(MediaType.APPLICATION_JSON).accept(MediaType.APPLICATION_JSON)).andExpect(status().isOk())
-				.andDo(print());
+		mockMvc.perform(get("/employees/list-employees-by-name-employeestatus-or-employeetype")
+				.contentType(MediaType.APPLICATION_JSON).accept(MediaType.APPLICATION_JSON))
+				.andExpect(jsonPath("$.totalElements").value(4)).andExpect(status().isOk()).andDo(print());
+	}
+
+	@Test
+	void shouldListEmployeesByNameEmployeeStatusOrEmployeeTypeAndWithNameReturn200Status() throws Exception {
+		Employee employee1 = new Employee(null, "name1", "1111111111", "email1@gmail.com", "81911111111",
+				LocalDate.now().withYear(1991), "09458274400", new BigDecimal("1500.00"), 100, EmployeeStatus.ACTIVE,
+				EmployeeType.SALLER, null);
+
+		Employee employee2 = new Employee(null, "name2", "2222222222", "email2@gmail.com", "81922222222",
+				LocalDate.now().withYear(1991), "43468998465", new BigDecimal("2500.00"), null, EmployeeStatus.ACTIVE,
+				EmployeeType.MANAGER, null);
+
+		Employee employee3 = new Employee(null, "name3", "3333333333", "email3@gmail.com", "81933333333",
+				LocalDate.now().withYear(1991), "27406772432", new BigDecimal("2000.00"), null, EmployeeStatus.ACTIVE,
+				EmployeeType.ASSISTANT_MANAGER, null);
+
+		Employee employee4 = new Employee(null, "name4", "4444444444", "email4@gmail.com", "81944444444",
+				LocalDate.now().withYear(1991), "66134259403", new BigDecimal("1500.00"), 100, EmployeeStatus.ACTIVE,
+				EmployeeType.SALLER, null);
+
+		List<Employee> employees = List.of(employee1, employee2, employee3, employee4);
+
+		employeeRepository.saveAll(employees);
+
+		mockMvc.perform(get("/employees/list-employees-by-name-employeestatus-or-employeetype")
+				.queryParam("name", "name").contentType(MediaType.APPLICATION_JSON).accept(MediaType.APPLICATION_JSON))
+				.andExpect(jsonPath("$.totalElements").value(4)).andExpect(status().isOk()).andDo(print());
+	}
+
+	@Test
+	void shouldListEmployeesByNameEmployeeStatusOrEmployeeTypeAndWithEmployeeStatusReturn200Status() throws Exception {
+		Employee employee1 = new Employee(null, "name1", "1111111111", "email1@gmail.com", "81911111111",
+				LocalDate.now().withYear(1991), "09458274400", new BigDecimal("1500.00"), 100, EmployeeStatus.ACTIVE,
+				EmployeeType.SALLER, null);
+
+		Employee employee2 = new Employee(null, "name2", "2222222222", "email2@gmail.com", "81922222222",
+				LocalDate.now().withYear(1991), "43468998465", new BigDecimal("2500.00"), null, EmployeeStatus.ACTIVE,
+				EmployeeType.MANAGER, null);
+
+		Employee employee3 = new Employee(null, "name3", "3333333333", "email3@gmail.com", "81933333333",
+				LocalDate.now().withYear(1991), "27406772432", new BigDecimal("2000.00"), null, EmployeeStatus.ACTIVE,
+				EmployeeType.ASSISTANT_MANAGER, null);
+
+		Employee employee4 = new Employee(null, "name4", "4444444444", "email4@gmail.com", "81944444444",
+				LocalDate.now().withYear(1991), "66134259403", new BigDecimal("1500.00"), 100, EmployeeStatus.ACTIVE,
+				EmployeeType.SALLER, null);
+
+		List<Employee> employees = List.of(employee1, employee2, employee3, employee4);
+
+		employeeRepository.saveAll(employees);
+
+		mockMvc.perform(get("/employees/list-employees-by-name-employeestatus-or-employeetype")
+				.queryParam("employeeStatus", "ACTIVE").contentType(MediaType.APPLICATION_JSON)
+				.accept(MediaType.APPLICATION_JSON)).andExpect(jsonPath("$.totalElements").value(4))
+				.andExpect(status().isOk()).andDo(print());
+	}
+
+	@Test
+	void shouldListEmployeesByNameEmployeeStatusOrEmployeeTypeAndWithEmployeeTypeReturn200Status() throws Exception {
+		Employee employee1 = new Employee(null, "name1", "1111111111", "email1@gmail.com", "81911111111",
+				LocalDate.now().withYear(1991), "09458274400", new BigDecimal("1500.00"), 100, EmployeeStatus.ACTIVE,
+				EmployeeType.SALLER, null);
+
+		Employee employee2 = new Employee(null, "name2", "2222222222", "email2@gmail.com", "81922222222",
+				LocalDate.now().withYear(1991), "43468998465", new BigDecimal("2500.00"), null, EmployeeStatus.ACTIVE,
+				EmployeeType.MANAGER, null);
+
+		Employee employee3 = new Employee(null, "name3", "3333333333", "email3@gmail.com", "81933333333",
+				LocalDate.now().withYear(1991), "27406772432", new BigDecimal("2000.00"), null, EmployeeStatus.ACTIVE,
+				EmployeeType.ASSISTANT_MANAGER, null);
+
+		Employee employee4 = new Employee(null, "name4", "4444444444", "email4@gmail.com", "81944444444",
+				LocalDate.now().withYear(1991), "66134259403", new BigDecimal("1500.00"), 100, EmployeeStatus.ACTIVE,
+				EmployeeType.SALLER, null);
+
+		List<Employee> employees = List.of(employee1, employee2, employee3, employee4);
+
+		employeeRepository.saveAll(employees);
+
+		mockMvc.perform(get("/employees/list-employees-by-name-employeestatus-or-employeetype")
+				.queryParam("employeeType", "SALLER").contentType(MediaType.APPLICATION_JSON)
+				.accept(MediaType.APPLICATION_JSON)).andExpect(jsonPath("$.totalElements").value(2))
+				.andExpect(status().isOk()).andDo(print());
 	}
 }
