@@ -63,11 +63,8 @@ public class EmployeeServiceImpl implements EmployeeService {
 	
 	public Page<EmployeeResponseDTO> listEmployees(String name, EmployeeStatus employeeStatus,
 			EmployeeType employeeType, Pageable pageable) {
-		if ((name == null || name.isEmpty()) && employeeStatus == null && employeeType == null) {
-			return employeeRepository.findAll(pageable).map(employeeMapper::toEmployeeResponseDTO);
-		} 
 		
-		return employeeRepository.findAllByNameContainingOrEmployeeStatusOrEmployeeType(name, employeeStatus, employeeType, pageable).map(employeeMapper::toEmployeeResponseDTO);
+		return employeeRepository.listEmployees(name, employeeStatus, employeeType, pageable).map(employeeMapper::toEmployeeResponseDTO);
 	}
 
 	private void validateEmployee(Employee employee) {
