@@ -13,6 +13,7 @@ import java.util.List;
 
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -40,8 +41,6 @@ class EmployeeControllerIntegrationTeste {
 	@Autowired
 	private EmployeeRepository employeeRepository;
 
-	//
-
 	@BeforeEach
 	void setUp() throws Exception {
 		employeeRepository.deleteAll();
@@ -55,7 +54,7 @@ class EmployeeControllerIntegrationTeste {
 	// test para registrar funcionario
 
 	@Test
-	void shouldRegisterEmployeeAndReturn201Status() throws Exception {
+	void shouldRegisterEmployeeAndReturnStatus201() throws Exception {
 		EmployeeRequestDTO dto = new EmployeeRequestDTO("nome1", "1111111111", "email1@gmail.com", "81911111111",
 				LocalDate.now().withYear(1991), "09458274400", new BigDecimal("1500.00"), 100, EmployeeStatus.ACTIVE,
 				EmployeeType.SALLER);
@@ -67,7 +66,7 @@ class EmployeeControllerIntegrationTeste {
 	}
 
 	@Test
-	void shouldRegisterEmployeeWithNullNameAndReturn400Status() throws Exception {
+	void shouldNotRegisterEmployeeWhenNameIsNullAndReturnStatus400() throws Exception {
 		EmployeeRequestDTO dto = new EmployeeRequestDTO(null, "1111111111", "email1@gmail.com", "81911111111",
 				LocalDate.now().withYear(1991), "09458274400", new BigDecimal("1500.00"), 100, EmployeeStatus.ACTIVE,
 				EmployeeType.SALLER);
@@ -81,7 +80,7 @@ class EmployeeControllerIntegrationTeste {
 	}
 
 	@Test
-	void shouldRegisterEmployeeWithEmptyNameAndReturn400Status() throws Exception {
+	void shouldNotRegisterEmployeeWhenNameIsEmptyAndReturnStatus400() throws Exception {
 		EmployeeRequestDTO dto = new EmployeeRequestDTO("", "1111111111", "email1@gmail.com", "81911111111",
 				LocalDate.now().withYear(1991), "09458274400", new BigDecimal("1500.00"), 100, EmployeeStatus.ACTIVE,
 				EmployeeType.SALLER);
@@ -95,7 +94,7 @@ class EmployeeControllerIntegrationTeste {
 	}
 
 	@Test
-	void shouldRegisterEmployeeWithNameLongerThan100AndReturn400Status() throws Exception {
+	void shouldNotRegisterEmployeeWhenNameIsLongerThan100AndReturnStatus400() throws Exception {
 		EmployeeRequestDTO dto = new EmployeeRequestDTO(
 				"nome1111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111",
 				"1111111111", "email1@gmail.com", "81911111111", LocalDate.now().withYear(1991), "09458274400",
@@ -110,7 +109,7 @@ class EmployeeControllerIntegrationTeste {
 	}
 
 	@Test
-	void shouldRegisterEmployeeWithRepeatedNameAndReturn400Status() throws Exception {
+	void shouldNotRegisterEmployeeWhenNameIsRepeatedAndReturnStatus400() throws Exception {
 		Employee employee1 = new Employee(null, "name1", "1111111111", "email1@gmail.com", "81911111111",
 				LocalDate.now().withYear(1991), "09458274400", new BigDecimal("1500.00"), 100, EmployeeStatus.ACTIVE,
 				EmployeeType.SALLER, null);
@@ -133,7 +132,7 @@ class EmployeeControllerIntegrationTeste {
 	}
 
 	@Test
-	void shouldRegisterEmployeeWithNullMatriculationAndReturn400Status() throws Exception {
+	void shouldNotRegisterEmployeeWhenMatriculationIsNullAndReturnStatus400() throws Exception {
 		EmployeeRequestDTO dto = new EmployeeRequestDTO("nome1", null, "email1@gmail.com", "81911111111",
 				LocalDate.now().withYear(1991), "09458274400", new BigDecimal("1500.00"), 100, EmployeeStatus.ACTIVE,
 				EmployeeType.SALLER);
@@ -147,7 +146,7 @@ class EmployeeControllerIntegrationTeste {
 	}
 
 	@Test
-	void shouldRegisterEmployeeWithEmptyMatriculationAndReturn400Status() throws Exception {
+	void shouldNotRegisterEmployeeWhenMatriculationIsEmptyAndReturnStatus400() throws Exception {
 		EmployeeRequestDTO dto = new EmployeeRequestDTO("nome1", "", "email1@gmail.com", "81911111111",
 				LocalDate.now().withYear(1991), "09458274400", new BigDecimal("1500.00"), 100, EmployeeStatus.ACTIVE,
 				EmployeeType.SALLER);
@@ -161,7 +160,7 @@ class EmployeeControllerIntegrationTeste {
 	}
 
 	@Test
-	void shouldRegisterEmployeeWithMatriculationLongerThan10AndReturn400Status() throws Exception {
+	void shouldNotRegisterEmployeeWhenMatriculationIsLongerThan10AndReturnStatus400() throws Exception {
 		EmployeeRequestDTO dto = new EmployeeRequestDTO("nome1", "11111111111", "email1@gmail.com", "81911111111",
 				LocalDate.now().withYear(1991), "09458274400", new BigDecimal("1500.00"), 100, EmployeeStatus.ACTIVE,
 				EmployeeType.SALLER);
@@ -175,7 +174,7 @@ class EmployeeControllerIntegrationTeste {
 	}
 
 	@Test
-	void shouldRegisterEmployeeWithMatriculationLessThan10AndReturn400Status() throws Exception {
+	void shouldNotRegisterEmployeeWhenMatriculationIsLessThan10AndReturnStatus400() throws Exception {
 		EmployeeRequestDTO dto = new EmployeeRequestDTO("nome1", "111111111", "email1@gmail.com", "81911111111",
 				LocalDate.now().withYear(1991), "09458274400", new BigDecimal("1500.00"), 100, EmployeeStatus.ACTIVE,
 				EmployeeType.SALLER);
@@ -189,7 +188,7 @@ class EmployeeControllerIntegrationTeste {
 	}
 
 	@Test
-	void shouldRegisterEmployeeWithMatriculationContainingLettersAndReturn400Status() throws Exception {
+	void shouldNotRegisterEmployeeWhenMatriculationContainingLettersAndReturnStatus400() throws Exception {
 		EmployeeRequestDTO dto = new EmployeeRequestDTO("nome1", "a111111111", "email1@gmail.com", "81911111111",
 				LocalDate.now().withYear(1991), "09458274400", new BigDecimal("1500.00"), 100, EmployeeStatus.ACTIVE,
 				EmployeeType.SALLER);
@@ -203,7 +202,7 @@ class EmployeeControllerIntegrationTeste {
 	}
 
 	@Test
-	void shouldRegisterEmployeeWithRepeatedMatriculationAndReturn400Status() throws Exception {
+	void shouldNotRegisterEmployeeWhenMatriculationIsRepeatedAndReturnStatus400() throws Exception {
 		Employee employee1 = new Employee(null, "name1", "1111111111", "email1@gmail.com", "81911111111",
 				LocalDate.now().withYear(1991), "09458274400", new BigDecimal("1500.00"), 100, EmployeeStatus.ACTIVE,
 				EmployeeType.SALLER, null);
@@ -226,7 +225,7 @@ class EmployeeControllerIntegrationTeste {
 	}
 
 	@Test
-	void shouldRegisterEmployeeWithNullEmailAndReturn400Status() throws Exception {
+	void shouldNotRegisterEmployeeWhenEmailIsNullAndReturnStatus400() throws Exception {
 		EmployeeRequestDTO dto = new EmployeeRequestDTO("nome1", "1111111111", null, "81911111111",
 				LocalDate.now().withYear(1991), "09458274400", new BigDecimal("1500.00"), 100, EmployeeStatus.ACTIVE,
 				EmployeeType.SALLER);
@@ -240,7 +239,7 @@ class EmployeeControllerIntegrationTeste {
 	}
 
 	@Test
-	void shouldRegisterEmployeeWithEmptyEmailAndReturn400Status() throws Exception {
+	void shouldNotRegisterEmployeeWhenEmailIsEmptyAndReturnStatus400() throws Exception {
 		EmployeeRequestDTO dto = new EmployeeRequestDTO("nome1", "1111111111", "", "81911111111",
 				LocalDate.now().withYear(1991), "09458274400", new BigDecimal("1500.00"), 100, EmployeeStatus.ACTIVE,
 				EmployeeType.SALLER);
@@ -254,7 +253,7 @@ class EmployeeControllerIntegrationTeste {
 	}
 
 	@Test
-	void shouldRegisterEmployeeWithInvalidEmailAndReturn400Status() throws Exception {
+	void shouldNotRegisterEmployeeWhenEmailIsInvalidAndReturnStatus400() throws Exception {
 		EmployeeRequestDTO dto = new EmployeeRequestDTO("nome1", "1111111111", "email1gmail.com", "81911111111",
 				LocalDate.now().withYear(1991), "09458274400", new BigDecimal("1500.00"), 100, EmployeeStatus.ACTIVE,
 				EmployeeType.SALLER);
@@ -268,7 +267,7 @@ class EmployeeControllerIntegrationTeste {
 	}
 
 	@Test
-	void shouldRegisterEmployeeWithRepeatedEmailAndReturn400Status() throws Exception {
+	void shouldNotRegisterEmployeeWhenEmailIsRepeatedAndReturnStatus400() throws Exception {
 		Employee employee1 = new Employee(null, "name1", "1111111111", "email1@gmail.com", "81911111111",
 				LocalDate.now().withYear(1991), "09458274400", new BigDecimal("1500.00"), 100, EmployeeStatus.ACTIVE,
 				EmployeeType.SALLER, null);
@@ -291,7 +290,7 @@ class EmployeeControllerIntegrationTeste {
 	}
 
 	@Test
-	void shouldRegisterEmployeeWithNullPhoneAndReturn400Status() throws Exception {
+	void shouldNotRegisterEmployeeWhenPhoneIsNullAndReturnStatus400() throws Exception {
 		EmployeeRequestDTO dto = new EmployeeRequestDTO("nome1", "1111111111", "email1@gmail.com", null,
 				LocalDate.now().withYear(1991), "09458274400", new BigDecimal("1500.00"), 100, EmployeeStatus.ACTIVE,
 				EmployeeType.SALLER);
@@ -305,7 +304,7 @@ class EmployeeControllerIntegrationTeste {
 	}
 
 	@Test
-	void shouldRegisterEmployeeWithEmptyPhoneAndReturn400Status() throws Exception {
+	void shouldNotRegisterEmployeeWhenPhoneIsEmptyAndReturnStatus400() throws Exception {
 		EmployeeRequestDTO dto = new EmployeeRequestDTO("nome1", "1111111111", "email1@gmail.com", "",
 				LocalDate.now().withYear(1991), "09458274400", new BigDecimal("1500.00"), 100, EmployeeStatus.ACTIVE,
 				EmployeeType.SALLER);
@@ -319,7 +318,7 @@ class EmployeeControllerIntegrationTeste {
 	}
 
 	@Test
-	void shouldRegisterEmployeeWithPhoneLongerThan30AndReturn400Status() throws Exception {
+	void shouldNotRegisterEmployeeWhenPhoneIsLongerThan30AndReturnStatus400() throws Exception {
 		EmployeeRequestDTO dto = new EmployeeRequestDTO("nome1", "1111111111", "email1@gmail.com",
 				"8191111111111111111111111111111", LocalDate.now().withYear(1991), "09458274400",
 				new BigDecimal("1500.00"), 100, EmployeeStatus.ACTIVE, EmployeeType.SALLER);
@@ -333,7 +332,7 @@ class EmployeeControllerIntegrationTeste {
 	}
 
 	@Test
-	void shouldRegisterEmployeeWithRepeatedPhoneAndReturn400Status() throws Exception {
+	void shouldNotRegisterEmployeeWhenPhoneIsRepeatedAndReturnStatus400() throws Exception {
 		Employee employee1 = new Employee(null, "name1", "1111111111", "email1@gmail.com", "81911111111",
 				LocalDate.now().withYear(1991), "09458274400", new BigDecimal("1500.00"), 100, EmployeeStatus.ACTIVE,
 				EmployeeType.SALLER, null);
@@ -356,7 +355,7 @@ class EmployeeControllerIntegrationTeste {
 	}
 
 	@Test
-	void shouldRegisterEmployeeWithNullBirthDateAndReturn400Status() throws Exception {
+	void shouldNotRegisterEmployeeWhenBirthDateIsNullAndReturnStatus400() throws Exception {
 		EmployeeRequestDTO dto = new EmployeeRequestDTO("nome1", "1111111111", "email1@gmail.com", "81911111111", null,
 				"09458274400", new BigDecimal("1500.00"), 100, EmployeeStatus.ACTIVE, EmployeeType.SALLER);
 
@@ -369,7 +368,7 @@ class EmployeeControllerIntegrationTeste {
 	}
 
 	@Test
-	void shouldRegisterEmployeeWithNullCPFAndReturn400Status() throws Exception {
+	void shouldNotRegisterEmployeeWhenCPFIsNullAndReturnStatus400() throws Exception {
 		EmployeeRequestDTO dto = new EmployeeRequestDTO("nome1", "1111111111", "email1@gmail.com", "81911111111",
 				LocalDate.now().withYear(1991), null, new BigDecimal("1500.00"), 100, EmployeeStatus.ACTIVE,
 				EmployeeType.SALLER);
@@ -383,7 +382,7 @@ class EmployeeControllerIntegrationTeste {
 	}
 
 	@Test
-	void shouldRegisterEmployeeWithEmptyCPFAndReturn400Status() throws Exception {
+	void shouldNotRegisterEmployeeWhenCPFIsEmptyAndReturnStatus400() throws Exception {
 		EmployeeRequestDTO dto = new EmployeeRequestDTO("nome1", "1111111111", "email1@gmail.com", "81911111111",
 				LocalDate.now().withYear(1991), "", new BigDecimal("1500.00"), 100, EmployeeStatus.ACTIVE,
 				EmployeeType.SALLER);
@@ -397,7 +396,7 @@ class EmployeeControllerIntegrationTeste {
 	}
 
 	@Test
-	void shouldRegisterEmployeeWithInvalidCPFAndReturn400Status() throws Exception {
+	void shouldNotRegisterEmployeeWhenCPFIsInvalidAndReturnStatus400() throws Exception {
 		EmployeeRequestDTO dto = new EmployeeRequestDTO("nome1", "1111111111", "email1@gmail.com", "81911111111",
 				LocalDate.now().withYear(1991), "09458274401", new BigDecimal("1500.00"), 100, EmployeeStatus.ACTIVE,
 				EmployeeType.SALLER);
@@ -411,7 +410,7 @@ class EmployeeControllerIntegrationTeste {
 	}
 
 	@Test
-	void shouldRegisterEmployeeWithRepeatedCPFAndReturn400Status() throws Exception {
+	void shouldNotRegisterEmployeeWhenCPFIsRepeatedAndReturnStatus400() throws Exception {
 		Employee employee1 = new Employee(null, "name1", "1111111111", "email1@gmail.com", "81911111111",
 				LocalDate.now().withYear(1991), "09458274400", new BigDecimal("1500.00"), 100, EmployeeStatus.ACTIVE,
 				EmployeeType.SALLER, null);
@@ -434,7 +433,7 @@ class EmployeeControllerIntegrationTeste {
 	}
 
 	@Test
-	void shouldRegisterEmployeeWithNullSalaryAndReturn400Status() throws Exception {
+	void shouldNotRegisterEmployeeWhenSalaryIsNullAndReturnStatus400() throws Exception {
 		EmployeeRequestDTO dto = new EmployeeRequestDTO("nome1", "1111111111", "email1@gmail.com", "81911111111",
 				LocalDate.now().withYear(1991), "09458274400", null, 100, EmployeeStatus.ACTIVE, EmployeeType.SALLER);
 
@@ -447,7 +446,7 @@ class EmployeeControllerIntegrationTeste {
 	}
 
 	@Test
-	void shouldRegisterEmployeeWithSalaryLessThan2digitsAndReturn400Status() throws Exception {
+	void shouldNotRegisterEmployeeWhenSalaryIsLessThan2digitsAndReturnStatus400() throws Exception {
 		EmployeeRequestDTO dto = new EmployeeRequestDTO("nome1", "1111111111", "email1@gmail.com", "81911111111",
 				LocalDate.now().withYear(1991), "09458274400", new BigDecimal("0.0"), 100, EmployeeStatus.ACTIVE,
 				EmployeeType.SALLER);
@@ -461,7 +460,7 @@ class EmployeeControllerIntegrationTeste {
 	}
 
 	@Test
-	void shouldRegisterEmployeeWithSalaryLogerThan2digitsAndReturn400Status() throws Exception {
+	void shouldNotRegisterEmployeeWhenSalaryIsLogerThan2digitsAndReturnStatus400() throws Exception {
 		EmployeeRequestDTO dto = new EmployeeRequestDTO("nome1", "1111111111", "email1@gmail.com", "81911111111",
 				LocalDate.now().withYear(1991), "09458274400", new BigDecimal("0.000"), 100, EmployeeStatus.ACTIVE,
 				EmployeeType.SALLER);
@@ -475,7 +474,7 @@ class EmployeeControllerIntegrationTeste {
 	}
 
 	@Test
-	void shouldRegisterEmployeeWithSalaryEqualToZeroAndReturn400Status() throws Exception {
+	void shouldNotRegisterEmployeeWhenSalaryIsZeroAndReturnStatus400() throws Exception {
 		EmployeeRequestDTO dto = new EmployeeRequestDTO("nome1", "1111111111", "email1@gmail.com", "81911111111",
 				LocalDate.now().withYear(1991), "09458274400", new BigDecimal("0.00"), 100, EmployeeStatus.ACTIVE,
 				EmployeeType.SALLER);
@@ -489,7 +488,7 @@ class EmployeeControllerIntegrationTeste {
 	}
 
 	@Test
-	void shouldRegisterEmployeeWithNullComissitionAndNullEmployeeTypeSallerAndReturn400Status() throws Exception {
+	void shouldNotRegisterEmployeeWhenComissitionIsNullAndEmployeeTypeIsSallerAndReturnStatus400() throws Exception {
 		EmployeeRequestDTO dto = new EmployeeRequestDTO("nome1", "1111111111", "email1@gmail.com", "81911111111",
 				LocalDate.now().withYear(1991), "09458274400", new BigDecimal("1500.00"), null, EmployeeStatus.ACTIVE,
 				EmployeeType.SALLER);
@@ -503,7 +502,7 @@ class EmployeeControllerIntegrationTeste {
 	}
 
 	@Test
-	void shouldRegisterEmployeeWithComissitionEqualToZeroAndEmployeeTypeSallerAndReturn400Status() throws Exception {
+	void shouldNotRegisterEmployeeWhenComissitionIsZeroAndEmployeeTypeIsSallerAndReturnStatus400() throws Exception {
 		EmployeeRequestDTO dto = new EmployeeRequestDTO("nome1", "1111111111", "email1@gmail.com", "81911111111",
 				LocalDate.now().withYear(1991), "09458274400", new BigDecimal("1500.00"), 0, EmployeeStatus.ACTIVE,
 				EmployeeType.SALLER);
@@ -517,7 +516,8 @@ class EmployeeControllerIntegrationTeste {
 	}
 
 	@Test
-	void shouldRegisterEmployeeWithComissitionLongerThan100AndEmployeeTypeSallerAndReturn400Status() throws Exception {
+	void shouldNotRegisterEmployeeWhenComissitionIsLongerThan100AndEmployeeTypeIsSallerAndReturnStatus400()
+			throws Exception {
 		EmployeeRequestDTO dto = new EmployeeRequestDTO("nome1", "1111111111", "email1@gmail.com", "81911111111",
 				LocalDate.now().withYear(1991), "09458274400", new BigDecimal("1500.00"), 101, EmployeeStatus.ACTIVE,
 				EmployeeType.SALLER);
@@ -531,7 +531,7 @@ class EmployeeControllerIntegrationTeste {
 	}
 
 	@Test
-	void shouldRegisterEmployeeWithNullEmployeeStatusAndReturn400Status() throws Exception {
+	void shouldNotRegisterEmployeeWhenEmployeeStatusIsNullAndReturnStatus400() throws Exception {
 		EmployeeRequestDTO dto = new EmployeeRequestDTO("nome1", "1111111111", "email1@gmail.com", "81911111111",
 				LocalDate.now().withYear(1991), "09458274400", new BigDecimal("1500.00"), 100, null,
 				EmployeeType.SALLER);
@@ -545,7 +545,7 @@ class EmployeeControllerIntegrationTeste {
 	}
 
 	@Test
-	void shouldRegisterEmployeeWithNullEmployeeTypeAndReturn400Status() throws Exception {
+	void shouldNotRegisterEmployeeWhenEmployeeTypeIsNullAndReturnStatus400() throws Exception {
 		EmployeeRequestDTO dto = new EmployeeRequestDTO("nome1", "1111111111", "email1@gmail.com", "81911111111",
 				LocalDate.now().withYear(1991), "09458274400", new BigDecimal("1500.00"), 100, EmployeeStatus.ACTIVE,
 				null);
@@ -561,7 +561,7 @@ class EmployeeControllerIntegrationTeste {
 	// teste para atualizar funcionario pelo id
 
 	@Test
-	void shouldUpdateEmployeeByIdAndReturn200Status() throws Exception {
+	void shouldUpdateEmployeeByIdAndReturnStatus200() throws Exception {
 		Employee employee1 = new Employee(null, "name1", "1111111111", "email1@gmail.com", "81911111111",
 				LocalDate.now().withYear(1991), "09458274400", new BigDecimal("1500.00"), 100, EmployeeStatus.ACTIVE,
 				EmployeeType.SALLER, null);
@@ -584,7 +584,7 @@ class EmployeeControllerIntegrationTeste {
 	// teste para procurar funcionario pelo id
 
 	@Test
-	void shouldFindEmployeeByIdAndReturn200Status() throws Exception {
+	void shouldFindEmployeeByIdAndReturnStatus200() throws Exception {
 		Employee employee1 = new Employee(null, "name1", "1111111111", "email1@gmail.com", "81911111111",
 				LocalDate.now().withYear(1991), "09458274400", new BigDecimal("1500.00"), 100, EmployeeStatus.ACTIVE,
 				EmployeeType.SALLER, null);
@@ -599,7 +599,7 @@ class EmployeeControllerIntegrationTeste {
 	}
 
 	@Test
-	void shouldFindEmployeeByIdWithNonExistentIdAndReturn200Status() throws Exception {
+	void shouldNotFindEmployeeByIdWhenIdIsNotExistAndReturnStatus404() throws Exception {
 		Employee employee1 = new Employee(null, "name1", "1111111111", "email1@gmail.com", "81911111111",
 				LocalDate.now().withYear(1991), "09458274400", new BigDecimal("1500.00"), 100, EmployeeStatus.ACTIVE,
 				EmployeeType.SALLER, null);
@@ -616,7 +616,7 @@ class EmployeeControllerIntegrationTeste {
 	// teste para listar funcionários
 
 	@Test
-	void shouldListEmployeesByNameEmployeeStatusOrEmployeeTypeAndReturn200Status() throws Exception {
+	void shouldListEmployeesAndReturnStatus200() throws Exception {
 		Employee employee1 = new Employee(null, "name1", "1111111111", "email1@gmail.com", "81911111111",
 				LocalDate.now().withYear(1991), "09458274400", new BigDecimal("1500.00"), 100, EmployeeStatus.ACTIVE,
 				EmployeeType.SALLER, null);
@@ -637,68 +637,13 @@ class EmployeeControllerIntegrationTeste {
 
 		employeeRepository.saveAll(employees);
 
-		mockMvc.perform(get("/employees/list-employees-by-name-employeestatus-or-employeetype")
-				.contentType(MediaType.APPLICATION_JSON).accept(MediaType.APPLICATION_JSON))
-				.andExpect(jsonPath("$.totalElements").value(4)).andExpect(status().isOk()).andDo(print());
-	}
-
-	@Test
-	void shouldListEmployeesByNameEmployeeStatusOrEmployeeTypeAndWithNameReturn200Status() throws Exception {
-		Employee employee1 = new Employee(null, "name1", "1111111111", "email1@gmail.com", "81911111111",
-				LocalDate.now().withYear(1991), "09458274400", new BigDecimal("1500.00"), 100, EmployeeStatus.ACTIVE,
-				EmployeeType.SALLER, null);
-
-		Employee employee2 = new Employee(null, "name2", "2222222222", "email2@gmail.com", "81922222222",
-				LocalDate.now().withYear(1991), "43468998465", new BigDecimal("2500.00"), null, EmployeeStatus.ACTIVE,
-				EmployeeType.MANAGER, null);
-
-		Employee employee3 = new Employee(null, "name3", "3333333333", "email3@gmail.com", "81933333333",
-				LocalDate.now().withYear(1991), "27406772432", new BigDecimal("2000.00"), null, EmployeeStatus.ACTIVE,
-				EmployeeType.ASSISTANT_MANAGER, null);
-
-		Employee employee4 = new Employee(null, "name4", "4444444444", "email4@gmail.com", "81944444444",
-				LocalDate.now().withYear(1991), "66134259403", new BigDecimal("1500.00"), 100, EmployeeStatus.ACTIVE,
-				EmployeeType.SALLER, null);
-
-		List<Employee> employees = List.of(employee1, employee2, employee3, employee4);
-
-		employeeRepository.saveAll(employees);
-
-		mockMvc.perform(get("/employees/list-employees-by-name-employeestatus-or-employeetype")
-				.queryParam("name", "name").contentType(MediaType.APPLICATION_JSON).accept(MediaType.APPLICATION_JSON))
-				.andExpect(jsonPath("$.totalElements").value(4)).andExpect(status().isOk()).andDo(print());
-	}
-
-	@Test
-	void shouldListEmployeesByNameEmployeeStatusOrEmployeeTypeAndWithEmployeeStatusReturn200Status() throws Exception {
-		Employee employee1 = new Employee(null, "name1", "1111111111", "email1@gmail.com", "81911111111",
-				LocalDate.now().withYear(1991), "09458274400", new BigDecimal("1500.00"), 100, EmployeeStatus.ACTIVE,
-				EmployeeType.SALLER, null);
-
-		Employee employee2 = new Employee(null, "name2", "2222222222", "email2@gmail.com", "81922222222",
-				LocalDate.now().withYear(1991), "43468998465", new BigDecimal("2500.00"), null, EmployeeStatus.ACTIVE,
-				EmployeeType.MANAGER, null);
-
-		Employee employee3 = new Employee(null, "name3", "3333333333", "email3@gmail.com", "81933333333",
-				LocalDate.now().withYear(1991), "27406772432", new BigDecimal("2000.00"), null, EmployeeStatus.ACTIVE,
-				EmployeeType.ASSISTANT_MANAGER, null);
-
-		Employee employee4 = new Employee(null, "name4", "4444444444", "email4@gmail.com", "81944444444",
-				LocalDate.now().withYear(1991), "66134259403", new BigDecimal("1500.00"), 100, EmployeeStatus.ACTIVE,
-				EmployeeType.SALLER, null);
-
-		List<Employee> employees = List.of(employee1, employee2, employee3, employee4);
-
-		employeeRepository.saveAll(employees);
-
-		mockMvc.perform(get("/employees/list-employees-by-name-employeestatus-or-employeetype")
-				.queryParam("employeeStatus", "ACTIVE").contentType(MediaType.APPLICATION_JSON)
+		mockMvc.perform(get("/employees/list-employees").contentType(MediaType.APPLICATION_JSON)
 				.accept(MediaType.APPLICATION_JSON)).andExpect(jsonPath("$.totalElements").value(4))
 				.andExpect(status().isOk()).andDo(print());
 	}
 
 	@Test
-	void shouldListEmployeesByNameEmployeeStatusOrEmployeeTypeAndWithEmployeeTypeReturn200Status() throws Exception {
+	void shouldListEmployeesWhenNameNotIsNullOrEmptyAndReturnStatus200() throws Exception {
 		Employee employee1 = new Employee(null, "name1", "1111111111", "email1@gmail.com", "81911111111",
 				LocalDate.now().withYear(1991), "09458274400", new BigDecimal("1500.00"), 100, EmployeeStatus.ACTIVE,
 				EmployeeType.SALLER, null);
@@ -719,9 +664,62 @@ class EmployeeControllerIntegrationTeste {
 
 		employeeRepository.saveAll(employees);
 
-		mockMvc.perform(get("/employees/list-employees-by-name-employeestatus-or-employeetype")
-				.queryParam("employeeType", "SALLER").contentType(MediaType.APPLICATION_JSON)
-				.accept(MediaType.APPLICATION_JSON)).andExpect(jsonPath("$.totalElements").value(2))
+		mockMvc.perform(get("/employees/list-employees").queryParam("name", "name")
+				.contentType(MediaType.APPLICATION_JSON).accept(MediaType.APPLICATION_JSON))
+				.andExpect(jsonPath("$.totalElements").value(4)).andExpect(status().isOk()).andDo(print());
+	}
+
+	@Test
+	void shouldListEmployeesWhenEmployeeStatusNotIsNullAndReturnStatus200() throws Exception {
+		Employee employee1 = new Employee(null, "name1", "1111111111", "email1@gmail.com", "81911111111",
+				LocalDate.now().withYear(1991), "09458274400", new BigDecimal("1500.00"), 100, EmployeeStatus.ACTIVE,
+				EmployeeType.SALLER, null);
+
+		Employee employee2 = new Employee(null, "name2", "2222222222", "email2@gmail.com", "81922222222",
+				LocalDate.now().withYear(1991), "43468998465", new BigDecimal("2500.00"), null, EmployeeStatus.ACTIVE,
+				EmployeeType.MANAGER, null);
+
+		Employee employee3 = new Employee(null, "name3", "3333333333", "email3@gmail.com", "81933333333",
+				LocalDate.now().withYear(1991), "27406772432", new BigDecimal("2000.00"), null, EmployeeStatus.ACTIVE,
+				EmployeeType.ASSISTANT_MANAGER, null);
+
+		Employee employee4 = new Employee(null, "name4", "4444444444", "email4@gmail.com", "81944444444",
+				LocalDate.now().withYear(1991), "66134259403", new BigDecimal("1500.00"), 100, EmployeeStatus.ACTIVE,
+				EmployeeType.SALLER, null);
+
+		List<Employee> employees = List.of(employee1, employee2, employee3, employee4);
+
+		employeeRepository.saveAll(employees);
+
+		mockMvc.perform(get("/employees/list-employees").queryParam("employeeStatus", "ACTIVE").contentType(MediaType.APPLICATION_JSON)
+				.accept(MediaType.APPLICATION_JSON)).andExpect(jsonPath("$.totalElements").value(4))
 				.andExpect(status().isOk()).andDo(print());
+	}
+
+	@Test
+	void shouldListEmployeesWhenEmployeeTypeNotIsNullAndReturnStatus200() throws Exception {
+		Employee employee1 = new Employee(null, "name1", "1111111111", "email1@gmail.com", "81911111111",
+				LocalDate.now().withYear(1991), "09458274400", new BigDecimal("1500.00"), 100, EmployeeStatus.ACTIVE,
+				EmployeeType.SALLER, null);
+
+		Employee employee2 = new Employee(null, "name2", "2222222222", "email2@gmail.com", "81922222222",
+				LocalDate.now().withYear(1991), "43468998465", new BigDecimal("2500.00"), null, EmployeeStatus.ACTIVE,
+				EmployeeType.MANAGER, null);
+
+		Employee employee3 = new Employee(null, "name3", "3333333333", "email3@gmail.com", "81933333333",
+				LocalDate.now().withYear(1991), "27406772432", new BigDecimal("2000.00"), null, EmployeeStatus.ACTIVE,
+				EmployeeType.ASSISTANT_MANAGER, null);
+
+		Employee employee4 = new Employee(null, "name4", "4444444444", "email4@gmail.com", "81944444444",
+				LocalDate.now().withYear(1991), "66134259403", new BigDecimal("1500.00"), 100, EmployeeStatus.ACTIVE,
+				EmployeeType.SALLER, null);
+
+		List<Employee> employees = List.of(employee1, employee2, employee3, employee4);
+
+		employeeRepository.saveAll(employees);
+
+		mockMvc.perform(get("/employees/list-employees").queryParam("employeeType", "SALLER")
+				.contentType(MediaType.APPLICATION_JSON).accept(MediaType.APPLICATION_JSON))
+				.andExpect(jsonPath("$.totalElements").value(2)).andExpect(status().isOk()).andDo(print());
 	}
 }
