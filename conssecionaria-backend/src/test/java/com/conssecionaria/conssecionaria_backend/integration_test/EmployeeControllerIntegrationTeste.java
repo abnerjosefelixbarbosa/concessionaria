@@ -13,7 +13,6 @@ import java.util.List;
 
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -643,7 +642,7 @@ class EmployeeControllerIntegrationTeste {
 	}
 
 	@Test
-	void shouldListEmployeesWhenNameNotIsNullOrEmptyAndReturnStatus200() throws Exception {
+	void shouldListEmployeesWhenNameContainsNameAndReturnStatus200() throws Exception {
 		Employee employee1 = new Employee(null, "name1", "1111111111", "email1@gmail.com", "81911111111",
 				LocalDate.now().withYear(1991), "09458274400", new BigDecimal("1500.00"), 100, EmployeeStatus.ACTIVE,
 				EmployeeType.SALLER, null);
@@ -670,7 +669,7 @@ class EmployeeControllerIntegrationTeste {
 	}
 
 	@Test
-	void shouldListEmployeesWhenEmployeeStatusNotIsNullAndReturnStatus200() throws Exception {
+	void shouldListEmployeesWhenEmployeeStatusIsActiveAndReturnStatus200() throws Exception {
 		Employee employee1 = new Employee(null, "name1", "1111111111", "email1@gmail.com", "81911111111",
 				LocalDate.now().withYear(1991), "09458274400", new BigDecimal("1500.00"), 100, EmployeeStatus.ACTIVE,
 				EmployeeType.SALLER, null);
@@ -697,7 +696,7 @@ class EmployeeControllerIntegrationTeste {
 	}
 
 	@Test
-	void shouldListEmployeesWhenEmployeeTypeNotIsNullAndReturnStatus200() throws Exception {
+	void shouldListEmployeesWhenEmployeeTypeIsSallerAndReturnStatus200() throws Exception {
 		Employee employee1 = new Employee(null, "name1", "1111111111", "email1@gmail.com", "81911111111",
 				LocalDate.now().withYear(1991), "09458274400", new BigDecimal("1500.00"), 100, EmployeeStatus.ACTIVE,
 				EmployeeType.SALLER, null);
