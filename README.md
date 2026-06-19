@@ -131,5 +131,21 @@ MANUAL, AUTOMATIC
 
 - Registra funcionario.
 - Atualizar funcionario pelo id.
-- Listar funcionario com filtro pelo nome, status do funcionario e tipo do funcionario.
+- Listar funcionario filtrado pelo nome, status do funcionário e tipo do funcionário.
 - Procurar funcionario pelo id.
+
+# Execução do projeto 
+
+- Copie o repositorio em uma IDE.
+- Execute o projeto.
+
+```bash
+# clone repository
+git clone https://github.com/abnerjosefelixbarbosa/api-controle-de-estoque.git
+```
+
+# Autor
+
+Abner José Felix Barbosa
+
+[![LinkedIn](https://img.shields.io/badge/LinkedIn-0077B5?style=for-the-badge&logo=linkedin&logoColor=white)](https://www.linkedin.com/in/abner-jose-feliz-barbosa/)
