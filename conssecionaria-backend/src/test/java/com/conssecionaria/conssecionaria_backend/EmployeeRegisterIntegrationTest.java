@@ -87,7 +87,7 @@ class EmployeeRegisterIntegrationTest {
 				.andExpect(jsonPath("$.name").value("Nome deve ser obrigatório.")).andExpect(status().isBadRequest())
 				.andDo(print());
 	}
-
+	
 	@Test
 	void shouldNotRegisterEmployeeWhenNameContains101CharactersAndReturnStatus400() throws Exception {
 		EmployeeRequestDTO dto = new EmployeeRequestDTO(
@@ -496,7 +496,7 @@ class EmployeeRegisterIntegrationTest {
 				.andExpect(jsonPath("$.message").value("Comissão deve ser menor que 100."))
 				.andExpect(status().isBadRequest()).andDo(print());
 	}
-
+	
 	@Test
 	void shouldNotRegisterEmployeeWhenEmployeeStatusIsNullAndReturnStatus400() throws Exception {
 		EmployeeRequestDTO dto = new EmployeeRequestDTO("nome1", "1111111111", "email1@gmail.com", "81911111111",
