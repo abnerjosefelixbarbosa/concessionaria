@@ -1,4 +1,4 @@
-# Concessionria
+# Concessionria [![Java CI with Maven](https://github.com/abnerjosefelixbarbosa/concessionria/actions/workflows/maven.yml/badge.svg)](https://github.com/abnerjosefelixbarbosa/concessionria/actions/workflows/maven.yml)
 
 ## Modelo
 
