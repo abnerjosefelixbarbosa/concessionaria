@@ -1,4 +1,4 @@
-package com.conssecionaria.conssecionaria_backend;
+package com.conssecionaria.conssecionaria_backend.controller;
 
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.put;
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
