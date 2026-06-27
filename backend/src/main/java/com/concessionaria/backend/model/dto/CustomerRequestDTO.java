@@ -13,7 +13,7 @@ public record CustomerRequestDTO(
 		@NotEmpty(message = "Nome deve ser obrigatório.")
 		@Size(max = 100, message = "Nome deve ter até 100 caracteres.")
 		String name,
-		@Schema(description = "Documento do cliente.", requiredMode = Schema.RequiredMode.REQUIRED)
+		@Schema(description = "Documento CPF ou CNPJ do cliente.", requiredMode = Schema.RequiredMode.REQUIRED)
 		@NotNull(message = "Documento deve ser obrigatório.")
 		@NotEmpty(message = "Documento deve ser obrigatório.")
 		String document,

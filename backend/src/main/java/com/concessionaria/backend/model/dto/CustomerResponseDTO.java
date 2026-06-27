@@ -8,7 +8,7 @@ public record CustomerResponseDTO(
 		String id,
 		@Schema(description = "Nome do cliente.")
 		String name,
-		@Schema(description = "Documento do cliente.")
+		@Schema(description = "Documento CPF ou CNPJ do cliente.")
 		String document,
 		@Schema(description = "Email do cliente.")
 		String email,
