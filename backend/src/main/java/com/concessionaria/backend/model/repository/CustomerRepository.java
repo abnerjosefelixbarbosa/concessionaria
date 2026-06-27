@@ -7,5 +7,5 @@ import com.concessionaria.backend.model.entity.Customer;
 
 @Repository
 public interface CustomerRepository extends JpaRepository<Customer, String> {
-
+	boolean existsByNameAndDocumentAndEmailAndPhone(String name, String document, String email, String phone);
 }

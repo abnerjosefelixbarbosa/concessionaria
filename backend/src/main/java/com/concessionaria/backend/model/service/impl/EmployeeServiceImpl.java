@@ -31,8 +31,10 @@ public class EmployeeServiceImpl implements EmployeeService {
 		Employee employee = EmployeeMapper.toEmployee(dto);
 
 		validateEmployee(employee);
+		
+		Employee employeeSaved = employeeRepository.save(employee);
 
-		return EmployeeMapper.toEmployeeResponseDTO(employeeRepository.save(employee));
+		return EmployeeMapper.toEmployeeResponseDTO(employeeSaved);
 	}
 
 	@Transactional
@@ -45,8 +47,10 @@ public class EmployeeServiceImpl implements EmployeeService {
 				.orElseThrow(() -> new NotFoundException("Id deve ser existente."));
 
 		BeanUtils.copyProperties(employee, employeeFound, "id");
+		
+		employeeRepository.save(employeeFound);
 
-		return EmployeeMapper.toEmployeeResponseDTO(employeeRepository.save(employeeFound));
+		return EmployeeMapper.toEmployeeResponseDTO(employeeFound);
 	}
 
 	public EmployeeResponseDTO findEmployeeById(String id) {
@@ -90,12 +94,12 @@ public class EmployeeServiceImpl implements EmployeeService {
 			throw new ApplicationException("Salário não deve 0.00.");
 		}
 
-		if (existsByNameOrMatriculationOrEmailOrPhoneOrCpf(employee)) {
+		if (isExistsByNameOrMatriculationOrEmailOrPhoneOrCpf(employee)) {
 			throw new ApplicationException("Nome, matrícula, email, telefone ou cpf não deve ser repetido.");
 		}
 	}
 
-	private boolean existsByNameOrMatriculationOrEmailOrPhoneOrCpf(Employee employee) {
+	private boolean isExistsByNameOrMatriculationOrEmailOrPhoneOrCpf(Employee employee) {
 		return employeeRepository.existsByNameOrMatriculationOrEmailOrPhoneOrCpf(employee.getName(),
 				employee.getMatriculation(), employee.getEmail(), employee.getPhone(), employee.getCpf());
 	}
