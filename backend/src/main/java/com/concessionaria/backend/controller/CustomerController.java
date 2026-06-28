@@ -27,7 +27,8 @@ public class CustomerController {
 	}
 
 	@ApiResponses(value = { @ApiResponse(responseCode = "201", description = "registra um cliente."),
-			@ApiResponse(responseCode = "400", description = "retorna um erro de requesição.") })
+			@ApiResponse(responseCode = "400", description = "retorna um erro de requesição."), 
+			@ApiResponse(responseCode = "404", description = "retorna um erro de conteudo não encontrado.")})
 	@ResponseStatus(value = HttpStatus.CREATED)
 	@Operation(summary = "registra cliente.", description = "registra um cliente.")
 	@PostMapping(value = "/register-customer")
