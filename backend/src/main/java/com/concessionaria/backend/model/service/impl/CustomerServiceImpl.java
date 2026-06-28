@@ -38,8 +38,8 @@ public class CustomerServiceImpl implements CustomerService {
 			throw new ApplicationException("Documento deve ser CPF ou CNPJ valido.");
 		}
 
-		if (isExistsByNameAndDocumentAndEmailAndPhone(customer)) {
-			throw new ApplicationException("Nome, documento, email e telefone não deve ser repetido.");
+		if (isExistsByNameOrDocumentOrEmailOrPhone(customer)) {
+			throw new ApplicationException("Nome, documento, email ou telefone não deve ser repetido.");
 		}
 	}
 
@@ -69,8 +69,8 @@ public class CustomerServiceImpl implements CustomerService {
 		}
 	}
 
-	private boolean isExistsByNameAndDocumentAndEmailAndPhone(Customer customer) {
-		return customerRepository.existsByNameAndDocumentAndEmailAndPhone(customer.getName(), customer.getDocument(),
+	private boolean isExistsByNameOrDocumentOrEmailOrPhone(Customer customer) {
+		return customerRepository.existsByNameOrDocumentOrEmailOrPhone(customer.getName(), customer.getDocument(),
 				customer.getEmail(), customer.getPhone());
 	}
 }

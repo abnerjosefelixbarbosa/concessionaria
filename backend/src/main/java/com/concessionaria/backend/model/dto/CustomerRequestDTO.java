@@ -19,10 +19,12 @@ public record CustomerRequestDTO(
 		String document,
 		@Schema(description = "Email do cliente.", requiredMode = Schema.RequiredMode.REQUIRED)
 		@NotNull(message = "Email deve ser obrigatório.")
+		@NotEmpty(message = "Email deve ser obrigatório.")
 		@Email(message = "Email deve ser valido.")
 		String email,
 		@Schema(description = "Telefone do cliente.", requiredMode = Schema.RequiredMode.REQUIRED)
 		@NotNull(message = "Telefone deve ser obrigatório.")
+		@NotEmpty(message = "Telefone deve ser obrigatório.")
 		@Size(max = 30, message = "Telefone deve ter até 30 caracteres.")
 		String phone
 ) {
