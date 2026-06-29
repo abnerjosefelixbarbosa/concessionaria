@@ -1,4 +1,4 @@
-package com.concessionaria.backend.controller;
+package com.concessionaria.backend.controller.employee;
 
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.*;
