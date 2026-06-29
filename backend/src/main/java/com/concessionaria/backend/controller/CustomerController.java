@@ -2,7 +2,9 @@ package com.concessionaria.backend.controller;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseStatus;
@@ -27,12 +29,22 @@ public class CustomerController {
 	}
 
 	@ApiResponses(value = { @ApiResponse(responseCode = "201", description = "registra um cliente."),
-			@ApiResponse(responseCode = "400", description = "retorna um erro de requesição."), 
-			@ApiResponse(responseCode = "404", description = "retorna um erro de conteudo não encontrado.")})
+			@ApiResponse(responseCode = "400", description = "retorna um erro de requesição."),
+			@ApiResponse(responseCode = "404", description = "retorna um erro de conteudo não encontrado.") })
 	@ResponseStatus(value = HttpStatus.CREATED)
 	@Operation(summary = "registra cliente.", description = "registra um cliente.")
 	@PostMapping(value = "/register-customer")
 	public ResponseEntity<CustomerResponseDTO> registerCustomer(@RequestBody @Valid CustomerRequestDTO dto) {
-		return ResponseEntity.status(HttpStatus.CREATED).body(customerService.registerCustomer(dto));
+		CustomerResponseDTO response = customerService.registerCustomer(dto);
+
+		return ResponseEntity.status(HttpStatus.CREATED).body(response);
+	}
+
+	@PutMapping(value = "/update-customer-by-id/{id}")
+	public ResponseEntity<CustomerResponseDTO> updateCustomerById(@PathVariable String id,
+			@RequestBody @Valid CustomerRequestDTO dto) {
+		CustomerResponseDTO response = customerService.updateCustomerById(id, dto);
+
+		return ResponseEntity.status(HttpStatus.OK).body(response);
 	}
 }
