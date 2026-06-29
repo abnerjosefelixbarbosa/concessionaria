@@ -40,6 +40,11 @@ public class CustomerController {
 		return ResponseEntity.status(HttpStatus.CREATED).body(response);
 	}
 
+	@ApiResponses(value = { @ApiResponse(responseCode = "200", description = "atualiza um cliente pelo id."),
+			@ApiResponse(responseCode = "400", description = "retorna um erro de requesição."),
+			@ApiResponse(responseCode = "404", description = "retorna um erro de conteudo não encontrado.") })
+	@ResponseStatus(value = HttpStatus.OK)
+	@Operation(summary = "atualiza cliente pelo id.", description = "atualiza um cliente pelo id.")
 	@PutMapping(value = "/update-customer-by-id/{id}")
 	public ResponseEntity<CustomerResponseDTO> updateCustomerById(@PathVariable String id,
 			@RequestBody @Valid CustomerRequestDTO dto) {
