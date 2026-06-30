@@ -2,6 +2,7 @@ package com.concessionaria.backend.controller;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
@@ -49,6 +50,18 @@ public class CustomerController {
 	public ResponseEntity<CustomerResponseDTO> updateCustomerById(@PathVariable String id,
 			@RequestBody @Valid CustomerRequestDTO dto) {
 		CustomerResponseDTO response = customerService.updateCustomerById(id, dto);
+
+		return ResponseEntity.status(HttpStatus.OK).body(response);
+	}
+	
+	//@ApiResponses(value = { @ApiResponse(responseCode = "200", description = "atualiza um cliente pelo id."),
+	//		@ApiResponse(responseCode = "400", description = "retorna um erro de requesição."),
+	//		@ApiResponse(responseCode = "404", description = "retorna um erro de conteudo não encontrado.") })
+	//@ResponseStatus(value = HttpStatus.OK)
+	//@Operation(summary = "atualiza cliente pelo id.", description = "atualiza um cliente pelo id.")
+	@GetMapping(value = "/find-customer-by-id/{id}")
+	public ResponseEntity<CustomerResponseDTO> findCustomerById(@PathVariable String id) {
+		CustomerResponseDTO response = customerService.findCustomerById(id);
 
 		return ResponseEntity.status(HttpStatus.OK).body(response);
 	}

@@ -36,6 +36,7 @@ public class CustomerServiceImpl implements CustomerService {
 		return CustomerMapper.toCustomerResponseDTO(customerSaved);
 	}
 
+	@Transactional
 	public CustomerResponseDTO updateCustomerById(String id, @Valid CustomerRequestDTO dto) {
 		Customer customer = CustomerMapper.toCustomer(dto);
 
@@ -43,10 +44,17 @@ public class CustomerServiceImpl implements CustomerService {
 
 		Customer customerFound = customerRepository.findById(id)
 				.orElseThrow(() -> new NotFoundException("Id deve ser existente."));
-		
+
 		BeanUtils.copyProperties(customer, customerFound, "id");
-		
+
 		customerRepository.save(customerFound);
+
+		return CustomerMapper.toCustomerResponseDTO(customerFound);
+	}
+
+	public CustomerResponseDTO findCustomerById(String id) {
+		Customer customerFound = customerRepository.findById(id)
+				.orElseThrow(() -> new NotFoundException("Id deve ser existente."));
 
 		return CustomerMapper.toCustomerResponseDTO(customerFound);
 	}

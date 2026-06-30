@@ -9,4 +9,6 @@ public interface CustomerService {
 	CustomerResponseDTO registerCustomer(CustomerRequestDTO dto);
 
 	CustomerResponseDTO updateCustomerById(String id, @Valid CustomerRequestDTO dto);
+
+	CustomerResponseDTO findCustomerById(String id);
 }
