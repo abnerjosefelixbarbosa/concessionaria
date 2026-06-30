@@ -54,11 +54,11 @@ public class CustomerController {
 		return ResponseEntity.status(HttpStatus.OK).body(response);
 	}
 	
-	//@ApiResponses(value = { @ApiResponse(responseCode = "200", description = "atualiza um cliente pelo id."),
-	//		@ApiResponse(responseCode = "400", description = "retorna um erro de requesição."),
-	//		@ApiResponse(responseCode = "404", description = "retorna um erro de conteudo não encontrado.") })
-	//@ResponseStatus(value = HttpStatus.OK)
-	//@Operation(summary = "atualiza cliente pelo id.", description = "atualiza um cliente pelo id.")
+	@ApiResponses(value = { @ApiResponse(responseCode = "200", description = "procura um cliente pelo id."),
+			@ApiResponse(responseCode = "400", description = "retorna um erro de requesição."),
+			@ApiResponse(responseCode = "404", description = "retorna um erro de conteudo não encontrado.") })
+	@ResponseStatus(value = HttpStatus.OK)
+	@Operation(summary = "procura cliente pelo id.", description = "procura um cliente pelo id.")
 	@GetMapping(value = "/find-customer-by-id/{id}")
 	public ResponseEntity<CustomerResponseDTO> findCustomerById(@PathVariable String id) {
 		CustomerResponseDTO response = customerService.findCustomerById(id);
