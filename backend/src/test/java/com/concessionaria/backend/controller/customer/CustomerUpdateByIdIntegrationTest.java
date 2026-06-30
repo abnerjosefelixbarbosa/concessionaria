@@ -31,7 +31,7 @@ public class CustomerUpdateByIdIntegrationTest {
 	private ObjectMapper objectMapper;
 	@Autowired
 	private CustomerRepository customerRepository;
-	
+
 	@BeforeEach
 	void setUp() throws Exception {
 		customerRepository.deleteAll();
@@ -41,13 +41,13 @@ public class CustomerUpdateByIdIntegrationTest {
 	void tearDown() throws Exception {
 		customerRepository.deleteAll();
 	}
-	
+
 	@Test
 	void shouldUpdateCustomerByIdAndReturnStatus200() throws Exception {
 		Customer customer = new Customer(null, "nome1", "26516743460", "email1@gmail.com", "81911111111", null);
 
 		String id = customerRepository.save(customer).getId();
-		
+
 		CustomerRequestDTO dto = new CustomerRequestDTO("nome2", "83712704453", "email2@gmail.com", "81922222222");
 
 		String json = objectMapper.writeValueAsString(dto);
@@ -55,13 +55,13 @@ public class CustomerUpdateByIdIntegrationTest {
 		mockMvc.perform(put("/customers/update-customer-by-id/" + id).contentType(MediaType.APPLICATION_JSON)
 				.accept(MediaType.APPLICATION_JSON).content(json)).andExpect(status().isOk()).andDo(print());
 	}
-	
+
 	@Test
 	void shouldNotUpdateCustomerByIdWhenIdIsNonExistentAndReturnStatus404() throws Exception {
 		Customer customer = new Customer(null, "nome1", "26516743460", "email1@gmail.com", "81911111111", null);
 
 		String id = customerRepository.save(customer).getId();
-		
+
 		CustomerRequestDTO dto = new CustomerRequestDTO("nome2", "83712704453", "email2@gmail.com", "81922222222");
 
 		String json = objectMapper.writeValueAsString(dto);
@@ -76,7 +76,7 @@ public class CustomerUpdateByIdIntegrationTest {
 		Customer customer = new Customer(null, "nome1", "26516743460", "email1@gmail.com", "81911111111", null);
 
 		String id = customerRepository.save(customer).getId();
-		
+
 		CustomerRequestDTO dto = new CustomerRequestDTO(null, "83712704453", "email2@gmail.com", "81922222222");
 
 		String json = objectMapper.writeValueAsString(dto);
@@ -91,7 +91,7 @@ public class CustomerUpdateByIdIntegrationTest {
 		Customer customer = new Customer(null, "nome1", "26516743460", "email1@gmail.com", "81911111111", null);
 
 		String id = customerRepository.save(customer).getId();
-		
+
 		CustomerRequestDTO dto = new CustomerRequestDTO("", "83712704453", "email2@gmail.com", "81922222222");
 
 		String json = objectMapper.writeValueAsString(dto);
@@ -102,11 +102,28 @@ public class CustomerUpdateByIdIntegrationTest {
 	}
 
 	@Test
+	void shouldNotUpdateCustomerByIdWhenNameContains101CharactersAndReturnStatus400() throws Exception {
+		Customer customer = new Customer(null, "nome1", "26516743460", "email1@gmail.com", "81911111111", null);
+
+		String id = customerRepository.save(customer).getId();
+
+		CustomerRequestDTO dto = new CustomerRequestDTO(
+				"nome1111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111",
+				"83712704453", "email2@gmail.com", "81922222222");
+
+		String json = objectMapper.writeValueAsString(dto);
+
+		mockMvc.perform(put("/customers/update-customer-by-id/" + id).contentType(MediaType.APPLICATION_JSON)
+				.accept(MediaType.APPLICATION_JSON).content(json)).andExpect(status().isBadRequest())
+				.andExpect(jsonPath("$.name").value("Nome deve ter até 100 caracteres.")).andDo(print());
+	}
+
+	@Test
 	void shouldNotUpdateCustomerByIdWhenNameIsRepeatedAndReturnStatus400() throws Exception {
 		Customer customer = new Customer(null, "nome1", "26516743460", "email1@gmail.com", "81911111111", null);
 
 		String id = customerRepository.save(customer).getId();
-		
+
 		CustomerRequestDTO dto = new CustomerRequestDTO("nome1", "83712704453", "email2@gmail.com", "81922222222");
 
 		String json = objectMapper.writeValueAsString(dto);
@@ -122,7 +139,7 @@ public class CustomerUpdateByIdIntegrationTest {
 		Customer customer = new Customer(null, "nome1", "26516743460", "email1@gmail.com", "81911111111", null);
 
 		String id = customerRepository.save(customer).getId();
-		
+
 		CustomerRequestDTO dto = new CustomerRequestDTO("nome2", null, "email2@gmail.com", "81922222222");
 
 		String json = objectMapper.writeValueAsString(dto);
@@ -137,7 +154,7 @@ public class CustomerUpdateByIdIntegrationTest {
 		Customer customer = new Customer(null, "nome1", "26516743460", "email1@gmail.com", "81911111111", null);
 
 		String id = customerRepository.save(customer).getId();
-		
+
 		CustomerRequestDTO dto = new CustomerRequestDTO("nome2", "", "email2@gmail.com", "81922222222");
 
 		String json = objectMapper.writeValueAsString(dto);
@@ -152,7 +169,7 @@ public class CustomerUpdateByIdIntegrationTest {
 		Customer customer = new Customer(null, "nome1", "26516743460", "email1@gmail.com", "81911111111", null);
 
 		String id = customerRepository.save(customer).getId();
-		
+
 		CustomerRequestDTO dto = new CustomerRequestDTO("nome2", "83712704451", "email2@gmail.com", "81922222222");
 
 		String json = objectMapper.writeValueAsString(dto);
@@ -167,7 +184,7 @@ public class CustomerUpdateByIdIntegrationTest {
 		Customer customer = new Customer(null, "nome1", "23896519000103", "email1@gmail.com", "81911111111", null);
 
 		String id = customerRepository.save(customer).getId();
-		
+
 		CustomerRequestDTO dto = new CustomerRequestDTO("nome2", "29822617000171", "email2@gmail.com", "81922222222");
 
 		String json = objectMapper.writeValueAsString(dto);
@@ -176,7 +193,7 @@ public class CustomerUpdateByIdIntegrationTest {
 				.accept(MediaType.APPLICATION_JSON).content(json)).andExpect(status().isBadRequest())
 				.andExpect(jsonPath("$.message").value("Documento deve ser CPF ou CNPJ valido.")).andDo(print());
 	}
-	
+
 	@Test
 	void shouldNotUpdateCustomerByIdWhenDocumentIsRepeatedAndReturnStatus400() throws Exception {
 		Customer customer = new Customer(null, "nome1", "26516743460", "email1@gmail.com", "81911111111", null);
@@ -192,7 +209,7 @@ public class CustomerUpdateByIdIntegrationTest {
 				.andExpect(jsonPath("$.message").value("Nome, documento, email ou telefone não deve ser repetido."))
 				.andDo(print());
 	}
-	
+
 	@Test
 	void shouldNotUpdateCustomerByIdWhenEmailIsNullAndReturnStatus400() throws Exception {
 		Customer customer = new Customer(null, "nome1", "26516743460", "email1@gmail.com", "81911111111", null);
@@ -205,10 +222,9 @@ public class CustomerUpdateByIdIntegrationTest {
 
 		mockMvc.perform(put("/customers/update-customer-by-id/" + id).contentType(MediaType.APPLICATION_JSON)
 				.accept(MediaType.APPLICATION_JSON).content(json)).andExpect(status().isBadRequest())
-				.andExpect(jsonPath("$.email").value("Email deve ser obrigatório."))
-				.andDo(print());
+				.andExpect(jsonPath("$.email").value("Email deve ser obrigatório.")).andDo(print());
 	}
-	
+
 	@Test
 	void shouldNotUpdateCustomerByIdWhenEmailIsEmptyAndReturnStatus400() throws Exception {
 		Customer customer = new Customer(null, "nome1", "26516743460", "email1@gmail.com", "81911111111", null);
@@ -221,10 +237,9 @@ public class CustomerUpdateByIdIntegrationTest {
 
 		mockMvc.perform(put("/customers/update-customer-by-id/" + id).contentType(MediaType.APPLICATION_JSON)
 				.accept(MediaType.APPLICATION_JSON).content(json)).andExpect(status().isBadRequest())
-				.andExpect(jsonPath("$.email").value("Email deve ser obrigatório."))
-				.andDo(print());
+				.andExpect(jsonPath("$.email").value("Email deve ser obrigatório.")).andDo(print());
 	}
-	
+
 	@Test
 	void shouldNotUpdateCustomerByIdWhenEmailIsInvalidAndReturnStatus400() throws Exception {
 		Customer customer = new Customer(null, "nome1", "26516743460", "email1@gmail.com", "81911111111", null);
@@ -237,10 +252,9 @@ public class CustomerUpdateByIdIntegrationTest {
 
 		mockMvc.perform(put("/customers/update-customer-by-id/" + id).contentType(MediaType.APPLICATION_JSON)
 				.accept(MediaType.APPLICATION_JSON).content(json)).andExpect(status().isBadRequest())
-				.andExpect(jsonPath("$.email").value("Email deve ser valido."))
-				.andDo(print());
+				.andExpect(jsonPath("$.email").value("Email deve ser valido.")).andDo(print());
 	}
-	
+
 	@Test
 	void shouldNotUpdateCustomerByIdWhenEmailIsRepeatedAndReturnStatus400() throws Exception {
 		Customer customer = new Customer(null, "nome1", "26516743460", "email1@gmail.com", "81911111111", null);
@@ -256,7 +270,7 @@ public class CustomerUpdateByIdIntegrationTest {
 				.andExpect(jsonPath("$.message").value("Nome, documento, email ou telefone não deve ser repetido."))
 				.andDo(print());
 	}
-	
+
 	@Test
 	void shouldNotUpdateCustomerByIdWhenPhoneIsNullAndReturnStatus400() throws Exception {
 		Customer customer = new Customer(null, "nome1", "26516743460", "email1@gmail.com", "81911111111", null);
@@ -269,10 +283,9 @@ public class CustomerUpdateByIdIntegrationTest {
 
 		mockMvc.perform(put("/customers/update-customer-by-id/" + id).contentType(MediaType.APPLICATION_JSON)
 				.accept(MediaType.APPLICATION_JSON).content(json)).andExpect(status().isBadRequest())
-				.andExpect(jsonPath("$.phone").value("Telefone deve ser obrigatório."))
-				.andDo(print());
+				.andExpect(jsonPath("$.phone").value("Telefone deve ser obrigatório.")).andDo(print());
 	}
-	
+
 	@Test
 	void shouldNotUpdateCustomerByIdWhenPhoneIsEmptyAndReturnStatus400() throws Exception {
 		Customer customer = new Customer(null, "nome1", "26516743460", "email1@gmail.com", "81911111111", null);
@@ -285,26 +298,25 @@ public class CustomerUpdateByIdIntegrationTest {
 
 		mockMvc.perform(put("/customers/update-customer-by-id/" + id).contentType(MediaType.APPLICATION_JSON)
 				.accept(MediaType.APPLICATION_JSON).content(json)).andExpect(status().isBadRequest())
-				.andExpect(jsonPath("$.phone").value("Telefone deve ser obrigatório."))
-				.andDo(print());
+				.andExpect(jsonPath("$.phone").value("Telefone deve ser obrigatório.")).andDo(print());
 	}
-	
+
 	@Test
 	void shouldNotUpdateCustomerByIdWhenPhoneContains31CharactersAndReturnStatus400() throws Exception {
 		Customer customer = new Customer(null, "nome1", "26516743460", "email1@gmail.com", "81911111111", null);
 
 		String id = customerRepository.save(customer).getId();
 
-		CustomerRequestDTO dto = new CustomerRequestDTO("nome2", "83712704453", "email2@gmail.com", "8192222222222222222222222222222");
+		CustomerRequestDTO dto = new CustomerRequestDTO("nome2", "83712704453", "email2@gmail.com",
+				"8192222222222222222222222222222");
 
 		String json = objectMapper.writeValueAsString(dto);
 
 		mockMvc.perform(put("/customers/update-customer-by-id/" + id).contentType(MediaType.APPLICATION_JSON)
 				.accept(MediaType.APPLICATION_JSON).content(json)).andExpect(status().isBadRequest())
-				.andExpect(jsonPath("$.phone").value("Telefone deve ter até 30 caracteres."))
-				.andDo(print());
+				.andExpect(jsonPath("$.phone").value("Telefone deve ter até 30 caracteres.")).andDo(print());
 	}
-	
+
 	@Test
 	void shouldNotUpdateCustomerByIdWhenPhoneIsRepeatedAndReturnStatus400() throws Exception {
 		Customer customer = new Customer(null, "nome1", "26516743460", "email1@gmail.com", "81911111111", null);

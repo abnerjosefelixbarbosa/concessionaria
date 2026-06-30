@@ -74,6 +74,19 @@ public class CustomerRegisterIntegrationTest {
 	}
 
 	@Test
+	void shouldNotRegisterCustomerWhenNameContains101CharactersAndReturnStatus400() throws Exception {
+		CustomerRequestDTO dto = new CustomerRequestDTO(
+				"nome1111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111",
+				"26516743460", "email1@gmail.com", "81911111111");
+
+		String json = objectMapper.writeValueAsString(dto);
+
+		mockMvc.perform(post("/customers/register-customer").contentType(MediaType.APPLICATION_JSON)
+				.accept(MediaType.APPLICATION_JSON).content(json)).andExpect(status().isBadRequest())
+				.andExpect(jsonPath("$.name").value("Nome deve ter até 100 caracteres.")).andDo(print());
+	}
+
+	@Test
 	void shouldNotRegisterCustomerWhenNameIsRepeatedAndReturnStatus400() throws Exception {
 		Customer customer = new Customer(null, "nome1", "26516743460", "email1@gmail.com", "81911111111", null);
 
@@ -132,7 +145,7 @@ public class CustomerRegisterIntegrationTest {
 				.accept(MediaType.APPLICATION_JSON).content(json)).andExpect(status().isBadRequest())
 				.andExpect(jsonPath("$.message").value("Documento deve ser CPF ou CNPJ valido.")).andDo(print());
 	}
-	
+
 	@Test
 	void shouldNotRegisterCustomerWhenDocumentIsRepeatedAndReturnStatus400() throws Exception {
 		Customer customer = new Customer(null, "nome1", "26516743460", "email1@gmail.com", "81911111111", null);
@@ -148,7 +161,7 @@ public class CustomerRegisterIntegrationTest {
 				.andExpect(jsonPath("$.message").value("Nome, documento, email ou telefone não deve ser repetido."))
 				.andDo(print());
 	}
-	
+
 	@Test
 	void shouldNotRegisterCustomerWhenEmailIsNullAndReturnStatus400() throws Exception {
 		CustomerRequestDTO dto = new CustomerRequestDTO("nome1", "26516743460", null, "81911111111");
@@ -157,10 +170,9 @@ public class CustomerRegisterIntegrationTest {
 
 		mockMvc.perform(post("/customers/register-customer").contentType(MediaType.APPLICATION_JSON)
 				.accept(MediaType.APPLICATION_JSON).content(json)).andExpect(status().isBadRequest())
-				.andExpect(jsonPath("$.email").value("Email deve ser obrigatório."))
-				.andDo(print());
+				.andExpect(jsonPath("$.email").value("Email deve ser obrigatório.")).andDo(print());
 	}
-	
+
 	@Test
 	void shouldNotRegisterCustomerWhenEmailIsEmptyAndReturnStatus400() throws Exception {
 		CustomerRequestDTO dto = new CustomerRequestDTO("nome1", "26516743460", "", "81911111111");
@@ -169,10 +181,9 @@ public class CustomerRegisterIntegrationTest {
 
 		mockMvc.perform(post("/customers/register-customer").contentType(MediaType.APPLICATION_JSON)
 				.accept(MediaType.APPLICATION_JSON).content(json)).andExpect(status().isBadRequest())
-				.andExpect(jsonPath("$.email").value("Email deve ser obrigatório."))
-				.andDo(print());
+				.andExpect(jsonPath("$.email").value("Email deve ser obrigatório.")).andDo(print());
 	}
-	
+
 	@Test
 	void shouldNotRegisterCustomerWhenEmailIsInvalidAndReturnStatus400() throws Exception {
 		CustomerRequestDTO dto = new CustomerRequestDTO("nome1", "26516743460", "email1gmail.com", "81911111111");
@@ -181,10 +192,9 @@ public class CustomerRegisterIntegrationTest {
 
 		mockMvc.perform(post("/customers/register-customer").contentType(MediaType.APPLICATION_JSON)
 				.accept(MediaType.APPLICATION_JSON).content(json)).andExpect(status().isBadRequest())
-				.andExpect(jsonPath("$.email").value("Email deve ser valido."))
-				.andDo(print());
+				.andExpect(jsonPath("$.email").value("Email deve ser valido.")).andDo(print());
 	}
-	
+
 	@Test
 	void shouldNotRegisterCustomerWhenEmailIsRepeatedAndReturnStatus400() throws Exception {
 		Customer customer = new Customer(null, "nome1", "26516743460", "email1@gmail.com", "81911111111", null);
@@ -200,7 +210,7 @@ public class CustomerRegisterIntegrationTest {
 				.andExpect(jsonPath("$.message").value("Nome, documento, email ou telefone não deve ser repetido."))
 				.andDo(print());
 	}
-	
+
 	@Test
 	void shouldNotRegisterCustomerWhenPhoneIsNullAndReturnStatus400() throws Exception {
 		CustomerRequestDTO dto = new CustomerRequestDTO("nome1", "26516743460", "email1@gmail.com", null);
@@ -209,10 +219,9 @@ public class CustomerRegisterIntegrationTest {
 
 		mockMvc.perform(post("/customers/register-customer").contentType(MediaType.APPLICATION_JSON)
 				.accept(MediaType.APPLICATION_JSON).content(json)).andExpect(status().isBadRequest())
-				.andExpect(jsonPath("$.phone").value("Telefone deve ser obrigatório."))
-				.andDo(print());
+				.andExpect(jsonPath("$.phone").value("Telefone deve ser obrigatório.")).andDo(print());
 	}
-	
+
 	@Test
 	void shouldNotRegisterCustomerWhenPhoneIsEmptyAndReturnStatus400() throws Exception {
 		CustomerRequestDTO dto = new CustomerRequestDTO("nome1", "26516743460", "email1@gmail.com", "");
@@ -221,22 +230,21 @@ public class CustomerRegisterIntegrationTest {
 
 		mockMvc.perform(post("/customers/register-customer").contentType(MediaType.APPLICATION_JSON)
 				.accept(MediaType.APPLICATION_JSON).content(json)).andExpect(status().isBadRequest())
-				.andExpect(jsonPath("$.phone").value("Telefone deve ser obrigatório."))
-				.andDo(print());
+				.andExpect(jsonPath("$.phone").value("Telefone deve ser obrigatório.")).andDo(print());
 	}
-	
+
 	@Test
 	void shouldNotRegisterCustomerWhenPhoneContains31CharactersAndReturnStatus400() throws Exception {
-		CustomerRequestDTO dto = new CustomerRequestDTO("nome1", "26516743460", "email1@gmail.com", "8191111111111111111111111111111");
+		CustomerRequestDTO dto = new CustomerRequestDTO("nome1", "26516743460", "email1@gmail.com",
+				"8191111111111111111111111111111");
 
 		String json = objectMapper.writeValueAsString(dto);
 
 		mockMvc.perform(post("/customers/register-customer").contentType(MediaType.APPLICATION_JSON)
 				.accept(MediaType.APPLICATION_JSON).content(json)).andExpect(status().isBadRequest())
-				.andExpect(jsonPath("$.phone").value("Telefone deve ter até 30 caracteres."))
-				.andDo(print());
+				.andExpect(jsonPath("$.phone").value("Telefone deve ter até 30 caracteres.")).andDo(print());
 	}
-	
+
 	@Test
 	void shouldNotRegisterCustomerWhenPhoneIsRepeatedAndReturnStatus400() throws Exception {
 		Customer customer = new Customer(null, "nome1", "26516743460", "email1@gmail.com", "81911111111", null);
