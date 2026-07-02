@@ -31,7 +31,7 @@ public class EmployeeServiceImpl implements EmployeeService {
 		Employee employee = EmployeeMapper.toEmployee(dto);
 
 		validateEmployee(employee);
-		
+
 		Employee employeeSaved = employeeRepository.save(employee);
 
 		return EmployeeMapper.toEmployeeResponseDTO(employeeSaved);
@@ -47,7 +47,7 @@ public class EmployeeServiceImpl implements EmployeeService {
 				.orElseThrow(() -> new NotFoundException("Id deve ser existente."));
 
 		BeanUtils.copyProperties(employee, employeeFound, "id");
-		
+
 		employeeRepository.save(employeeFound);
 
 		return EmployeeMapper.toEmployeeResponseDTO(employeeFound);
@@ -62,9 +62,9 @@ public class EmployeeServiceImpl implements EmployeeService {
 
 	public Page<EmployeeResponseDTO> listEmployees(String name, EmployeeStatus employeeStatus,
 			EmployeeType employeeType, Pageable pageable) {
+		Page<Employee> page = employeeRepository.listEmployees(name, employeeStatus, employeeType, pageable);
 
-		return employeeRepository.listEmployees(name, employeeStatus, employeeType, pageable)
-				.map(EmployeeMapper::toEmployeeResponseDTO);
+		return page.map(EmployeeMapper::toEmployeeResponseDTO);
 	}
 
 	private void validateEmployee(Employee employee) {

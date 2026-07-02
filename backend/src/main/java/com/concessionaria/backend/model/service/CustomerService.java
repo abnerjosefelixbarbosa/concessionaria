@@ -1,5 +1,8 @@
 package com.concessionaria.backend.model.service;
 
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+
 import com.concessionaria.backend.model.dto.CustomerRequestDTO;
 import com.concessionaria.backend.model.dto.CustomerResponseDTO;
 
@@ -11,4 +14,6 @@ public interface CustomerService {
 	CustomerResponseDTO updateCustomerById(String id, @Valid CustomerRequestDTO dto);
 
 	CustomerResponseDTO findCustomerById(String id);
+
+	Page<CustomerResponseDTO> listCustomers(String name, Pageable pageable);
 }

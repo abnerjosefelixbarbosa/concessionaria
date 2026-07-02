@@ -1,5 +1,7 @@
 package com.concessionaria.backend.controller;
 
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -8,6 +10,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -62,6 +65,18 @@ public class CustomerController {
 	@GetMapping(value = "/find-customer-by-id/{id}")
 	public ResponseEntity<CustomerResponseDTO> findCustomerById(@PathVariable String id) {
 		CustomerResponseDTO response = customerService.findCustomerById(id);
+
+		return ResponseEntity.status(HttpStatus.OK).body(response);
+	}
+	
+	//@ApiResponses(value = { @ApiResponse(responseCode = "200", description = "procura um cliente pelo id."),
+	//		@ApiResponse(responseCode = "400", description = "retorna um erro de requesição."),
+	//		@ApiResponse(responseCode = "404", description = "retorna um erro de conteudo não encontrado.") })
+	@ResponseStatus(value = HttpStatus.OK)
+	//@Operation(summary = "procura cliente pelo id.", description = "procura um cliente pelo id.")
+	@GetMapping(value = "/list-customers")
+	public ResponseEntity<Page<CustomerResponseDTO>> listCustomers(@RequestParam(required = false) String name, Pageable pageable) {
+		Page<CustomerResponseDTO> response = customerService.listCustomers(name, pageable);
 
 		return ResponseEntity.status(HttpStatus.OK).body(response);
 	}
