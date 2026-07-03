@@ -68,7 +68,7 @@ public class EmployeeController {
 		return ResponseEntity.status(HttpStatus.OK).body(response);
 	}
 	
-	@PatchMapping(value = "/update-employee-matriculation-by-id/{id}")
+	//@PatchMapping(value = "/update-employee-matriculation-by-id/{id}")
 	public ResponseEntity<EmployeeResponseDTO> UpdateEmployeeMatriculationById(@PathVariable String id,
 			@RequestBody @Valid EmployeeRequestDTO dto) {
 		EmployeeResponseDTO response = employeeService.updateEmployeeMatriculationById(id, dto);
@@ -76,7 +76,7 @@ public class EmployeeController {
 		return ResponseEntity.status(HttpStatus.OK).body(response);
 	}
 	
-	@PatchMapping(value = "/update-employee-email-by-id/{id}")
+	//@PatchMapping(value = "/update-employee-email-by-id/{id}")
 	public ResponseEntity<EmployeeResponseDTO> UpdateEmployeeEmailById(@PathVariable String id,
 			@RequestBody @Valid EmployeeRequestDTO dto) {
 		EmployeeResponseDTO response = employeeService.updateEmployeeEmailById(id, dto);
@@ -84,7 +84,7 @@ public class EmployeeController {
 		return ResponseEntity.status(HttpStatus.OK).body(response);
 	}
 	
-	@PatchMapping(value = "/update-employee-phone-by-id/{id}")
+	//@PatchMapping(value = "/update-employee-phone-by-id/{id}")
 	public ResponseEntity<EmployeeResponseDTO> UpdateEmployeePhoneById(@PathVariable String id,
 			@RequestBody @Valid EmployeeRequestDTO dto) {
 		EmployeeResponseDTO response = employeeService.updateEmployeePhoneById(id, dto);
@@ -92,7 +92,7 @@ public class EmployeeController {
 		return ResponseEntity.status(HttpStatus.OK).body(response);
 	}
 	
-	@PatchMapping(value = "/update-employee-cpf-by-id/{id}")
+	//@PatchMapping(value = "/update-employee-cpf-by-id/{id}")
 	public ResponseEntity<EmployeeResponseDTO> UpdateEmployeeCPFById(@PathVariable String id,
 			@RequestBody @Valid EmployeeRequestDTO dto) {
 		EmployeeResponseDTO response = employeeService.updateEmployeeCPFById(id, dto);
