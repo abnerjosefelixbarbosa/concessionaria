@@ -52,6 +52,86 @@ public class EmployeeServiceImpl implements EmployeeService {
 
 		return EmployeeMapper.toEmployeeResponseDTO(employeeFound);
 	}
+	
+	@Transactional
+	public EmployeeResponseDTO updateEmployeeNameById(String id, EmployeeRequestDTO dto) {
+		Employee employee = EmployeeMapper.toEmployee(dto);
+
+		validateEmployee(employee);
+
+		Employee employeeFound = employeeRepository.findById(id)
+				.orElseThrow(() -> new NotFoundException("Id deve ser existente."));
+
+		BeanUtils.copyProperties(employee, employeeFound, "id", "matriculation", "email", "phone", "cpf");
+
+		employeeRepository.save(employeeFound);
+
+		return EmployeeMapper.toEmployeeResponseDTO(employeeFound);
+	}
+	
+	@Transactional
+	public EmployeeResponseDTO updateEmployeeMatriculationById(String id, EmployeeRequestDTO dto) {
+		Employee employee = EmployeeMapper.toEmployee(dto);
+
+		validateEmployee(employee);
+
+		Employee employeeFound = employeeRepository.findById(id)
+				.orElseThrow(() -> new NotFoundException("Id deve ser existente."));
+
+		BeanUtils.copyProperties(employee, employeeFound, "id", "name", "email", "phone", "cpf");
+
+		employeeRepository.save(employeeFound);
+
+		return EmployeeMapper.toEmployeeResponseDTO(employeeFound);
+	}
+	
+	@Transactional
+	public EmployeeResponseDTO updateEmployeeEmailById(String id, EmployeeRequestDTO dto) {
+		Employee employee = EmployeeMapper.toEmployee(dto);
+
+		validateEmployee(employee);
+
+		Employee employeeFound = employeeRepository.findById(id)
+				.orElseThrow(() -> new NotFoundException("Id deve ser existente."));
+
+		BeanUtils.copyProperties(employee, employeeFound, "id", "name", "matriculation", "phone", "cpf");
+
+		employeeRepository.save(employeeFound);
+
+		return EmployeeMapper.toEmployeeResponseDTO(employeeFound);
+	}
+	
+	@Transactional
+	public EmployeeResponseDTO updateEmployeePhoneById(String id, EmployeeRequestDTO dto) {
+		Employee employee = EmployeeMapper.toEmployee(dto);
+
+		validateEmployee(employee);
+
+		Employee employeeFound = employeeRepository.findById(id)
+				.orElseThrow(() -> new NotFoundException("Id deve ser existente."));
+
+		BeanUtils.copyProperties(employee, employeeFound, "id", "name", "matriculation", "email", "cpf");
+
+		employeeRepository.save(employeeFound);
+
+		return EmployeeMapper.toEmployeeResponseDTO(employeeFound);
+	}
+	
+	@Transactional
+	public EmployeeResponseDTO updateEmployeeCPFById(String id, EmployeeRequestDTO dto) {
+		Employee employee = EmployeeMapper.toEmployee(dto);
+
+		validateEmployee(employee);
+
+		Employee employeeFound = employeeRepository.findById(id)
+				.orElseThrow(() -> new NotFoundException("Id deve ser existente."));
+
+		BeanUtils.copyProperties(employee, employeeFound, "id", "name", "matriculation", "email", "phone");
+
+		employeeRepository.save(employeeFound);
+
+		return EmployeeMapper.toEmployeeResponseDTO(employeeFound);
+	}
 
 	public EmployeeResponseDTO findEmployeeById(String id) {
 		Employee employeeFound = employeeRepository.findById(id)

@@ -12,6 +12,16 @@ public interface EmployeeService {
 	EmployeeResponseDTO registerEmployee(EmployeeRequestDTO dto);
 
 	EmployeeResponseDTO updateEmployeeById(String id, EmployeeRequestDTO dto);
+	
+	EmployeeResponseDTO updateEmployeeNameById(String id, EmployeeRequestDTO dto);
+	
+	EmployeeResponseDTO updateEmployeeMatriculationById(String id, EmployeeRequestDTO dto);
+	
+	EmployeeResponseDTO updateEmployeeEmailById(String id, EmployeeRequestDTO dto);
+	
+	EmployeeResponseDTO updateEmployeePhoneById(String id, EmployeeRequestDTO dto);
+	
+    EmployeeResponseDTO updateEmployeeCPFById(String id, EmployeeRequestDTO dto);
 
 	EmployeeResponseDTO findEmployeeById(String id);
 
