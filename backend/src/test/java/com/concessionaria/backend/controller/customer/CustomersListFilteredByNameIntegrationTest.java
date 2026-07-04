@@ -21,7 +21,7 @@ import com.concessionaria.backend.model.repository.CustomerRepository;
 @SpringBootTest
 @ActiveProfiles("test")
 @AutoConfigureMockMvc
-public class CustomerListCustomersIntegrationTest {
+public class CustomersListFilteredByNameIntegrationTest {
 	@Autowired
 	private MockMvc mockMvc;
 	@Autowired
@@ -38,7 +38,7 @@ public class CustomerListCustomersIntegrationTest {
 	}
 
 	@Test
-	void shouldListCustomersAndReturnStatus200() throws Exception {
+	void shouldListCustomersFilteredByNameAndReturnStatus200() throws Exception {
 		Customer customer1 = new Customer(null, "nome1", "99863221465", "email1@gmail.com", "81911111111", null);
 
 		Customer customer2 = new Customer(null, "nome2", "81899898000183", "email2@gmail.com", "81922222222", null);
@@ -47,13 +47,13 @@ public class CustomerListCustomersIntegrationTest {
 
 		customerRepository.save(customer2);
 
-		mockMvc.perform(get("/customers/list-customers").contentType(MediaType.APPLICATION_JSON)
+		mockMvc.perform(get("/customers/list-customers-filtered-by-name").contentType(MediaType.APPLICATION_JSON)
 				.accept(MediaType.APPLICATION_JSON)).andExpect(jsonPath("$.totalElements").value(2))
 				.andExpect(status().isOk()).andDo(print());
 	}
 
 	@Test
-	void shouldListCustomersWhenNameContainsNomeAndReturnStatus200() throws Exception {
+	void shouldListCustomersFilteredByNameWhenNameContainsNomeAndReturnStatus200() throws Exception {
 		Customer customer1 = new Customer(null, "nome1", "99863221465", "email1@gmail.com", "81911111111", null);
 
 		Customer customer2 = new Customer(null, "nome2", "81899898000183", "email2@gmail.com", "81922222222", null);
@@ -66,7 +66,7 @@ public class CustomerListCustomersIntegrationTest {
 
 		customerRepository.save(customer3);
 
-		mockMvc.perform(get("/customers/list-customers").queryParam("name", "nome")
+		mockMvc.perform(get("/customers/list-customers-filtered-by-name").queryParam("name", "nome")
 				.contentType(MediaType.APPLICATION_JSON).accept(MediaType.APPLICATION_JSON))
 				.andExpect(jsonPath("$.totalElements").value(3)).andExpect(status().isOk()).andDo(print());
 	}
