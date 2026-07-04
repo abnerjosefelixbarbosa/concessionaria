@@ -15,5 +15,5 @@ public interface CustomerService {
 
 	CustomerResponseDTO findCustomerById(String id);
 
-	Page<CustomerResponseDTO> listCustomers(String name, Pageable pageable);
+	Page<CustomerResponseDTO> listCustomersFilteredByName(String name, Pageable pageable);
 }

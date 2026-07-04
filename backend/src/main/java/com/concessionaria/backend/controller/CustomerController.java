@@ -69,14 +69,14 @@ public class CustomerController {
 		return ResponseEntity.status(HttpStatus.OK).body(response);
 	}
 	
-	//@ApiResponses(value = { @ApiResponse(responseCode = "200", description = "procura um cliente pelo id."),
-	//		@ApiResponse(responseCode = "400", description = "retorna um erro de requesição."),
-	//		@ApiResponse(responseCode = "404", description = "retorna um erro de conteudo não encontrado.") })
+	@ApiResponses(value = { @ApiResponse(responseCode = "200", description = "lista varios clientes filtrados pelo nome."),
+			@ApiResponse(responseCode = "400", description = "retorna um erro de requesição."),
+			@ApiResponse(responseCode = "404", description = "retorna um erro de conteudo não encontrado.") })
 	@ResponseStatus(value = HttpStatus.OK)
-	//@Operation(summary = "procura cliente pelo id.", description = "procura um cliente pelo id.")
-	@GetMapping(value = "/list-customers")
-	public ResponseEntity<Page<CustomerResponseDTO>> listCustomers(@RequestParam(required = false) String name, Pageable pageable) {
-		Page<CustomerResponseDTO> response = customerService.listCustomers(name, pageable);
+	@Operation(summary = "lista clientes filtrados pelo nome.", description = "lista varios clientes filtrados pelo nome.")
+	@GetMapping(value = "/list-customers-filtered-by-name")
+	public ResponseEntity<Page<CustomerResponseDTO>> listCustomersFilteredByName(@RequestParam(required = false) String name, Pageable pageable) {
+		Page<CustomerResponseDTO> response = customerService.listCustomersFilteredByName(name, pageable);
 
 		return ResponseEntity.status(HttpStatus.OK).body(response);
 	}
