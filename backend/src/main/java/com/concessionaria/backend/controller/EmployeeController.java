@@ -72,17 +72,18 @@ public class EmployeeController {
 	}
 
 	@ApiResponses(value = {
-			@ApiResponse(responseCode = "200", description = "lista mais de um funcionários filtrados pelo nome, status do funcionário ou tipo do funcionário."),
+			@ApiResponse(responseCode = "200", description = "lista varios funcionários filtrados pelo nome, status do funcionário ou tipo do funcionário."),
 			@ApiResponse(responseCode = "400", description = "retorna um erro de requesição."),
 			@ApiResponse(responseCode = "404", description = "retorna um erro de conteudo não encontrado."), })
 	@ResponseStatus(value = HttpStatus.OK)
-	@Operation(summary = "lista funcionários filtrados pelo nome, status do funcionário ou tipo do funcionário.", description = "lista mais de um funcionários filtrados pelo nome, status do funcionário ou tipo do funcionário.")
-	@GetMapping(value = "/list-employees")
-	public ResponseEntity<Page<EmployeeResponseDTO>> listEmployees(Pageable pageable,
-			@RequestParam(required = false) String name, @RequestParam(required = false) EmployeeStatus employeeStatus,
+	@Operation(summary = "lista funcionários filtrados pelo nome, status do funcionário ou tipo do funcionário.", description = "lista varios funcionários filtrados pelo nome, status do funcionário ou tipo do funcionário.")
+	@GetMapping(value = "/list-employees-filtered-by-name-employee-status-or-employee-type")
+	public ResponseEntity<Page<EmployeeResponseDTO>> listEmployeesFilteredByNameEmployeeStatusOrEmployeeType(
+			Pageable pageable, @RequestParam(required = false) String name,
+			@RequestParam(required = false) EmployeeStatus employeeStatus,
 			@RequestParam(required = false) EmployeeType employeeType) {
-		Page<EmployeeResponseDTO> response = employeeService.listEmployees(name, employeeStatus, employeeType,
-				pageable);
+		Page<EmployeeResponseDTO> response = employeeService
+				.listEmployeesFilteredByNameEmployeeStatusOrEmployeeType(name, employeeStatus, employeeType, pageable);
 
 		return ResponseEntity.status(HttpStatus.OK).body(response);
 	}

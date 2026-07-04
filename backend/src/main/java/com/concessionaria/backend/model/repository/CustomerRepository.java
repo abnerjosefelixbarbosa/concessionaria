@@ -18,5 +18,5 @@ public interface CustomerRepository extends JpaRepository<Customer, String> {
 			FROM Customer c
 			WHERE (:name IS NULL OR LOWER(c.name) LIKE LOWER(CONCAT('%', :name, '%')))
 			""")
-	Page<Customer> listCustomers(@Param("name") String name, Pageable pageable);
+	Page<Customer> listCustomersFilteredByName(@Param("name") String name, Pageable pageable);
 }

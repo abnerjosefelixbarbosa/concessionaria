@@ -26,7 +26,7 @@ import com.concessionaria.backend.model.repository.EmployeeRepository;
 @SpringBootTest
 @ActiveProfiles("test")
 @AutoConfigureMockMvc
-public class EmployeeListIntegrationTest {
+public class EmployeesListFilteredByNameEmployeeStatusOrEmployeeTypeIntegrationTest {
 	@Autowired
 	private MockMvc mockMvc;
 	@Autowired
@@ -43,7 +43,7 @@ public class EmployeeListIntegrationTest {
 	}
 	
 	@Test
-	void shouldListEmployeesAndReturnStatus200() throws Exception {
+	void shouldListEmployeesFilteredByNameEmployeeStatusOrEmployeeTypeAndReturnStatus200() throws Exception {
 		Employee employee1 = new Employee(null, "name1", "1111111111", "email1@gmail.com", "81911111111",
 				LocalDate.now().withYear(1991), "09458274400", new BigDecimal("1500.00"), 100, EmployeeStatus.ACTIVE,
 				EmployeeType.SALLER, null);
@@ -64,13 +64,13 @@ public class EmployeeListIntegrationTest {
 
 		employeeRepository.saveAll(employees);
 
-		mockMvc.perform(get("/employees/list-employees").contentType(MediaType.APPLICATION_JSON)
+		mockMvc.perform(get("/employees/list-employees-filtered-by-name-employee-status-or-employee-type").contentType(MediaType.APPLICATION_JSON)
 				.accept(MediaType.APPLICATION_JSON)).andExpect(jsonPath("$.totalElements").value(4))
 				.andExpect(status().isOk()).andDo(print());
 	}
 
 	@Test
-	void shouldListEmployeesWhenNameContainsNameAndReturnStatus200() throws Exception {
+	void shouldListEmployeesFilteredByNameEmployeeStatusOrEmployeeTypeWhenNameContainsNameAndReturnStatus200() throws Exception {
 		Employee employee1 = new Employee(null, "name1", "1111111111", "email1@gmail.com", "81911111111",
 				LocalDate.now().withYear(1991), "09458274400", new BigDecimal("1500.00"), 100, EmployeeStatus.ACTIVE,
 				EmployeeType.SALLER, null);
@@ -91,13 +91,13 @@ public class EmployeeListIntegrationTest {
 
 		employeeRepository.saveAll(employees);
 
-		mockMvc.perform(get("/employees/list-employees").queryParam("name", "name")
+		mockMvc.perform(get("/employees/list-employees-filtered-by-name-employee-status-or-employee-type").queryParam("name", "name")
 				.contentType(MediaType.APPLICATION_JSON).accept(MediaType.APPLICATION_JSON))
 				.andExpect(jsonPath("$.totalElements").value(4)).andExpect(status().isOk()).andDo(print());
 	}
 	
 	@Test
-	void shouldListEmployeesWhenEmployeeStatusIsActiveAndReturnStatus200() throws Exception {
+	void shouldListEmployeesFilteredByNameEmployeeStatusOrEmployeeTypeWhenEmployeeStatusIsActiveAndReturnStatus200() throws Exception {
 		Employee employee1 = new Employee(null, "name1", "1111111111", "email1@gmail.com", "81911111111",
 				LocalDate.now().withYear(1991), "09458274400", new BigDecimal("1500.00"), 100, EmployeeStatus.ACTIVE,
 				EmployeeType.SALLER, null);
@@ -118,13 +118,13 @@ public class EmployeeListIntegrationTest {
 
 		employeeRepository.saveAll(employees);
 
-		mockMvc.perform(get("/employees/list-employees").queryParam("employeeStatus", "ACTIVE")
+		mockMvc.perform(get("/employees/list-employees-filtered-by-name-employee-status-or-employee-type").queryParam("employeeStatus", "ACTIVE")
 				.contentType(MediaType.APPLICATION_JSON).accept(MediaType.APPLICATION_JSON))
 				.andExpect(jsonPath("$.totalElements").value(4)).andExpect(status().isOk()).andDo(print());
 	}
 
 	@Test
-	void shouldListEmployeesWhenEmployeeTypeIsSallerAndReturnStatus200() throws Exception {
+	void shouldListEmployeesFilteredByNameEmployeeStatusOrEmployeeTypeWhenEmployeeTypeIsSallerAndReturnStatus200() throws Exception {
 		Employee employee1 = new Employee(null, "name1", "1111111111", "email1@gmail.com", "81911111111",
 				LocalDate.now().withYear(1991), "09458274400", new BigDecimal("1500.00"), 100, EmployeeStatus.ACTIVE,
 				EmployeeType.SALLER, null);
@@ -145,7 +145,7 @@ public class EmployeeListIntegrationTest {
 
 		employeeRepository.saveAll(employees);
 
-		mockMvc.perform(get("/employees/list-employees").queryParam("employeeType", "SALLER")
+		mockMvc.perform(get("/employees/list-employees-filtered-by-name-employee-status-or-employee-type").queryParam("employeeType", "SALLER")
 				.contentType(MediaType.APPLICATION_JSON).accept(MediaType.APPLICATION_JSON))
 				.andExpect(jsonPath("$.totalElements").value(2)).andExpect(status().isOk()).andDo(print());
 	}
