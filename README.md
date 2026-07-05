@@ -1,5 +1,9 @@
 # Concessionria [![Java CI with Maven](https://github.com/abnerjosefelixbarbosa/concessionria/actions/workflows/maven.yml/badge.svg)](https://github.com/abnerjosefelixbarbosa/concessionria/actions/workflows/maven.yml)
 
+# Sobre
+
+Aplicativo web para gerenciamento de concessionaria.
+
 ## Modelo
 
 ```mermaid
@@ -129,10 +133,14 @@ MANUAL, AUTOMATIC
 
 ## Fucionalidades
 
-- Registra funcionario.
+- Registrar funcionario.
 - Atualizar funcionario pelo id.
-- Listar funcionario filtrado pelo nome, status do funcionário e tipo do funcionário.
+- Listar funcionario filtrado pelo nome, status do funcionário ou tipo do funcionário.
 - Procurar funcionario pelo id.
+- Registrar cliente.
+- Atualizar cliente pelo id.
+- Listar cliente filtrado pelo nome.
+- Procurar cliente pelo id.
 
 # Execução do projeto 
 
