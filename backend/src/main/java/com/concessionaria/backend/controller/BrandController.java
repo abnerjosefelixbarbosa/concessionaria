@@ -2,6 +2,7 @@ package com.concessionaria.backend.controller;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -29,5 +30,13 @@ public class BrandController {
 		BrandResponseDTO response = brandService.registerBrand(dto);
 
 		return ResponseEntity.status(HttpStatus.CREATED).body(response);
+	}
+	
+	@ResponseStatus(value = HttpStatus.OK)
+	@PostMapping(value = "/update-brand-by-id/{id}")
+	public ResponseEntity<BrandResponseDTO> updateBrandById(@PathVariable String id, @RequestBody @Valid BrandRequestDTO dto) {
+		BrandResponseDTO response = brandService.updateBrandById(id, dto);
+
+		return ResponseEntity.status(HttpStatus.OK).body(response);
 	}
 }
