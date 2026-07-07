@@ -57,7 +57,67 @@ public class BrandUpdateByIdIntegrationTest {
 	}
 
 	@Test
-	void shouldNotUpdateBrandByIdWhenIdIsNonExistentAndReturnStatus404() throws Exception {
+	void shouldNotUpdateBrandByIdWhenNameIsNullAndReturnStatus400() throws Exception {
+		Brand brand = new Brand(null, "nome1", null);
+
+		String id = brandRepository.save(brand).getId();
+
+		BrandRequestDTO dto = new BrandRequestDTO(null);
+
+		String json = objectMapper.writeValueAsString(dto);
+
+		mockMvc.perform(put("/brands/update-brand-by-id/" + id).contentType(MediaType.APPLICATION_JSON)
+				.accept(MediaType.APPLICATION_JSON).content(json)).andExpect(status().isBadRequest())
+				.andExpect(jsonPath("$.name").value("Nome deve ser obrigatório.")).andDo(print());
+	}
+	
+	@Test
+	void shouldNotUpdateBrandByIdWhenNameIsEmptyAndReturnStatus400() throws Exception {
+		Brand brand = new Brand(null, "nome1", null);
+
+		String id = brandRepository.save(brand).getId();
+
+		BrandRequestDTO dto = new BrandRequestDTO("");
+
+		String json = objectMapper.writeValueAsString(dto);
+
+		mockMvc.perform(put("/brands/update-brand-by-id/" + id).contentType(MediaType.APPLICATION_JSON)
+				.accept(MediaType.APPLICATION_JSON).content(json)).andExpect(status().isBadRequest())
+				.andExpect(jsonPath("$.name").value("Nome deve ser obrigatório.")).andDo(print());
+	}
+	
+	@Test
+	void shouldNotUpdateBrandByIdWhenNameContains31CharactersAndReturnStatus400() throws Exception {
+		Brand brand = new Brand(null, "nome1", null);
+
+		String id = brandRepository.save(brand).getId();
+
+		BrandRequestDTO dto = new BrandRequestDTO("nome111111111111111111111111111");
+
+		String json = objectMapper.writeValueAsString(dto);
+
+		mockMvc.perform(put("/brands/update-brand-by-id/" + id).contentType(MediaType.APPLICATION_JSON)
+				.accept(MediaType.APPLICATION_JSON).content(json)).andExpect(status().isBadRequest())
+				.andExpect(jsonPath("$.name").value("Nome deve ter até 30 caracteres.")).andDo(print());
+	}
+	
+	@Test
+	void shouldNotUpdateBrandByIdWhenNameIsRepeatedAndReturnStatus400() throws Exception {
+		Brand brand = new Brand(null, "nome1", null);
+
+		String id = brandRepository.save(brand).getId();
+
+		BrandRequestDTO dto = new BrandRequestDTO("nome1");
+
+		String json = objectMapper.writeValueAsString(dto);
+
+		mockMvc.perform(put("/brands/update-brand-by-id/" + id).contentType(MediaType.APPLICATION_JSON)
+				.accept(MediaType.APPLICATION_JSON).content(json)).andExpect(status().isBadRequest())
+				.andExpect(jsonPath("$.message").value("Nome deve não deve ser repetido.")).andDo(print());
+	}
+
+	@Test
+	void shouldNotUpdateBrandByIdWhenIdIsNotExistentAndReturnStatus404() throws Exception {
 		Brand brand = new Brand(null, "nome1", null);
 
 		String id = brandRepository.save(brand).getId();
