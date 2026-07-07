@@ -54,6 +54,10 @@ public class BrandController {
 		return ResponseEntity.status(HttpStatus.OK).body(response);
 	}
 	
+	@ApiResponses(value = { @ApiResponse(responseCode = "200", description = "procura uma marca pelo id."),
+			@ApiResponse(responseCode = "400", description = "retorna um erro de requesição."),
+			@ApiResponse(responseCode = "404", description = "retorna um erro de conteudo não encontrado.") })
+	@Operation(summary = "procurar marca pelo id.", description = "procura uma marca pelo id.")
 	@ResponseStatus(value = HttpStatus.OK)
 	@GetMapping(value = "/find-brand-by-id/{id}")
 	public ResponseEntity<BrandResponseDTO> findBrandById(@PathVariable String id) {
