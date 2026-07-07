@@ -33,6 +33,7 @@ public class BrandServiceImpl implements BrandService {
 		return BrandMapper.toBrandResponseDTO(brandSave);
 	}
 
+	@Transactional
 	public BrandResponseDTO updateBrandById(String id, BrandRequestDTO dto) {
 		Brand brand = BrandMapper.toBrand(dto);
 
