@@ -7,4 +7,6 @@ public interface BrandService {
 	BrandResponseDTO registerBrand(BrandRequestDTO dto);
 	
 	BrandResponseDTO updateBrandById(String id, BrandRequestDTO dto);
+
+	BrandResponseDTO findBrandById(String id);
 }

@@ -41,10 +41,17 @@ public class BrandServiceImpl implements BrandService {
 
 		Brand brandFound = brandRepository.findById(id)
 				.orElseThrow(() -> new NotFoundException("Id deve ser existente."));
-		
+
 		BeanUtils.copyProperties(brand, brandFound, "id");
-		
+
 		brandRepository.save(brandFound);
+
+		return BrandMapper.toBrandResponseDTO(brandFound);
+	}
+
+	public BrandResponseDTO findBrandById(String id) {
+		Brand brandFound = brandRepository.findById(id)
+				.orElseThrow(() -> new NotFoundException("Id deve ser existente."));
 
 		return BrandMapper.toBrandResponseDTO(brandFound);
 	}
