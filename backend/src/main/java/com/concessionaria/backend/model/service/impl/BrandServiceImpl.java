@@ -1,6 +1,8 @@
 package com.concessionaria.backend.model.service.impl;
 
 import org.springframework.beans.BeanUtils;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import com.concessionaria.backend.model.dto.BrandRequestDTO;
@@ -54,6 +56,12 @@ public class BrandServiceImpl implements BrandService {
 				.orElseThrow(() -> new NotFoundException("Id deve ser existente."));
 
 		return BrandMapper.toBrandResponseDTO(brandFound);
+	}
+	
+	public Page<BrandResponseDTO> listBrandsFilteredByName(String name, Pageable pageable) {
+		Page<Brand> page = brandRepository.findAllByNameContainsIgnoreCase(name, pageable);
+		
+		return page.map(BrandMapper::toBrandResponseDTO);
 	}
 
 	private void validateBrand(Brand brand) {
