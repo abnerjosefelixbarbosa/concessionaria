@@ -75,7 +75,7 @@ public class CustomerController {
 	@ResponseStatus(value = HttpStatus.OK)
 	@Operation(summary = "listar clientes filtrados pelo nome.", description = "lista varios clientes filtrados pelo nome.")
 	@GetMapping(value = "/list-customers-filtered-by-name")
-	public ResponseEntity<Page<CustomerResponseDTO>> listCustomersFilteredByName(@RequestParam(required = false) String name, Pageable pageable) {
+	public ResponseEntity<Page<CustomerResponseDTO>> listCustomersFilteredByName(@RequestParam(defaultValue = "") String name, Pageable pageable) {
 		Page<CustomerResponseDTO> response = customerService.listCustomersFilteredByName(name, pageable);
 
 		return ResponseEntity.status(HttpStatus.OK).body(response);
