@@ -69,6 +69,10 @@ public class BrandController {
 		return ResponseEntity.status(HttpStatus.OK).body(response);
 	}
 	
+	@ApiResponses(value = { @ApiResponse(responseCode = "200", description = "lista varias marcas filtrado pelo nome."),
+			@ApiResponse(responseCode = "400", description = "retorna um erro de requesição."),
+			@ApiResponse(responseCode = "404", description = "retorna um erro de conteudo não encontrado.") })
+	@Operation(summary = "listar marcas filtrado pelo nome.", description = "lista varias marcas filtrado pelo nome.")
 	@ResponseStatus(value = HttpStatus.OK)
 	@GetMapping(value = "/list-brands-filtered-by-name")
 	public ResponseEntity<Page<BrandResponseDTO>> listBrandsFilteredByName(@RequestParam(defaultValue = "") String name, Pageable pageable) {
