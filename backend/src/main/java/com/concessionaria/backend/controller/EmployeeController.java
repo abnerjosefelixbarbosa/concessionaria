@@ -79,9 +79,9 @@ public class EmployeeController {
 	@Operation(summary = "listar funcionários filtrados pelo nome, status do funcionário ou tipo do funcionário.", description = "lista varios funcionários filtrados pelo nome, status do funcionário ou tipo do funcionário.")
 	@GetMapping(value = "/list-employees-filtered-by-name-employee-status-or-employee-type")
 	public ResponseEntity<Page<EmployeeResponseDTO>> listEmployeesFilteredByNameEmployeeStatusOrEmployeeType(
-			Pageable pageable, @RequestParam(required = false) String name,
-			@RequestParam(required = false) EmployeeStatus employeeStatus,
-			@RequestParam(required = false) EmployeeType employeeType) {
+			Pageable pageable, @RequestParam(defaultValue = "") String name,
+			@RequestParam(defaultValue = "") EmployeeStatus employeeStatus,
+			@RequestParam(defaultValue = "") EmployeeType employeeType) {
 		Page<EmployeeResponseDTO> response = employeeService
 				.listEmployeesFilteredByNameEmployeeStatusOrEmployeeType(name, employeeStatus, employeeType, pageable);
 

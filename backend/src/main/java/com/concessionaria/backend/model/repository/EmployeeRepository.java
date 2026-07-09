@@ -19,8 +19,8 @@ public interface EmployeeRepository extends JpaRepository<Employee, String> {
 	@Query("""
 			SELECT e
 			FROM Employee e
-			WHERE (:name IS NULL OR LOWER(e.name) LIKE LOWER(CONCAT('%', :name, '%')))
-			   AND (:employeeStatus IS NULL OR e.employeeStatus = :employeeStatus)
+			WHERE (UPPER(e.name) LIKE UPPER(CONCAT('%', :name, '%')))
+			AND (:employeeStatus IS NULL OR e.employeeStatus = :employeeStatus)
 			AND (:employeeType IS NULL OR e.employeeType = :employeeType)
 			""")
 	Page<Employee> listEmployeesFilteredByNameEmployeeStatusOrEmployeeType(@Param("name") String name,
