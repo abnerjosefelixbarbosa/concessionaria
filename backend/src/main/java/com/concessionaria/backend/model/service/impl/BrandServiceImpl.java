@@ -57,11 +57,18 @@ public class BrandServiceImpl implements BrandService {
 
 		return BrandMapper.toBrandResponseDTO(brandFound);
 	}
-	
+
 	public Page<BrandResponseDTO> listBrandsFilteredByName(String name, Pageable pageable) {
 		Page<Brand> page = brandRepository.findAllByNameContainsIgnoreCase(name, pageable);
-		
+
 		return page.map(BrandMapper::toBrandResponseDTO);
+	}
+
+	public Brand findByName(String name) {
+		Brand brandFound = brandRepository.findByNameIgnoreCase(name)
+				.orElseThrow(() -> new NotFoundException("Nome da marca deve ser existente."));
+
+		return brandFound;
 	}
 
 	private void validateBrand(Brand brand) {

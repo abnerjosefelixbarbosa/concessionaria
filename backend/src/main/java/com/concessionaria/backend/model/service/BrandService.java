@@ -5,6 +5,7 @@ import org.springframework.data.domain.Pageable;
 
 import com.concessionaria.backend.model.dto.BrandRequestDTO;
 import com.concessionaria.backend.model.dto.BrandResponseDTO;
+import com.concessionaria.backend.model.entity.Brand;
 
 public interface BrandService {
 	BrandResponseDTO registerBrand(BrandRequestDTO dto);
@@ -14,4 +15,6 @@ public interface BrandService {
 	BrandResponseDTO findBrandById(String id);
 
 	Page<BrandResponseDTO> listBrandsFilteredByName(String name, Pageable pageable);
+
+	Brand findByName(String name);
 }

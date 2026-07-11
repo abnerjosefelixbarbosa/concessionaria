@@ -7,5 +7,5 @@ import com.concessionaria.backend.model.entity.Model;
 
 @Repository
 public interface ModelRepository extends JpaRepository<Model, String>  {
-
+	boolean existsByName(String name);
 }
