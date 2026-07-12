@@ -5,4 +5,6 @@ import com.concessionaria.backend.model.dto.ModelResponseDTO;
 
 public interface ModelService {
 	ModelResponseDTO registerModel(ModelRequestDTO dto);
+
+	ModelResponseDTO updateModelById(String id, ModelRequestDTO dto);
 }
