@@ -65,10 +65,8 @@ public class BrandServiceImpl implements BrandService {
 	}
 
 	public Brand findByName(String name) {
-		Brand brandFound = brandRepository.findByNameIgnoreCase(name)
+		return brandRepository.findByNameIgnoreCase(name)
 				.orElseThrow(() -> new NotFoundException("Nome da marca deve ser existente."));
-
-		return brandFound;
 	}
 
 	private void validateBrand(Brand brand) {

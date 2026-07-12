@@ -6,14 +6,10 @@ import com.concessionaria.backend.model.entity.Brand;
 
 public class BrandMapper {
 	public static Brand toBrand(BrandRequestDTO dto) {
-		Brand brand = new Brand(null, dto.name(), null);
-
-		return brand;
+		return new Brand(null, dto.name(), null);
 	}
 
 	public static BrandResponseDTO toBrandResponseDTO(Brand brand) {
-		BrandResponseDTO dto = new BrandResponseDTO(brand.getId(), brand.getName());
-
-		return dto;
+		return new BrandResponseDTO(brand.getId(), brand.getName());
 	}
 }
