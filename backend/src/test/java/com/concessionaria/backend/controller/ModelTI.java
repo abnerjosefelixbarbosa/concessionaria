@@ -28,7 +28,7 @@ import tools.jackson.databind.ObjectMapper;
 @SpringBootTest
 @ActiveProfiles("test")
 @AutoConfigureMockMvc
-class ModelTestIntegration {
+class ModelTI {
 	@Autowired
 	private MockMvc mockMvc;
 	@Autowired
