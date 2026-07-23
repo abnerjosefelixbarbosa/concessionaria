@@ -53,7 +53,7 @@ class ModelTI {
 	// register model
 
 	@Test
-	@DisplayName("Should Register Model And Return Status 201.")
+	@DisplayName("Should register model and return status 201.")
 	void registerModelTest1() throws Exception {
 		Brand brand = new Brand(null, "nome1", null);
 
@@ -68,7 +68,7 @@ class ModelTI {
 	}
 
 	@Test
-	@DisplayName("Should Not Register Model When Name Is Null And Return Status 400.")
+	@DisplayName("Should not register model when name is null and return status 400.")
 	void registerModelTest2() throws Exception {
 		Brand brand = new Brand(null, "nome1", null);
 
@@ -84,7 +84,7 @@ class ModelTI {
 	}
 
 	@Test
-	@DisplayName("Should Not Register Model When Name Is Empty And Return Status 400.")
+	@DisplayName("Should not register model when name is empty and return status 400.")
 	void registerModelTest3() throws Exception {
 		Brand brand = new Brand(null, "nome1", null);
 
@@ -100,7 +100,7 @@ class ModelTI {
 	}
 
 	@Test
-	@DisplayName("Should Not Register Model When Name Is Contains 31 Characters And Return Status 400.")
+	@DisplayName("Should not register model when name is contains 31 characters and return status 400.")
 	void registerModelTest4() throws Exception {
 		Brand brand = new Brand(null, "nome1", null);
 
@@ -116,7 +116,7 @@ class ModelTI {
 	}
 
 	@Test
-	@DisplayName("Should Not Register Model When Name Is Repeated And Return Status 400.")
+	@DisplayName("Should not register model when name is repeated and return status 400.")
 	void registerModelTest5() throws Exception {
 		Brand brand = new Brand(null, "nome1", null);
 
@@ -136,7 +136,7 @@ class ModelTI {
 	}
 
 	@Test
-	@DisplayName("Should Not Register Model When Brand Name Is Not Existent And Return Status 404.")
+	@DisplayName("Should not register model when brand name is not existent and return status 404.")
 	void registerModelTest6() throws Exception {
 		Brand brand = new Brand(null, "nome1", null);
 
@@ -154,7 +154,7 @@ class ModelTI {
 	// update model by id
 
 	@Test
-	@DisplayName("Should Update Model By Id And Return Status 200.")
+	@DisplayName("Should update model by id and return status 200.")
 	void updateModelByIdTest1() throws Exception {
 		Brand brand = new Brand(null, "nome1", null);
 
@@ -173,7 +173,7 @@ class ModelTI {
 	}
 
 	@Test
-	@DisplayName("Should Not Update Model By Id When Name Is Null And Return Status 400.")
+	@DisplayName("Should not update model by id when name is null and return status 400.")
 	void updateModelByIdTest2() throws Exception {
 		Brand brand = new Brand(null, "nome1", null);
 
@@ -192,7 +192,7 @@ class ModelTI {
 	}
 
 	@Test
-	@DisplayName("Should Not Update Model By Id When Name Is Empty And Return Status 400.")
+	@DisplayName("Should not update model by id when name is empty and return status 400.")
 	void UpdateModelByIdTest3() throws Exception {
 		Brand brand = new Brand(null, "nome1", null);
 
@@ -211,7 +211,7 @@ class ModelTI {
 	}
 
 	@Test
-	@DisplayName("Should Not Update Model By Id When Name Contains 31 Characters And Return Status 400.")
+	@DisplayName("Should not update model by id when name contains 31 characters and return status 400.")
 	void updateModelByIdTest4() throws Exception {
 		Brand brand = new Brand(null, "nome1", null);
 
@@ -230,7 +230,7 @@ class ModelTI {
 	}
 
 	@Test
-	@DisplayName("Should Not Update Model By Id When Name Is Repeated And Return Status 400.")
+	@DisplayName("Should not update model by id when name is repeated and return status 400.")
 	void updateModelByIdTest5() throws Exception {
 		Brand brand = new Brand(null, "nome1", null);
 
@@ -249,7 +249,7 @@ class ModelTI {
 	}
 
 	@Test
-	@DisplayName("Should Not Update Model By Id When Brand Name Is Not Existent And Return Status 404.")
+	@DisplayName("Should not update model by id when brand name is not existent and return status 404.")
 	void updateModelByIdTest6() throws Exception {
 		Brand brand = new Brand(null, "nome1", null);
 
@@ -268,7 +268,7 @@ class ModelTI {
 	}
 
 	@Test
-	@DisplayName("Should Update Model By Id When Id Is Not Existent And Return Status 404.")
+	@DisplayName("Should update model by id when id is not existent and return status 404.")
 	void updateModelByIdTest7() throws Exception {
 		Brand brand = new Brand(null, "nome1", null);
 

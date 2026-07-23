@@ -64,7 +64,7 @@ public class EmployeesListFilteredByNameEmployeeStatusOrEmployeeTypeIntegrationT
 
 		employeeRepository.saveAll(employees);
 
-		mockMvc.perform(get("/employees/list-employees-filtered-by-name-employee-status-or-employee-type").contentType(MediaType.APPLICATION_JSON)
+		mockMvc.perform(get("/employees/list-employees-filtered-by-name-and-employee-status-and-employee-type").contentType(MediaType.APPLICATION_JSON)
 				.accept(MediaType.APPLICATION_JSON)).andExpect(jsonPath("$.totalElements").value(4))
 				.andExpect(status().isOk()).andDo(print());
 	}
