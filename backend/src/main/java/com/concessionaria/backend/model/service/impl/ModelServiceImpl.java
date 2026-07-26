@@ -1,6 +1,8 @@
 package com.concessionaria.backend.model.service.impl;
 
 import org.springframework.beans.BeanUtils;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import com.concessionaria.backend.model.dto.ModelRequestDTO;
@@ -60,12 +62,18 @@ public class ModelServiceImpl implements ModelService {
 
 		return ModelMapper.toModelResponseDTO(modelFound);
 	}
-	
+
 	public ModelResponseDTO findModelById(String id) {
 		Model modelFound = modelRepository.findById(id)
 				.orElseThrow(() -> new NotFoundException("Id deve ser existente."));
-		
+
 		return ModelMapper.toModelResponseDTO(modelFound);
+	}
+
+	public Page<ModelResponseDTO> listModelsFilteredByName(String name, Pageable pageable) {
+		Page<Model> page = modelRepository.findAllByNameContainsIgnoreCase(name, pageable);
+		
+		return page.map(ModelMapper::toModelResponseDTO);
 	}
 
 	private void validadeModel(Model model) {
