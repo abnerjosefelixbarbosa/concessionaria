@@ -8,6 +8,4 @@ public record BrandResponseDTO(
 		String id,
 		@Schema(description = "Nome da marca.", requiredMode = Schema.RequiredMode.REQUIRED)
 		String name
-) {
-
-}
+) {}

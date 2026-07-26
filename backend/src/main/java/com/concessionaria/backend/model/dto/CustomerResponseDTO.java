@@ -14,6 +14,4 @@ public record CustomerResponseDTO(
 		String email,
 		@Schema(description = "Telefone do cliente.")
 		String phone
-) {
-
-}
+) {}

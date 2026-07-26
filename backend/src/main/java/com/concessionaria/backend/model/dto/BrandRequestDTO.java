@@ -12,6 +12,4 @@ public record BrandRequestDTO(
 		@NotEmpty(message = "Nome deve ser obrigatório.")
 		@Size(max = 30, message = "Nome deve ter até 30 caracteres.")
 		String name
-) {
-
-}
+) {}

@@ -10,6 +10,7 @@ import java.util.List;
 
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -26,7 +27,7 @@ import com.concessionaria.backend.model.repository.EmployeeRepository;
 @SpringBootTest
 @ActiveProfiles("test")
 @AutoConfigureMockMvc
-class EmployeeFindByIdIntegrationTest {
+class FindEmployeeByIdTI {
 	@Autowired
 	private MockMvc mockMvc;
 	@Autowired
@@ -43,7 +44,8 @@ class EmployeeFindByIdIntegrationTest {
 	}
 	
 	@Test
-	void shouldFindEmployeeByIdAndReturnStatus200() throws Exception {
+	@DisplayName("Should find employee by id and return status 200.")
+	void findEmployeeByIdTest1() throws Exception {
 		Employee employee1 = new Employee(null, "name1", "1111111111", "email1@gmail.com", "81911111111",
 				LocalDate.now().withYear(1991), "09458274400", new BigDecimal("1500.00"), 100, EmployeeStatus.ACTIVE,
 				EmployeeType.SALLER, null);
@@ -58,7 +60,8 @@ class EmployeeFindByIdIntegrationTest {
 	}
 
 	@Test
-	void shouldNotFindEmployeeByIdWhenIdIsNotExistAndReturnStatus404() throws Exception {
+	@DisplayName("Should not find employee by id when id is not existent and return status 404.")
+	void findEmployeeByIdTest2() throws Exception {
 		Employee employee1 = new Employee(null, "name1", "1111111111", "email1@gmail.com", "81911111111",
 				LocalDate.now().withYear(1991), "09458274400", new BigDecimal("1500.00"), 100, EmployeeStatus.ACTIVE,
 				EmployeeType.SALLER, null);

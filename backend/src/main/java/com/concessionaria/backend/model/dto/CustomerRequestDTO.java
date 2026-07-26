@@ -27,6 +27,4 @@ public record CustomerRequestDTO(
 		@NotEmpty(message = "Telefone deve ser obrigatório.")
 		@Size(max = 30, message = "Telefone deve ter até 30 caracteres.")
 		String phone
-) {
-
-}
+) {}

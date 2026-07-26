@@ -34,6 +34,4 @@ public record EmployeeResponseDTO(
 		EmployeeStatus employeeStatus,
 		@Schema(description = "Tipo do funcionário do funcionário.")
 		EmployeeType employeeType
-) {
-
-}
+) {}

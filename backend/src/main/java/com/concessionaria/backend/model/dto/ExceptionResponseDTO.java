@@ -17,6 +17,4 @@ public record ExceptionResponseDTO(
 		String message,
 		@Schema(description = "Caminho da exceção.")
 		String path
-) {
-
-}
+) {}
