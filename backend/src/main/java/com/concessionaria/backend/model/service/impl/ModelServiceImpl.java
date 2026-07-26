@@ -60,6 +60,13 @@ public class ModelServiceImpl implements ModelService {
 
 		return ModelMapper.toModelResponseDTO(modelFound);
 	}
+	
+	public ModelResponseDTO findModelById(String id) {
+		Model modelFound = modelRepository.findById(id)
+				.orElseThrow(() -> new NotFoundException("Id deve ser existente."));
+		
+		return ModelMapper.toModelResponseDTO(modelFound);
+	}
 
 	private void validadeModel(Model model) {
 		boolean isExistsByName = modelRepository.existsByName(model.getName());
