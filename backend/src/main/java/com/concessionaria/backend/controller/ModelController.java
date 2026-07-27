@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -53,8 +54,8 @@ public class ModelController {
 	}
 	
 	@ResponseStatus(value = HttpStatus.OK)
-	@GetMapping(value = "/list-models-filtered-by-name/{name}")
-	public ResponseEntity<Page<ModelResponseDTO>> listModelsFilteredByName(@PathVariable String name, Pageable pageable) {
+	@GetMapping(value = "/list-models-filtered-by-name")
+	public ResponseEntity<Page<ModelResponseDTO>> listModelsFilteredByName(@RequestParam(defaultValue = "") String name, Pageable pageable) {
 		Page<ModelResponseDTO> response = modelService.listModelsFilteredByName(name, pageable);
 
 		return ResponseEntity.status(HttpStatus.OK).body(response);
