@@ -5,7 +5,6 @@ import java.util.List;
 
 import com.concessionaria.backend.model.entity.enums.TransmissionType;
 import com.concessionaria.backend.model.entity.enums.VehicleStatus;
-import com.concessionaria.backend.model.entity.enums.VehicleType;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -32,9 +31,6 @@ public class Vehicle {
 	@Column(name = "transmission_type", nullable = false)
 	private TransmissionType transmissionType;
 	@Enumerated(EnumType.STRING)
-	@Column(name = "vehicle_type", nullable = false)
-	private VehicleType vehicleType;
-	@Enumerated(EnumType.STRING)
 	@Column(name = "vehicle_status", nullable = false)
 	private VehicleStatus vehicleStatus;
 	@Column(name = "color", nullable = false, length = 20)
@@ -51,12 +47,11 @@ public class Vehicle {
 		
 	}
 
-	public Vehicle(String id, String plate, TransmissionType transmissionType, VehicleType vehicleType,
+	public Vehicle(String id, String plate, TransmissionType transmissionType,
 			VehicleStatus vehicleStatus, String color, BigDecimal price, Model model, List<Item> items) {
 		this.id = id;
 		this.plate = plate;
 		this.transmissionType = transmissionType;
-		this.vehicleType = vehicleType;
 		this.vehicleStatus = vehicleStatus;
 		this.color = color;
 		this.price = price;
