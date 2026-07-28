@@ -17,6 +17,7 @@ import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.web.servlet.MockMvc;
 
 import com.concessionaria.backend.model.entity.Customer;
+import com.concessionaria.backend.model.entity.enums.CustomerType;
 import com.concessionaria.backend.model.repository.CustomerRepository;
 
 @SpringBootTest
@@ -41,7 +42,7 @@ class FindCustomerByIdTI {
 	@Test
 	@DisplayName("Should find customer by id and return status 200.")
 	void findCustomerByIdTest1() throws Exception {
-		Customer customer = new Customer(null, "nome1", "99863221465", "email1@gmail.com", "81911111111", null);
+		Customer customer = new Customer(null, "nome1", "99863221465", "email1@gmail.com", "81911111111", CustomerType.PF, null);
 
 		String id = customerRepository.save(customer).getId();
 
@@ -52,7 +53,7 @@ class FindCustomerByIdTI {
 	@Test
 	@DisplayName("Should not find customer by id when id is not existent and return status 404.")
 	void findCustomerByIdTest2() throws Exception {
-		Customer customer = new Customer(null, "nome1", "99863221465", "email1@gmail.com", "81911111111", null);
+		Customer customer = new Customer(null, "nome1", "99863221465", "email1@gmail.com", "81911111111", CustomerType.PF, null);
 
 		String id = customerRepository.save(customer).getId();
 
