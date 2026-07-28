@@ -5,6 +5,7 @@ import org.springframework.data.domain.Pageable;
 
 import com.concessionaria.backend.model.dto.CustomerRequestDTO;
 import com.concessionaria.backend.model.dto.CustomerResponseDTO;
+import com.concessionaria.backend.model.entity.enums.CustomerType;
 
 import jakarta.validation.Valid;
 
@@ -15,5 +16,5 @@ public interface CustomerService {
 
 	CustomerResponseDTO findCustomerById(String id);
 
-	Page<CustomerResponseDTO> listCustomersFilteredByName(String name, Pageable pageable);
+	Page<CustomerResponseDTO> listCustomersFilteredByName(String name, CustomerType customerType, Pageable pageable);
 }

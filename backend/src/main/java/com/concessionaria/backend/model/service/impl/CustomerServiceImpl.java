@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 import com.concessionaria.backend.model.dto.CustomerRequestDTO;
 import com.concessionaria.backend.model.dto.CustomerResponseDTO;
 import com.concessionaria.backend.model.entity.Customer;
+import com.concessionaria.backend.model.entity.enums.CustomerType;
 import com.concessionaria.backend.model.exception.ApplicationException;
 import com.concessionaria.backend.model.exception.NotFoundException;
 import com.concessionaria.backend.model.mapper.CustomerMapper;
@@ -61,8 +62,8 @@ public class CustomerServiceImpl implements CustomerService {
 		return CustomerMapper.toCustomerResponseDTO(customerFound);
 	}
 
-	public Page<CustomerResponseDTO> listCustomersFilteredByName(String name, Pageable pageable) {
-		Page<Customer> page = customerRepository.findAllByNameContainsIgnoreCase(name, pageable);
+	public Page<CustomerResponseDTO> listCustomersFilteredByName(String name, CustomerType customerType, Pageable pageable) {
+		Page<Customer> page = customerRepository.listCustomersFilteredByNameAndCustomerType(name, customerType, pageable);
 
 		return page.map(CustomerMapper::toCustomerResponseDTO);
 	}

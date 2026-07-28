@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.concessionaria.backend.model.dto.CustomerRequestDTO;
 import com.concessionaria.backend.model.dto.CustomerResponseDTO;
+import com.concessionaria.backend.model.entity.enums.CustomerType;
 import com.concessionaria.backend.model.service.CustomerService;
 
 import io.swagger.v3.oas.annotations.Operation;
@@ -75,8 +76,8 @@ public class CustomerController {
 	@ResponseStatus(value = HttpStatus.OK)
 	@Operation(summary = "listar clientes filtrados pelo nome.", description = "lista varios clientes filtrados pelo nome.")
 	@GetMapping(value = "/list-customers-filtered-by-name")
-	public ResponseEntity<Page<CustomerResponseDTO>> listCustomersFilteredByName(@RequestParam(defaultValue = "") String name, Pageable pageable) {
-		Page<CustomerResponseDTO> response = customerService.listCustomersFilteredByName(name, pageable);
+	public ResponseEntity<Page<CustomerResponseDTO>> listCustomersFilteredByName(@RequestParam(defaultValue = "") String name, @RequestParam(required = false) CustomerType customerType, Pageable pageable) {
+		Page<CustomerResponseDTO> response = customerService.listCustomersFilteredByName(name, customerType, pageable);
 
 		return ResponseEntity.status(HttpStatus.OK).body(response);
 	}

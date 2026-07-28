@@ -1,5 +1,7 @@
 package com.concessionaria.backend.model.dto;
 
+import com.concessionaria.backend.model.entity.enums.CustomerType;
+
 import io.swagger.v3.oas.annotations.media.Schema;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotEmpty;
@@ -26,5 +28,8 @@ public record CustomerRequestDTO(
 		@NotNull(message = "Telefone deve ser obrigatório.")
 		@NotEmpty(message = "Telefone deve ser obrigatório.")
 		@Size(max = 30, message = "Telefone deve ter até 30 caracteres.")
-		String phone
+		String phone,
+		@Schema(description = "Tipo de cliente.", requiredMode = Schema.RequiredMode.REQUIRED)
+		@NotNull(message = "Tipo de cliente deve ser obrigatório.")
+		CustomerType customerType
 ) {}

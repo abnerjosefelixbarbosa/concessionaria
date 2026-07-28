@@ -2,8 +2,12 @@ package com.concessionaria.backend.model.entity;
 
 import java.util.List;
 
+import com.concessionaria.backend.model.entity.enums.CustomerType;
+
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
+import jakarta.persistence.EnumType;
+import jakarta.persistence.Enumerated;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
@@ -25,19 +29,23 @@ public class Customer {
 	private String email;
 	@Column(name = "phone", nullable = false, unique = true, length = 30)
 	private String phone;
+	@Enumerated(EnumType.STRING)
+	@Column(name = "customer_type", nullable = false)
+	private CustomerType customerType; 
 	@OneToMany(mappedBy = "customer")
 	private List<Sale> sales;
 	
 	public Customer() {
-		
 	}
 	
-	public Customer(String id, String name, String document, String email, String phone, List<Sale> sales) {
+	public Customer(String id, String name, String document, String email, String phone, CustomerType customerType,
+			List<Sale> sales) {
 		this.id = id;
 		this.name = name;
 		this.document = document;
 		this.email = email;
 		this.phone = phone;
+		this.customerType = customerType;
 		this.sales = sales;
 	}
 
@@ -79,6 +87,14 @@ public class Customer {
 
 	public void setPhone(String phone) {
 		this.phone = phone;
+	}
+
+	public CustomerType getCustomerType() {
+		return customerType;
+	}
+
+	public void setCustomerType(CustomerType customerType) {
+		this.customerType = customerType;
 	}
 
 	public List<Sale> getSales() {

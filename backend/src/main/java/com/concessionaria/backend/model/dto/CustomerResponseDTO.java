@@ -1,5 +1,7 @@
 package com.concessionaria.backend.model.dto;
 
+import com.concessionaria.backend.model.entity.enums.CustomerType;
+
 import io.swagger.v3.oas.annotations.media.Schema;
 
 @Schema(description = "Dados de resposta do cliente.")
@@ -13,5 +15,7 @@ public record CustomerResponseDTO(
 		@Schema(description = "Email do cliente.")
 		String email,
 		@Schema(description = "Telefone do cliente.")
-		String phone
+		String phone,
+		@Schema(description = "Tipo de cliente.")
+		CustomerType customerType
 ) {}
