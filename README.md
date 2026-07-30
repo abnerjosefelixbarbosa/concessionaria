@@ -1,5 +1,9 @@
 # Concessionria [![Java CI with Maven](https://github.com/abnerjosefelixbarbosa/concessionria/actions/workflows/maven.yml/badge.svg)](https://github.com/abnerjosefelixbarbosa/concessionria/actions/workflows/maven.yml)
 
+# Sobre
+
+Aplicativo web para gerenciamento de concessionaria.
+
 ## Modelo
 
 ```mermaid
@@ -17,13 +21,17 @@ Model "1..1" -- "0..*" Vehicle
 
 Brand "1..1" -- "0..*" Model
 
+CustomerType -- Customer
+
 EmployeeStatus -- Employee
 
 EmployeeType -- Employee
 
 Sale -- PaymentType
 
-Vehicle -- TransmissionType 
+Vehicle -- TransmissionType
+
+Vehicle -- VehicleStatus
 
 class Employee {
 <<Entity>>
@@ -48,6 +56,7 @@ class Customer {
 - String document
 - String email
 - String phone
+- CustomerType customerType
 - List~Sale~ sales
 }
 
@@ -74,7 +83,8 @@ class Vehicle {
 - String id
 - String placa
 - TransmissionType transmissionType
-- String cor
+- VehicleStatus vehicleStatus
+- String color
 - BigDecimal price
 - Model model
 - List~Item~ items
@@ -97,22 +107,32 @@ class Brand {
 
 class EmployeeStatus {
 <<Enum>>
-ACTIVE, INACTIVE
+ACTIVE, INACTIVE;
 } 
 
 class EmployeeType {
 <<Enum>>
-MANAGER, ASSISTANT_MANAGER, SALLER
+MANAGER, ASSISTANT_MANAGER, SALLER;
 } 
 
 class PaymentType {
 <<Enum>>
-CASH, CREDIT_CARD, DEBIT_CARD, PIX
+CASH, CREDIT_CARD, DEBIT_CARD, PIX;
 }
 
 class TransmissionType {
 <<Enum>>
-MANUAL, AUTOMATIC
+MANUAL, AUTOMATIC;
+}
+
+class VehicleStatus {
+<<Enum>>
+FOR_SALE, SOLD;
+}
+
+class CustomerType {
+<<Enum>>
+PF,PJ;
 }
 ```
 
@@ -127,16 +147,28 @@ MANUAL, AUTOMATIC
 - MVC
 - SOLID
 
-## Fucionalidades
+## Funcionalidades
 
-- Registra funcionario.
-- Atualizar funcionario pelo id.
-- Listar funcionario filtrado pelo nome, status do funcionário e tipo do funcionário.
-- Procurar funcionario pelo id.
+- Registrar funcionário.
+- Atualizar funcionário pelo id.
+- Listar funcionário filtrado pelo nome, status do funcionário e tipo do funcionário.
+- Procurar funcionário pelo id.
+- Registrar cliente.
+- Atualizar cliente pelo id.
+- Listar cliente filtrado pelo nome e tipo do cliente.
+- Procurar cliente pelo id.
+- Registrar marca.
+- Atualizar marca pelo id.
+- Procurar marca pelo id.
+- Listar marcas filtrado pelo nome.
+- Registrar modelo.
+- Atualizar modelo pelo id.
+- Procurar modelo pelo id.
+- Listar modelos filtrado pelo nome.  
 
 # Execução do projeto 
 
-- Copie o repositorio em uma IDE.
+- Copie o repositório em uma IDE.
 - Execute o projeto.
 
 ```bash

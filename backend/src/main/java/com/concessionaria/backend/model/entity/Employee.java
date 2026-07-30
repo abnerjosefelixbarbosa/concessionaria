@@ -37,7 +37,7 @@ public class Employee {
 	@Column(name = "cpf", nullable = false, unique = true, length = 11)
 	private String cpf;
 	@Column(name = "salary", nullable = false, scale = 2)
-	private BigDecimal salary = BigDecimal.ZERO;
+	private BigDecimal salary;
 	@Column(name = "commission")
 	private Integer commission;
 	@Enumerated(EnumType.STRING)

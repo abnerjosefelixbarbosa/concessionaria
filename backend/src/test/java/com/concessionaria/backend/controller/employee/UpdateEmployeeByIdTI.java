@@ -1,8 +1,9 @@
-package com.concessionaria.backend.controller;
+package com.concessionaria.backend.controller.employee;
 
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
-import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.*;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.put;
+import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 import java.math.BigDecimal;
 import java.time.LocalDate;
@@ -10,6 +11,7 @@ import java.util.List;
 
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -29,7 +31,7 @@ import tools.jackson.databind.ObjectMapper;
 @SpringBootTest
 @ActiveProfiles("test")
 @AutoConfigureMockMvc
-public class EmployeeUpdateByIdIntegrationTest {
+class UpdateEmployeeByIdTI {
 	@Autowired
 	private MockMvc mockMvc;
 	@Autowired
@@ -38,17 +40,18 @@ public class EmployeeUpdateByIdIntegrationTest {
 	private EmployeeRepository employeeRepository;
 
 	@BeforeEach
-	void setUp() throws Exception {
+	void setUp() {
 		employeeRepository.deleteAll();
 	}
 
 	@AfterEach
-	void tearDown() throws Exception {
+	void tearDown() {
 		employeeRepository.deleteAll();
 	}
-
+	
 	@Test
-	void shouldUpdateEmployeeByIdAndReturnStatus200() throws Exception {
+	@DisplayName("Should update employee by id and return status 200.")
+	void updateEmployeeByIdTest1() throws Exception {
 		Employee employee1 = new Employee(null, "name1", "1111111111", "email1@gmail.com", "81911111111",
 				LocalDate.now().withYear(1991), "09458274400", new BigDecimal("1500.00"), 100, EmployeeStatus.ACTIVE,
 				EmployeeType.SALLER, null);
@@ -67,9 +70,33 @@ public class EmployeeUpdateByIdIntegrationTest {
 				.contentType(MediaType.APPLICATION_JSON).accept(MediaType.APPLICATION_JSON).content(json))
 				.andExpect(status().isOk()).andDo(print());
 	}
+	
+	@Test
+	@DisplayName("Should not update employee by id when id is not existent and return status 404.")
+	void updateEmployeeByIdTest2() throws Exception {
+		Employee employee1 = new Employee(null, "name1", "1111111111", "email1@gmail.com", "81911111111",
+				LocalDate.now().withYear(1991), "09458274400", new BigDecimal("1500.00"), 100, EmployeeStatus.ACTIVE,
+				EmployeeType.SALLER, null);
+
+		List<Employee> employees = List.of(employee1);
+
+		employeeRepository.saveAll(employees);
+
+		EmployeeRequestDTO dto = new EmployeeRequestDTO("nome2", "2222222222", "email2@gmail.com", "81922222222",
+				LocalDate.now().withYear(1991), "02370962429", new BigDecimal("1500.00"), 100, EmployeeStatus.ACTIVE,
+				EmployeeType.SALLER);
+
+		String json = objectMapper.writeValueAsString(dto);
+
+		mockMvc.perform(put("/employees/update-employee-by-id/1" + employees.get(0).getId())
+				.contentType(MediaType.APPLICATION_JSON).accept(MediaType.APPLICATION_JSON).content(json))
+				.andExpect(jsonPath("$.message").value("Id deve ser existente."))
+				.andExpect(status().isNotFound()).andDo(print());
+	}
 
 	@Test
-	void shouldNotUpdateEmployeeByIdWhenNameIsNullAndReturnStatus400() throws Exception {
+	@DisplayName("Should not update employee by id when name is null and return status 400.")
+	void updateEmployeeByIdTest3() throws Exception {
 		Employee employee1 = new Employee(null, "name1", "1111111111", "email1@gmail.com", "81911111111",
 				LocalDate.now().withYear(1991), "09458274400", new BigDecimal("1500.00"), 100, EmployeeStatus.ACTIVE,
 				EmployeeType.SALLER, null);
@@ -91,7 +118,8 @@ public class EmployeeUpdateByIdIntegrationTest {
 	}
 
 	@Test
-	void shouldNotUpdateEmployeeByIdWhenNameIsEmptyAndReturnStatus400() throws Exception {
+	@DisplayName("Should not update employee by id when name is empty and return status 400.")
+	void updateEmployeeByIdTest4() throws Exception {
 		Employee employee1 = new Employee(null, "name1", "1111111111", "email1@gmail.com", "81911111111",
 				LocalDate.now().withYear(1991), "09458274400", new BigDecimal("1500.00"), 100, EmployeeStatus.ACTIVE,
 				EmployeeType.SALLER, null);
@@ -113,7 +141,8 @@ public class EmployeeUpdateByIdIntegrationTest {
 	}
 
 	@Test
-	void shouldNotUpdateEmployeeByIdWhenNameContains101CharactersAndReturnStatus400() throws Exception {
+	@DisplayName("Should not update employee by id when name contains 101 characters and return status 400.")
+	void updateEmployeeByIdTest5() throws Exception {
 		Employee employee1 = new Employee(null, "name1", "1111111111", "email1@gmail.com", "81911111111",
 				LocalDate.now().withYear(1991), "09458274400", new BigDecimal("1500.00"), 100, EmployeeStatus.ACTIVE,
 				EmployeeType.SALLER, null);
@@ -136,7 +165,8 @@ public class EmployeeUpdateByIdIntegrationTest {
 	}
 
 	@Test
-	void shouldNotUpdateEmployeeByIdWhenNameIsRepeatedCharactersAndReturnStatus400() throws Exception {
+	@DisplayName("Should not update employee by id when name is repeated characters and return status 400.")
+	void updateEmployeeByIdTest6() throws Exception {
 		Employee employee1 = new Employee(null, "name1", "1111111111", "email1@gmail.com", "81911111111",
 				LocalDate.now().withYear(1991), "09458274400", new BigDecimal("1500.00"), 100, EmployeeStatus.ACTIVE,
 				EmployeeType.SALLER, null);
@@ -159,7 +189,8 @@ public class EmployeeUpdateByIdIntegrationTest {
 	}
 
 	@Test
-	void shouldNotUpdateEmployeeByIdWhenMatriculationIsNullAndReturnStatus400() throws Exception {
+	@DisplayName("Should not update employee by id when matriculation is null and return status 400.")
+	void updateEmployeeByIdTest7() throws Exception {
 		Employee employee1 = new Employee(null, "name1", "1111111111", "email1@gmail.com", "81911111111",
 				LocalDate.now().withYear(1991), "09458274400", new BigDecimal("1500.00"), 100, EmployeeStatus.ACTIVE,
 				EmployeeType.SALLER, null);
@@ -181,7 +212,8 @@ public class EmployeeUpdateByIdIntegrationTest {
 	}
 
 	@Test
-	void shouldNotUpdateEmployeeByIdWhenMatriculationIsEmptyAndReturnStatus400() throws Exception {
+	@DisplayName("Should not update employee by id when matriculation is empty and return status 400.")
+	void updateEmployeeByIdTest8() throws Exception {
 		Employee employee1 = new Employee(null, "name1", "1111111111", "email1@gmail.com", "81911111111",
 				LocalDate.now().withYear(1991), "09458274400", new BigDecimal("1500.00"), 100, EmployeeStatus.ACTIVE,
 				EmployeeType.SALLER, null);
@@ -203,7 +235,8 @@ public class EmployeeUpdateByIdIntegrationTest {
 	}
 
 	@Test
-	void shouldNotUpdateEmployeeByIdWhenMatriculationNotContains10CharactersAndReturnStatus400() throws Exception {
+	@DisplayName("Should not update employee by id when matriculation not contains 10 characters and return status 400.")
+	void updateEmployeeByIdTest9() throws Exception {
 		Employee employee1 = new Employee(null, "name1", "1111111111", "email1@gmail.com", "81911111111",
 				LocalDate.now().withYear(1991), "09458274400", new BigDecimal("1500.00"), 100, EmployeeStatus.ACTIVE,
 				EmployeeType.SALLER, null);
@@ -225,7 +258,8 @@ public class EmployeeUpdateByIdIntegrationTest {
 	}
 
 	@Test
-	void shouldNotUpdateEmployeeByIdWhenMatriculationContainsLettersAndReturnStatus400() throws Exception {
+	@DisplayName("Should not update employee by id when matriculation contains letters and return status 400.")
+	void updateEmployeeByIdTest10() throws Exception {
 		Employee employee1 = new Employee(null, "name1", "1111111111", "email1@gmail.com", "81911111111",
 				LocalDate.now().withYear(1991), "09458274400", new BigDecimal("1500.00"), 100, EmployeeStatus.ACTIVE,
 				EmployeeType.SALLER, null);
@@ -247,7 +281,8 @@ public class EmployeeUpdateByIdIntegrationTest {
 	}
 
 	@Test
-	void shouldNotUpdateEmployeeByIdWhenMatriculationIsRepeatedAndReturnStatus400() throws Exception {
+	@DisplayName("Should not update employee by id when matriculation is repeated and return status 400.")
+	void updateEmployeeByIdTest11() throws Exception {
 		Employee employee1 = new Employee(null, "name1", "1111111111", "email1@gmail.com", "81911111111",
 				LocalDate.now().withYear(1991), "09458274400", new BigDecimal("1500.00"), 100, EmployeeStatus.ACTIVE,
 				EmployeeType.SALLER, null);
@@ -270,7 +305,8 @@ public class EmployeeUpdateByIdIntegrationTest {
 	}
 
 	@Test
-	void shouldNotUpdateEmployeeByIdWhenEmailIsNullAndReturnStatus400() throws Exception {
+	@DisplayName("Should not update employee by id when email is null and return status 400.")
+	void updateEmployeeByIdTest12() throws Exception {
 		Employee employee1 = new Employee(null, "name1", "1111111111", "email1@gmail.com", "81911111111",
 				LocalDate.now().withYear(1991), "09458274400", new BigDecimal("1500.00"), 100, EmployeeStatus.ACTIVE,
 				EmployeeType.SALLER, null);
@@ -292,7 +328,8 @@ public class EmployeeUpdateByIdIntegrationTest {
 	}
 
 	@Test
-	void shouldNotUpdateEmployeeByIdWhenEmailIsEmptyAndReturnStatus400() throws Exception {
+	@DisplayName("Should not update employee by id when email is empty and return status 400.")
+	void updateEmployeeByIdTest13() throws Exception {
 		Employee employee1 = new Employee(null, "name1", "1111111111", "email1@gmail.com", "81911111111",
 				LocalDate.now().withYear(1991), "09458274400", new BigDecimal("1500.00"), 100, EmployeeStatus.ACTIVE,
 				EmployeeType.SALLER, null);
@@ -314,7 +351,8 @@ public class EmployeeUpdateByIdIntegrationTest {
 	}
 
 	@Test
-	void shouldNotUpdateEmployeeByIdWhenEmailIsInvalidAndReturnStatus400() throws Exception {
+	@DisplayName("Should not update employee by id when email is invalid and return status 400.")
+	void updateEmployeeByIdTest14() throws Exception {
 		Employee employee1 = new Employee(null, "name1", "1111111111", "email1@gmail.com", "81911111111",
 				LocalDate.now().withYear(1991), "09458274400", new BigDecimal("1500.00"), 100, EmployeeStatus.ACTIVE,
 				EmployeeType.SALLER, null);
@@ -336,7 +374,8 @@ public class EmployeeUpdateByIdIntegrationTest {
 	}
 
 	@Test
-	void shouldNotUpdateEmployeeByIdWhenPhoneIsNullAndReturnStatus400() throws Exception {
+	@DisplayName("Should not update employee by id when phone is null and return status 400.")
+	void updateEmployeeByIdTest15() throws Exception {
 		Employee employee1 = new Employee(null, "name1", "1111111111", "email1@gmail.com", "81911111111",
 				LocalDate.now().withYear(1991), "09458274400", new BigDecimal("1500.00"), 100, EmployeeStatus.ACTIVE,
 				EmployeeType.SALLER, null);
@@ -358,7 +397,8 @@ public class EmployeeUpdateByIdIntegrationTest {
 	}
 
 	@Test
-	void shouldNotUpdateEmployeeByIdWhenPhoneIsEmptyAndReturnStatus400() throws Exception {
+	@DisplayName("Should not update employee by id when phone is empty and return status 400.")
+	void updateEmployeeByIdTest16() throws Exception {
 		Employee employee1 = new Employee(null, "name1", "1111111111", "email1@gmail.com", "81911111111",
 				LocalDate.now().withYear(1991), "09458274400", new BigDecimal("1500.00"), 100, EmployeeStatus.ACTIVE,
 				EmployeeType.SALLER, null);
@@ -380,7 +420,8 @@ public class EmployeeUpdateByIdIntegrationTest {
 	}
 
 	@Test
-	void shouldNotUpdateEmployeeByIdWhenPhoneContains31CharactersAndReturnStatus400() throws Exception {
+	@DisplayName("Should not update employee by id when phone contains 31 characters and return status 400.")
+	void updateEmployeeByIdTest17() throws Exception {
 		Employee employee1 = new Employee(null, "name1", "1111111111", "email1@gmail.com", "81911111111",
 				LocalDate.now().withYear(1991), "09458274400", new BigDecimal("1500.00"), 100, EmployeeStatus.ACTIVE,
 				EmployeeType.SALLER, null);
@@ -402,7 +443,8 @@ public class EmployeeUpdateByIdIntegrationTest {
 	}
 
 	@Test
-	void shouldNotUpdateEmployeeByIdWhenPhoneIsRepeatedAndReturnStatus400() throws Exception {
+	@DisplayName("Should not update employee by id when phone is repeated and return status 400.")
+	void updateEmployeeByIdTest18() throws Exception {
 		Employee employee1 = new Employee(null, "name1", "1111111111", "email1@gmail.com", "81911111111",
 				LocalDate.now().withYear(1991), "09458274400", new BigDecimal("1500.00"), 100, EmployeeStatus.ACTIVE,
 				EmployeeType.SALLER, null);
@@ -425,7 +467,8 @@ public class EmployeeUpdateByIdIntegrationTest {
 	}
 
 	@Test
-	void shouldNotUpdateEmployeeByIdWhenBirthDateIsNullAndReturnStatus400() throws Exception {
+	@DisplayName("Should not update employee by id when birth date is null and return status 400.")
+	void updateEmployeeByIdTest19() throws Exception {
 		Employee employee1 = new Employee(null, "name1", "1111111111", "email1@gmail.com", "81911111111",
 				LocalDate.now().withYear(1991), "09458274400", new BigDecimal("1500.00"), 100, EmployeeStatus.ACTIVE,
 				EmployeeType.SALLER, null);
@@ -446,7 +489,8 @@ public class EmployeeUpdateByIdIntegrationTest {
 	}
 
 	@Test
-	void shouldNotUpdateEmployeeByIdWhenCPFIsNullAndReturnStatus400() throws Exception {
+	@DisplayName("Should not update employee by id when CPF is null and return status 400.")
+	void updateEmployeeByIdTest20() throws Exception {
 		Employee employee1 = new Employee(null, "name1", "1111111111", "email1@gmail.com", "81911111111",
 				LocalDate.now().withYear(1991), "09458274400", new BigDecimal("1500.00"), 100, EmployeeStatus.ACTIVE,
 				EmployeeType.SALLER, null);
@@ -468,7 +512,8 @@ public class EmployeeUpdateByIdIntegrationTest {
 	}
 
 	@Test
-	void shouldNotUpdateEmployeeByIdWhenCPFIsEmptyAndReturnStatus400() throws Exception {
+	@DisplayName("Should not update employee by id when CPF is empty and return status 400.")
+	void updateEmployeeByIdTest21() throws Exception {
 		Employee employee1 = new Employee(null, "name1", "1111111111", "email1@gmail.com", "81911111111",
 				LocalDate.now().withYear(1991), "09458274400", new BigDecimal("1500.00"), 100, EmployeeStatus.ACTIVE,
 				EmployeeType.SALLER, null);
@@ -490,7 +535,8 @@ public class EmployeeUpdateByIdIntegrationTest {
 	}
 
 	@Test
-	void shouldNotUpdateEmployeeByIdWhenCPFIsInvalidAndReturnStatus400() throws Exception {
+	@DisplayName("Should not update employee by id when CPF is invalid and return status 400.")
+	void updateEmployeeByIdTest22() throws Exception {
 		Employee employee1 = new Employee(null, "name1", "1111111111", "email1@gmail.com", "81911111111",
 				LocalDate.now().withYear(1991), "09458274400", new BigDecimal("1500.00"), 100, EmployeeStatus.ACTIVE,
 				EmployeeType.SALLER, null);
@@ -512,7 +558,8 @@ public class EmployeeUpdateByIdIntegrationTest {
 	}
 
 	@Test
-	void shouldNotUpdateEmployeeByIdWhenCPFIsRepeatedAndReturnStatus400() throws Exception {
+	@DisplayName("Should not update employee by id when CPF is repeated and return status 400.")
+	void updateEmployeeByIdTest23() throws Exception {
 		Employee employee1 = new Employee(null, "name1", "1111111111", "email1@gmail.com", "81911111111",
 				LocalDate.now().withYear(1991), "09458274400", new BigDecimal("1500.00"), 100, EmployeeStatus.ACTIVE,
 				EmployeeType.SALLER, null);
@@ -535,7 +582,8 @@ public class EmployeeUpdateByIdIntegrationTest {
 	}
 
 	@Test
-	void shouldNotUpdateEmployeeByIdWhenSalaryIsNullAndReturnStatus400() throws Exception {
+	@DisplayName("Should not update employee by id when salary is null and return status 400.")
+	void updateEmployeeByIdTest24() throws Exception {
 		Employee employee1 = new Employee(null, "name1", "1111111111", "email1@gmail.com", "81911111111",
 				LocalDate.now().withYear(1991), "09458274400", new BigDecimal("1500.00"), 100, EmployeeStatus.ACTIVE,
 				EmployeeType.SALLER, null);
@@ -556,7 +604,8 @@ public class EmployeeUpdateByIdIntegrationTest {
 	}
 
 	@Test
-	void shouldNotUpdateEmployeeByIdWhenSalaryNotContains2DigitsAndReturnStatus400() throws Exception {
+	@DisplayName("Should not update employee by id when salary not contains 2 digits and return status 400.")
+	void updateEmployeeByIdTest25() throws Exception {
 		Employee employee1 = new Employee(null, "name1", "1111111111", "email1@gmail.com", "81911111111",
 				LocalDate.now().withYear(1991), "09458274400", new BigDecimal("1500.00"), 100, EmployeeStatus.ACTIVE,
 				EmployeeType.SALLER, null);
@@ -578,7 +627,8 @@ public class EmployeeUpdateByIdIntegrationTest {
 	}
 
 	@Test
-	void shouldNotUpdateEmployeeByIdWhenSalaryIsZeroAndReturnStatus400() throws Exception {
+	@DisplayName("Should not update employee by id when salary is '0.00' and return status 400.")
+	void updateEmployeeByIdTest26() throws Exception {
 		Employee employee1 = new Employee(null, "name1", "1111111111", "email1@gmail.com", "81911111111",
 				LocalDate.now().withYear(1991), "09458274400", new BigDecimal("1500.00"), 100, EmployeeStatus.ACTIVE,
 				EmployeeType.SALLER, null);
@@ -600,7 +650,8 @@ public class EmployeeUpdateByIdIntegrationTest {
 	}
 
 	@Test
-	void shouldNotUpdateEmployeeByIdWhenEmployeeTypeIsSallerAndCommissionIsNullAndReturnStatus400() throws Exception {
+	@DisplayName("Should not update employee by id when employee type is saller and commission is null and return status 400.")
+	void updateEmployeeByIdTest27() throws Exception {
 		Employee employee1 = new Employee(null, "name1", "1111111111", "email1@gmail.com", "81911111111",
 				LocalDate.now().withYear(1991), "09458274400", new BigDecimal("1500.00"), 100, EmployeeStatus.ACTIVE,
 				EmployeeType.SALLER, null);
@@ -622,7 +673,8 @@ public class EmployeeUpdateByIdIntegrationTest {
 	}
 
 	@Test
-	void shouldNotUpdateEmployeeByIdWhenEmployeeTypeIsSallerAndCommissionIsZeroAndReturnStatus400() throws Exception {
+	@DisplayName("Should not update employee by id when employee type is saller and commission is zero and return status 400.")
+	void updateEmployeeByIdTest28() throws Exception {
 		Employee employee1 = new Employee(null, "name1", "1111111111", "email1@gmail.com", "81911111111",
 				LocalDate.now().withYear(1991), "09458274400", new BigDecimal("1500.00"), 100, EmployeeStatus.ACTIVE,
 				EmployeeType.SALLER, null);
@@ -644,7 +696,8 @@ public class EmployeeUpdateByIdIntegrationTest {
 	}
 
 	@Test
-	void shouldNotUpdateEmployeeByIdWhenEmployeeTypeIsSallerAndCommissionIs101AndReturnStatus400() throws Exception {
+	@DisplayName("Should not update employee by id when employee type is saller and commission is 101 and return status 400.")
+	void updateEmployeeByIdTest29() throws Exception {
 		Employee employee1 = new Employee(null, "name1", "1111111111", "email1@gmail.com", "81911111111",
 				LocalDate.now().withYear(1991), "09458274400", new BigDecimal("1500.00"), 100, EmployeeStatus.ACTIVE,
 				EmployeeType.SALLER, null);
@@ -666,7 +719,8 @@ public class EmployeeUpdateByIdIntegrationTest {
 	}
 
 	@Test
-	void shouldNotUpdateEmployeeByIdWhenEmployeeStatusIsNullAndReturnStatus400() throws Exception {
+	@DisplayName("Should not update employee by id when employee status is null and return status 400.")
+	void updateEmployeeByIdTest30() throws Exception {
 		Employee employee1 = new Employee(null, "name1", "1111111111", "email1@gmail.com", "81911111111",
 				LocalDate.now().withYear(1991), "09458274400", new BigDecimal("1500.00"), 100, EmployeeStatus.ACTIVE,
 				EmployeeType.SALLER, null);
@@ -688,7 +742,8 @@ public class EmployeeUpdateByIdIntegrationTest {
 	}
 
 	@Test
-	void shouldNotUpdateEmployeeByIdWhenEmployeeTypeIsNullAndReturnStatus400() throws Exception {
+	@DisplayName("Should not update employee by id when employee type is null and return status 400.")
+	void updateEmployeeByIdTest31() throws Exception {
 		Employee employee1 = new Employee(null, "name1", "1111111111", "email1@gmail.com", "81911111111",
 				LocalDate.now().withYear(1991), "09458274400", new BigDecimal("1500.00"), 100, EmployeeStatus.ACTIVE,
 				EmployeeType.SALLER, null);

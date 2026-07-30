@@ -32,7 +32,9 @@ public class EmployeeServiceImpl implements EmployeeService {
 
 		validateEmployee(employee);
 
-		return EmployeeMapper.toEmployeeResponseDTO(employeeRepository.save(employee));
+		Employee employeeSaved = employeeRepository.save(employee);
+
+		return EmployeeMapper.toEmployeeResponseDTO(employeeSaved);
 	}
 
 	@Transactional
@@ -46,7 +48,9 @@ public class EmployeeServiceImpl implements EmployeeService {
 
 		BeanUtils.copyProperties(employee, employeeFound, "id");
 
-		return EmployeeMapper.toEmployeeResponseDTO(employeeRepository.save(employeeFound));
+		employeeRepository.save(employeeFound);
+
+		return EmployeeMapper.toEmployeeResponseDTO(employeeFound);
 	}
 
 	public EmployeeResponseDTO findEmployeeById(String id) {
@@ -56,11 +60,12 @@ public class EmployeeServiceImpl implements EmployeeService {
 		return EmployeeMapper.toEmployeeResponseDTO(employeeFound);
 	}
 
-	public Page<EmployeeResponseDTO> listEmployees(String name, EmployeeStatus employeeStatus,
-			EmployeeType employeeType, Pageable pageable) {
+	public Page<EmployeeResponseDTO> listEmployeesFilteredByNameAndEmployeeStatusAndEmployeeType(String name,
+			EmployeeStatus employeeStatus, EmployeeType employeeType, Pageable pageable) {
+		Page<Employee> page = employeeRepository.listEmployeesFilteredByNameAndEmployeeStatusAndEmployeeType(name,
+				employeeStatus, employeeType, pageable);
 
-		return employeeRepository.listEmployees(name, employeeStatus, employeeType, pageable)
-				.map(EmployeeMapper::toEmployeeResponseDTO);
+		return page.map(EmployeeMapper::toEmployeeResponseDTO);
 	}
 
 	private void validateEmployee(Employee employee) {
@@ -90,12 +95,12 @@ public class EmployeeServiceImpl implements EmployeeService {
 			throw new ApplicationException("Salário não deve 0.00.");
 		}
 
-		if (existsByNameOrMatriculationOrEmailOrPhoneOrCpf(employee)) {
+		if (isExistsByNameOrMatriculationOrEmailOrPhoneOrCpf(employee)) {
 			throw new ApplicationException("Nome, matrícula, email, telefone ou cpf não deve ser repetido.");
 		}
 	}
 
-	private boolean existsByNameOrMatriculationOrEmailOrPhoneOrCpf(Employee employee) {
+	private boolean isExistsByNameOrMatriculationOrEmailOrPhoneOrCpf(Employee employee) {
 		return employeeRepository.existsByNameOrMatriculationOrEmailOrPhoneOrCpf(employee.getName(),
 				employee.getMatriculation(), employee.getEmail(), employee.getPhone(), employee.getCpf());
 	}

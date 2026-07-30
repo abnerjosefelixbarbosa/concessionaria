@@ -54,6 +54,4 @@ public record EmployeeRequestDTO(
 		@Schema(description = "Tipo do funcionário", requiredMode = Schema.RequiredMode.REQUIRED)
 		@NotNull(message = "Tipo de funcionário deve ser obrigatório.")
 		EmployeeType employeeType
-) {
-
-}
+) {}

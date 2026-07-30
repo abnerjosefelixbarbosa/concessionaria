@@ -4,9 +4,12 @@ import java.math.BigDecimal;
 import java.util.List;
 
 import com.concessionaria.backend.model.entity.enums.TransmissionType;
+import com.concessionaria.backend.model.entity.enums.VehicleStatus;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
+import jakarta.persistence.EnumType;
+import jakarta.persistence.Enumerated;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
@@ -24,8 +27,12 @@ public class Vehicle {
 	private String id;
 	@Column(name = "plate", nullable = false, unique = true, length = 15)
 	private String plate;
+	@Enumerated(EnumType.STRING)
 	@Column(name = "transmission_type", nullable = false)
 	private TransmissionType transmissionType;
+	@Enumerated(EnumType.STRING)
+	@Column(name = "vehicle_status", nullable = false)
+	private VehicleStatus vehicleStatus;
 	@Column(name = "color", nullable = false, length = 20)
 	private String color;
 	@Column(name = "price", nullable = false, scale = 2)
@@ -39,12 +46,13 @@ public class Vehicle {
 	public Vehicle() {
 		
 	}
-	
-	public Vehicle(String id, String plate, TransmissionType transmissionType, String color, BigDecimal price,
-			Model model, List<Item> items) {
+
+	public Vehicle(String id, String plate, TransmissionType transmissionType,
+			VehicleStatus vehicleStatus, String color, BigDecimal price, Model model, List<Item> items) {
 		this.id = id;
 		this.plate = plate;
 		this.transmissionType = transmissionType;
+		this.vehicleStatus = vehicleStatus;
 		this.color = color;
 		this.price = price;
 		this.model = model;

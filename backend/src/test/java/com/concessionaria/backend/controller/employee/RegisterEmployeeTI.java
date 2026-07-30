@@ -1,8 +1,9 @@
-package com.concessionaria.backend.controller;
+package com.concessionaria.backend.controller.employee;
 
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
-import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.*;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
+import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 import java.math.BigDecimal;
 import java.time.LocalDate;
@@ -10,6 +11,7 @@ import java.util.List;
 
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -26,11 +28,10 @@ import com.concessionaria.backend.model.repository.EmployeeRepository;
 
 import tools.jackson.databind.ObjectMapper;
 
-
 @SpringBootTest
 @ActiveProfiles("test")
 @AutoConfigureMockMvc
-public class EmployeeRegisterIntegrationTest {
+class RegisterEmployeeTI {
 	@Autowired
 	private MockMvc mockMvc;
 	@Autowired
@@ -39,17 +40,18 @@ public class EmployeeRegisterIntegrationTest {
 	private EmployeeRepository employeeRepository;
 
 	@BeforeEach
-	void setUp() throws Exception {
+	void setUp() {
 		employeeRepository.deleteAll();
 	}
 
 	@AfterEach
-	void tearDown() throws Exception {
+	void tearDown() {
 		employeeRepository.deleteAll();
 	}
 	
 	@Test
-	void shouldRegisterEmployeeAndReturnStatus201() throws Exception {
+	@DisplayName("Should register employee and return status 201.")
+	void registerEmployeeTest1() throws Exception {
 		EmployeeRequestDTO dto = new EmployeeRequestDTO("nome1", "1111111111", "email1@gmail.com", "81911111111",
 				LocalDate.now().withYear(1991), "09458274400", new BigDecimal("1500.00"), 100, EmployeeStatus.ACTIVE,
 				EmployeeType.SALLER);
@@ -61,7 +63,8 @@ public class EmployeeRegisterIntegrationTest {
 	}
 
 	@Test
-	void shouldNotRegisterEmployeeWhenNameIsNullAndReturnStatus400() throws Exception {
+	@DisplayName("Should not register employee when name is null and return status 400.")
+	void registerEmployeeTest2() throws Exception {
 		EmployeeRequestDTO dto = new EmployeeRequestDTO(null, "1111111111", "email1@gmail.com", "81911111111",
 				LocalDate.now().withYear(1991), "09458274400", new BigDecimal("1500.00"), 100, EmployeeStatus.ACTIVE,
 				EmployeeType.SALLER);
@@ -75,7 +78,8 @@ public class EmployeeRegisterIntegrationTest {
 	}
 
 	@Test
-	void shouldNotRegisterEmployeeWhenNameIsEmptyAndReturnStatus400() throws Exception {
+	@DisplayName("Should not register employee when name is empty and return status 400.")
+	void registerEmployeeTest3() throws Exception {
 		EmployeeRequestDTO dto = new EmployeeRequestDTO("", "1111111111", "email1@gmail.com", "81911111111",
 				LocalDate.now().withYear(1991), "09458274400", new BigDecimal("1500.00"), 100, EmployeeStatus.ACTIVE,
 				EmployeeType.SALLER);
@@ -89,7 +93,8 @@ public class EmployeeRegisterIntegrationTest {
 	}
 	
 	@Test
-	void shouldNotRegisterEmployeeWhenNameContains101CharactersAndReturnStatus400() throws Exception {
+	@DisplayName("Should not register employee  when name contains 101 characters and return status 400.")
+	void registerEmployeeTest4() throws Exception {
 		EmployeeRequestDTO dto = new EmployeeRequestDTO(
 				"nome1111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111",
 				"1111111111", "email1@gmail.com", "81911111111", LocalDate.now().withYear(1991), "09458274400",
@@ -104,7 +109,8 @@ public class EmployeeRegisterIntegrationTest {
 	}
 
 	@Test
-	void shouldNotRegisterEmployeeWhenNameIsRepeatedAndReturnStatus400() throws Exception {
+	@DisplayName("Should not register employee when name is repeated and return status 400.")
+	void registerEmployeeTest5() throws Exception {
 		Employee employee1 = new Employee(null, "name1", "1111111111", "email1@gmail.com", "81911111111",
 				LocalDate.now().withYear(1991), "09458274400", new BigDecimal("1500.00"), 100, EmployeeStatus.ACTIVE,
 				EmployeeType.SALLER, null);
@@ -127,7 +133,8 @@ public class EmployeeRegisterIntegrationTest {
 	}
 
 	@Test
-	void shouldNotRegisterEmployeeWhenMatriculationIsNullAndReturnStatus400() throws Exception {
+	@DisplayName("Should not register employee when matriculation is null and return status 400.")
+	void registerEmployeeTest6() throws Exception {
 		EmployeeRequestDTO dto = new EmployeeRequestDTO("nome1", null, "email1@gmail.com", "81911111111",
 				LocalDate.now().withYear(1991), "09458274400", new BigDecimal("1500.00"), 100, EmployeeStatus.ACTIVE,
 				EmployeeType.SALLER);
@@ -141,7 +148,8 @@ public class EmployeeRegisterIntegrationTest {
 	}
 
 	@Test
-	void shouldNotRegisterEmployeeWhenMatriculationIsEmptyAndReturnStatus400() throws Exception {
+	@DisplayName("Should not register employee when matriculation is empty and return status 400.")
+	void registerEmployeeTest7() throws Exception {
 		EmployeeRequestDTO dto = new EmployeeRequestDTO("nome1", "", "email1@gmail.com", "81911111111",
 				LocalDate.now().withYear(1991), "09458274400", new BigDecimal("1500.00"), 100, EmployeeStatus.ACTIVE,
 				EmployeeType.SALLER);
@@ -153,23 +161,25 @@ public class EmployeeRegisterIntegrationTest {
 				.andExpect(jsonPath("$.matriculation").value("Matrícula deve ter 10 caracteres numéricos."))
 				.andExpect(status().isBadRequest()).andDo(print());
 	}
-
+	
 	@Test
-	void shouldNotRegisterEmployeeWhenMatriculationNotContains10NumericCharactersAndReturnStatus400() throws Exception {
-		EmployeeRequestDTO dto = new EmployeeRequestDTO("nome1", "1", "email1@gmail.com", "81911111111",
-				LocalDate.now().withYear(1991), "09458274400", new BigDecimal("1500.00"), 100, EmployeeStatus.ACTIVE,
-				EmployeeType.SALLER);
+	@DisplayName("Should not register employee when matriculation not contains 10 numeric characters and return status 400")
+	void registerEmployeeTest8() throws Exception {
+	    EmployeeRequestDTO dto = new EmployeeRequestDTO("nome1", "1", "email1@gmail.com", "81911111111",
+	            LocalDate.now().withYear(1991), "09458274400", new BigDecimal("1500.00"), 100, EmployeeStatus.ACTIVE,
+	            EmployeeType.SALLER);
 
-		String json = objectMapper.writeValueAsString(dto);
+	    String json = objectMapper.writeValueAsString(dto);
 
-		mockMvc.perform(post("/employees/register-employee").contentType(MediaType.APPLICATION_JSON)
-				.accept(MediaType.APPLICATION_JSON).content(json))
-				.andExpect(jsonPath("$.matriculation").value("Matrícula deve ter 10 caracteres numéricos."))
-				.andExpect(status().isBadRequest()).andDo(print());
+	    mockMvc.perform(post("/employees/register-employee").contentType(MediaType.APPLICATION_JSON)
+	            .accept(MediaType.APPLICATION_JSON).content(json))
+	            .andExpect(jsonPath("$.matriculation").value("Matrícula deve ter 10 caracteres numéricos."))
+	            .andExpect(status().isBadRequest()).andDo(print());
 	}
 
 	@Test
-	void shouldNotRegisterEmployeeWhenMatriculationContainsLettersAndReturnStatus400() throws Exception {
+	@DisplayName("Should not register employee when matriculation contains letters and return status 400.")
+	void registerEmployeeTest9() throws Exception {
 		EmployeeRequestDTO dto = new EmployeeRequestDTO("nome1", "a111111111", "email1@gmail.com", "81911111111",
 				LocalDate.now().withYear(1991), "09458274400", new BigDecimal("1500.00"), 100, EmployeeStatus.ACTIVE,
 				EmployeeType.SALLER);
@@ -183,7 +193,8 @@ public class EmployeeRegisterIntegrationTest {
 	}
 
 	@Test
-	void shouldNotRegisterEmployeeWhenMatriculationIsRepeatedAndReturnStatus400() throws Exception {
+	@DisplayName("Should not register employee when matriculation is repeated and return status 400.")
+	void registerEmployeeTest10() throws Exception {
 		Employee employee1 = new Employee(null, "name1", "1111111111", "email1@gmail.com", "81911111111",
 				LocalDate.now().withYear(1991), "09458274400", new BigDecimal("1500.00"), 100, EmployeeStatus.ACTIVE,
 				EmployeeType.SALLER, null);
@@ -206,7 +217,8 @@ public class EmployeeRegisterIntegrationTest {
 	}
 
 	@Test
-	void shouldNotRegisterEmployeeWhenEmailIsNullAndReturnStatus400() throws Exception {
+	@DisplayName("Should not register employee when email is null and return status 400.")
+	void registerEmployeeTest11() throws Exception {
 		EmployeeRequestDTO dto = new EmployeeRequestDTO("nome1", "1111111111", null, "81911111111",
 				LocalDate.now().withYear(1991), "09458274400", new BigDecimal("1500.00"), 100, EmployeeStatus.ACTIVE,
 				EmployeeType.SALLER);
@@ -220,7 +232,8 @@ public class EmployeeRegisterIntegrationTest {
 	}
 
 	@Test
-	void shouldNotRegisterEmployeeWhenEmailIsEmptyAndReturnStatus400() throws Exception {
+	@DisplayName("Should not register employee when email is empty and return status 400.")
+	void registerEmployeeTest12() throws Exception {
 		EmployeeRequestDTO dto = new EmployeeRequestDTO("nome1", "1111111111", "", "81911111111",
 				LocalDate.now().withYear(1991), "09458274400", new BigDecimal("1500.00"), 100, EmployeeStatus.ACTIVE,
 				EmployeeType.SALLER);
@@ -234,7 +247,8 @@ public class EmployeeRegisterIntegrationTest {
 	}
 
 	@Test
-	void shouldNotRegisterEmployeeWhenEmailIsInvalidAndReturnStatus400() throws Exception {
+	@DisplayName("Should not register employee when email is invalid and return status 400.")
+	void registerEmployeeTest13() throws Exception {
 		EmployeeRequestDTO dto = new EmployeeRequestDTO("nome1", "1111111111", "email1gmail.com", "81911111111",
 				LocalDate.now().withYear(1991), "09458274400", new BigDecimal("1500.00"), 100, EmployeeStatus.ACTIVE,
 				EmployeeType.SALLER);
@@ -248,7 +262,8 @@ public class EmployeeRegisterIntegrationTest {
 	}
 
 	@Test
-	void shouldNotRegisterEmployeeWhenEmailIsRepeatedAndReturnStatus400() throws Exception {
+	@DisplayName("Should not register employee when email is repeated and return status 400.")
+	void registerEmployeeTest14() throws Exception {
 		Employee employee1 = new Employee(null, "name1", "1111111111", "email1@gmail.com", "81911111111",
 				LocalDate.now().withYear(1991), "09458274400", new BigDecimal("1500.00"), 100, EmployeeStatus.ACTIVE,
 				EmployeeType.SALLER, null);
@@ -271,7 +286,8 @@ public class EmployeeRegisterIntegrationTest {
 	}
 
 	@Test
-	void shouldNotRegisterEmployeeWhenPhoneIsNullAndReturnStatus400() throws Exception {
+	@DisplayName("Should not register employee when phone is null and return status 400.")
+	void registerEmployeeTest15() throws Exception {
 		EmployeeRequestDTO dto = new EmployeeRequestDTO("nome1", "1111111111", "email1@gmail.com", null,
 				LocalDate.now().withYear(1991), "09458274400", new BigDecimal("1500.00"), 100, EmployeeStatus.ACTIVE,
 				EmployeeType.SALLER);
@@ -285,7 +301,8 @@ public class EmployeeRegisterIntegrationTest {
 	}
 
 	@Test
-	void shouldNotRegisterEmployeeWhenPhoneIsEmptyAndReturnStatus400() throws Exception {
+	@DisplayName("Should not register employee when phone is empty and return status 400.")
+	void registerEmployeeTest16() throws Exception {
 		EmployeeRequestDTO dto = new EmployeeRequestDTO("nome1", "1111111111", "email1@gmail.com", "",
 				LocalDate.now().withYear(1991), "09458274400", new BigDecimal("1500.00"), 100, EmployeeStatus.ACTIVE,
 				EmployeeType.SALLER);
@@ -299,7 +316,8 @@ public class EmployeeRegisterIntegrationTest {
 	}
 
 	@Test
-	void shouldNotRegisterEmployeeWhenPhoneContains31CharactersAndReturnStatus400() throws Exception {
+	@DisplayName("Should not register employee when phone contains 31 characters and return status 400.")
+	void registerEmployeeTest17() throws Exception {
 		EmployeeRequestDTO dto = new EmployeeRequestDTO("nome1", "1111111111", "email1@gmail.com",
 				"8191111111111111111111111111111", LocalDate.now().withYear(1991), "09458274400",
 				new BigDecimal("1500.00"), 100, EmployeeStatus.ACTIVE, EmployeeType.SALLER);
@@ -313,7 +331,8 @@ public class EmployeeRegisterIntegrationTest {
 	}
 
 	@Test
-	void shouldNotRegisterEmployeeWhenPhoneIsRepeatedAndReturnStatus400() throws Exception {
+	@DisplayName("Should not register employee when phone is repeated and return status 400.")
+	void RegisterEmployeeTest18() throws Exception {
 		Employee employee1 = new Employee(null, "name1", "1111111111", "email1@gmail.com", "81911111111",
 				LocalDate.now().withYear(1991), "09458274400", new BigDecimal("1500.00"), 100, EmployeeStatus.ACTIVE,
 				EmployeeType.SALLER, null);
@@ -336,7 +355,8 @@ public class EmployeeRegisterIntegrationTest {
 	}
 
 	@Test
-	void shouldNotRegisterEmployeeWhenBirthDateIsNullAndReturnStatus400() throws Exception {
+	@DisplayName("Should not register employee when birth date is null and return status 400.")
+	void registerEmployeeTest19() throws Exception {
 		EmployeeRequestDTO dto = new EmployeeRequestDTO("nome1", "1111111111", "email1@gmail.com", "81911111111", null,
 				"09458274400", new BigDecimal("1500.00"), 100, EmployeeStatus.ACTIVE, EmployeeType.SALLER);
 
@@ -349,7 +369,8 @@ public class EmployeeRegisterIntegrationTest {
 	}
 
 	@Test
-	void shouldNotRegisterEmployeeWhenCPFIsNullAndReturnStatus400() throws Exception {
+	@DisplayName("Should not register employee when CPF is null and return status 400.")
+	void registerEmployeeTest20() throws Exception {
 		EmployeeRequestDTO dto = new EmployeeRequestDTO("nome1", "1111111111", "email1@gmail.com", "81911111111",
 				LocalDate.now().withYear(1991), null, new BigDecimal("1500.00"), 100, EmployeeStatus.ACTIVE,
 				EmployeeType.SALLER);
@@ -363,7 +384,8 @@ public class EmployeeRegisterIntegrationTest {
 	}
 
 	@Test
-	void shouldNotRegisterEmployeeWhenCPFIsEmptyAndReturnStatus400() throws Exception {
+	@DisplayName("Should not register employee when CPF is empty and return status 400.")
+	void registerEmployeeTest21() throws Exception {
 		EmployeeRequestDTO dto = new EmployeeRequestDTO("nome1", "1111111111", "email1@gmail.com", "81911111111",
 				LocalDate.now().withYear(1991), "", new BigDecimal("1500.00"), 100, EmployeeStatus.ACTIVE,
 				EmployeeType.SALLER);
@@ -377,7 +399,8 @@ public class EmployeeRegisterIntegrationTest {
 	}
 
 	@Test
-	void shouldNotRegisterEmployeeWhenCPFIsInvalidAndReturnStatus400() throws Exception {
+	@DisplayName("Should not register employee when CPF is invalid and return status 400.")
+	void registerEmployeeTest22() throws Exception {
 		EmployeeRequestDTO dto = new EmployeeRequestDTO("nome1", "1111111111", "email1@gmail.com", "81911111111",
 				LocalDate.now().withYear(1991), "09458274401", new BigDecimal("1500.00"), 100, EmployeeStatus.ACTIVE,
 				EmployeeType.SALLER);
@@ -391,7 +414,8 @@ public class EmployeeRegisterIntegrationTest {
 	}
 
 	@Test
-	void shouldNotRegisterEmployeeWhenCPFIsRepeatedAndReturnStatus400() throws Exception {
+	@DisplayName("Should not register employee when CPF is repeated and return status 400.")
+	void registerEmployeeTest23() throws Exception {
 		Employee employee1 = new Employee(null, "name1", "1111111111", "email1@gmail.com", "81911111111",
 				LocalDate.now().withYear(1991), "09458274400", new BigDecimal("1500.00"), 100, EmployeeStatus.ACTIVE,
 				EmployeeType.SALLER, null);
@@ -414,7 +438,8 @@ public class EmployeeRegisterIntegrationTest {
 	}
 
 	@Test
-	void shouldNotRegisterEmployeeWhenSalaryIsNullAndReturnStatus400() throws Exception {
+	@DisplayName("Should not register employee when salary is null and return status 400.")
+	void registerEmployeeTest24() throws Exception {
 		EmployeeRequestDTO dto = new EmployeeRequestDTO("nome1", "1111111111", "email1@gmail.com", "81911111111",
 				LocalDate.now().withYear(1991), "09458274400", null, 100, EmployeeStatus.ACTIVE, EmployeeType.SALLER);
 
@@ -427,7 +452,8 @@ public class EmployeeRegisterIntegrationTest {
 	}
 
 	@Test
-	void shouldNotRegisterEmployeeWhenSalaryNotContains2DigitsAndReturnStatus400() throws Exception {
+	@DisplayName("Should not register employee when salary not contains 2 digits and return status 400.")
+	void registerEmployeeTest25() throws Exception {
 		EmployeeRequestDTO dto = new EmployeeRequestDTO("nome1", "1111111111", "email1@gmail.com", "81911111111",
 				LocalDate.now().withYear(1991), "09458274400", new BigDecimal("0"), 100, EmployeeStatus.ACTIVE,
 				EmployeeType.SALLER);
@@ -441,7 +467,8 @@ public class EmployeeRegisterIntegrationTest {
 	}
 
 	@Test
-	void shouldNotRegisterEmployeeWhenSalaryIsZeroAndReturnStatus400() throws Exception {
+	@DisplayName("Should not register employee when salary is '0.00' and return status 400.")
+	void registerEmployeeTest26() throws Exception {
 		EmployeeRequestDTO dto = new EmployeeRequestDTO("nome1", "1111111111", "email1@gmail.com", "81911111111",
 				LocalDate.now().withYear(1991), "09458274400", new BigDecimal("0.00"), 100, EmployeeStatus.ACTIVE,
 				EmployeeType.SALLER);
@@ -455,7 +482,8 @@ public class EmployeeRegisterIntegrationTest {
 	}
 
 	@Test
-	void shouldNotRegisterEmployeeWhenComissitionIsNullAndEmployeeTypeIsSallerAndReturnStatus400() throws Exception {
+	@DisplayName("Should not register mployee when comissition is null and employee type is saller and return status 400.")
+	void registerEmployeeTest27() throws Exception {
 		EmployeeRequestDTO dto = new EmployeeRequestDTO("nome1", "1111111111", "email1@gmail.com", "81911111111",
 				LocalDate.now().withYear(1991), "09458274400", new BigDecimal("1500.00"), null, EmployeeStatus.ACTIVE,
 				EmployeeType.SALLER);
@@ -469,7 +497,8 @@ public class EmployeeRegisterIntegrationTest {
 	}
 
 	@Test
-	void shouldNotRegisterEmployeeWhenComissitionIsZeroAndEmployeeTypeIsSallerAndReturnStatus400() throws Exception {
+	@DisplayName("Should not register employee when comissition is 0 and employee type is saller and return status 400.")
+	void registerEmployeeTest28() throws Exception {
 		EmployeeRequestDTO dto = new EmployeeRequestDTO("nome1", "1111111111", "email1@gmail.com", "81911111111",
 				LocalDate.now().withYear(1991), "09458274400", new BigDecimal("1500.00"), 0, EmployeeStatus.ACTIVE,
 				EmployeeType.SALLER);
@@ -483,7 +512,8 @@ public class EmployeeRegisterIntegrationTest {
 	}
 
 	@Test
-	void shouldNotRegisterEmployeeWhenComissitionIs101AndEmployeeTypeIsSallerAndReturnStatus400()
+	@DisplayName("Should not register employee when comissition is '101' and employee type is saller and return status 400.")
+	void registerEmployeeTest29()
 			throws Exception {
 		EmployeeRequestDTO dto = new EmployeeRequestDTO("nome1", "1111111111", "email1@gmail.com", "81911111111",
 				LocalDate.now().withYear(1991), "09458274400", new BigDecimal("1500.00"), 101, EmployeeStatus.ACTIVE,
@@ -498,7 +528,8 @@ public class EmployeeRegisterIntegrationTest {
 	}
 	
 	@Test
-	void shouldNotRegisterEmployeeWhenEmployeeStatusIsNullAndReturnStatus400() throws Exception {
+	@DisplayName("Should not register employee when employee status is null and return status 400.")
+	void registerEmployeeTest30() throws Exception {
 		EmployeeRequestDTO dto = new EmployeeRequestDTO("nome1", "1111111111", "email1@gmail.com", "81911111111",
 				LocalDate.now().withYear(1991), "09458274400", new BigDecimal("1500.00"), 100, null,
 				EmployeeType.SALLER);
@@ -512,7 +543,8 @@ public class EmployeeRegisterIntegrationTest {
 	}
 
 	@Test
-	void shouldNotRegisterEmployeeWhenEmployeeTypeIsNullAndReturnStatus400() throws Exception {
+	@DisplayName("Should not register employee when employee type is null and return status 400.")
+	void registerEmployeeTest31() throws Exception {
 		EmployeeRequestDTO dto = new EmployeeRequestDTO("nome1", "1111111111", "email1@gmail.com", "81911111111",
 				LocalDate.now().withYear(1991), "09458274400", new BigDecimal("1500.00"), 100, EmployeeStatus.ACTIVE,
 				null);

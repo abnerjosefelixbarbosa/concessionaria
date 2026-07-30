@@ -32,6 +32,7 @@ public class ExceptionController {
 		return errors;
 	}
 
+	@ResponseStatus(HttpStatus.BAD_REQUEST)
 	@ExceptionHandler(ApplicationException.class)
 	public ResponseEntity<ExceptionResponseDTO> handleApplicationException(Exception e, HttpServletRequest request) {
 		ExceptionResponseDTO response = new ExceptionResponseDTO(LocalDateTime.now(), 400, e.getMessage(),
@@ -40,6 +41,7 @@ public class ExceptionController {
 		return ResponseEntity.status(400).body(response);
 	}
 
+	@ResponseStatus(HttpStatus.NOT_FOUND)
 	@ExceptionHandler(NotFoundException.class)
 	public ResponseEntity<ExceptionResponseDTO> handleNotFoundException(Exception e, HttpServletRequest request) {
 		ExceptionResponseDTO response = new ExceptionResponseDTO(LocalDateTime.now(), 404, e.getMessage(),

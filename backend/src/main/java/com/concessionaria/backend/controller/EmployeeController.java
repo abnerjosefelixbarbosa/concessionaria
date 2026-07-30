@@ -38,7 +38,7 @@ public class EmployeeController {
 			@ApiResponse(responseCode = "400", description = "retorna um erro de requesição."),
 			@ApiResponse(responseCode = "404", description = "retorna um erro de conteudo não encontrado."), })
 	@ResponseStatus(value = HttpStatus.CREATED)
-	@Operation(summary = "registra funcionário.", description = "registra um funcionário.")
+	@Operation(summary = "registrar funcionário.", description = "registra um funcionário.")
 	@PostMapping(value = "/register-employee")
 	public ResponseEntity<EmployeeResponseDTO> registerEmployee(@RequestBody @Valid EmployeeRequestDTO dto) {
 		EmployeeResponseDTO response = employeeService.registerEmployee(dto);
@@ -50,7 +50,7 @@ public class EmployeeController {
 			@ApiResponse(responseCode = "400", description = "retorna um erro de requesição."),
 			@ApiResponse(responseCode = "404", description = "retorna um erro de conteudo não encontrado."), })
 	@ResponseStatus(value = HttpStatus.OK)
-	@Operation(summary = "atualiza funcionário pelo id.", description = "atualiza um funcionário pelo id.")
+	@Operation(summary = "atualizar funcionário pelo id.", description = "atualiza um funcionário pelo id.")
 	@PutMapping(value = "/update-employee-by-id/{id}")
 	public ResponseEntity<EmployeeResponseDTO> updateEmployeeById(@PathVariable String id,
 			@RequestBody @Valid EmployeeRequestDTO dto) {
@@ -63,7 +63,7 @@ public class EmployeeController {
 			@ApiResponse(responseCode = "400", description = "retorna um erro de requesição."),
 			@ApiResponse(responseCode = "404", description = "retorna um erro de conteudo não encontrado."), })
 	@ResponseStatus(value = HttpStatus.OK)
-	@Operation(summary = "procura funcionário pelo id.", description = "procura um funcionário pelo id.")
+	@Operation(summary = "procurar funcionário pelo id.", description = "procura um funcionário pelo id.")
 	@GetMapping(value = "/find-employee-by-id/{id}")
 	public ResponseEntity<EmployeeResponseDTO> findEmployeeById(@PathVariable String id) {
 		EmployeeResponseDTO response = employeeService.findEmployeeById(id);
@@ -72,17 +72,18 @@ public class EmployeeController {
 	}
 
 	@ApiResponses(value = {
-			@ApiResponse(responseCode = "200", description = "lista mais de um funcionários filtrados pelo nome, status do funcionário ou tipo do funcionário."),
+			@ApiResponse(responseCode = "200", description = "lista varios funcionários filtrados pelo nome, status do funcionário e tipo do funcionário."),
 			@ApiResponse(responseCode = "400", description = "retorna um erro de requesição."),
 			@ApiResponse(responseCode = "404", description = "retorna um erro de conteudo não encontrado."), })
 	@ResponseStatus(value = HttpStatus.OK)
-	@Operation(summary = "lista funcionários filtrados pelo nome, status do funcionário ou tipo do funcionário.", description = "lista mais de um funcionários filtrados pelo nome, status do funcionário ou tipo do funcionário.")
-	@GetMapping(value = "/list-employees")
-	public ResponseEntity<Page<EmployeeResponseDTO>> listEmployees(Pageable pageable,
-			@RequestParam(required = false) String name, @RequestParam(required = false) EmployeeStatus employeeStatus,
-			@RequestParam(required = false) EmployeeType employeeType) {
-		Page<EmployeeResponseDTO> response = employeeService.listEmployees(name, employeeStatus, employeeType,
-				pageable);
+	@Operation(summary = "listar funcionários filtrados pelo nome, status do funcionário e tipo do funcionário.", description = "lista varios funcionários filtrados pelo nome, status do funcionário ou tipo do funcionário.")
+	@GetMapping(value = "/list-employees-filtered-by-name-and-employee-status-and-employee-type")
+	public ResponseEntity<Page<EmployeeResponseDTO>> listEmployeesFilteredByNameAndEmployeeStatusAndEmployeeType(
+			Pageable pageable, @RequestParam(defaultValue = "") String name,
+			@RequestParam(defaultValue = "") EmployeeStatus employeeStatus,
+			@RequestParam(defaultValue = "") EmployeeType employeeType) {
+		Page<EmployeeResponseDTO> response = employeeService
+				.listEmployeesFilteredByNameAndEmployeeStatusAndEmployeeType(name, employeeStatus, employeeType, pageable);
 
 		return ResponseEntity.status(HttpStatus.OK).body(response);
 	}
