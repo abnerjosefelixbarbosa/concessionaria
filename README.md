@@ -147,20 +147,28 @@ PF,PJ;
 - MVC
 - SOLID
 
-## Fucionalidades
+## Funcionalidades
 
-- Registrar funcionario.
-- Atualizar funcionario pelo id.
-- Listar funcionario filtrado pelo nome, status do funcionário ou tipo do funcionário.
-- Procurar funcionario pelo id.
+- Registrar funcionário.
+- Atualizar funcionário pelo id.
+- Listar funcionário filtrado pelo nome, status do funcionário e tipo do funcionário.
+- Procurar funcionário pelo id.
 - Registrar cliente.
 - Atualizar cliente pelo id.
-- Listar cliente filtrado pelo nome.
+- Listar cliente filtrado pelo nome e tipo do cliente.
 - Procurar cliente pelo id.
+- Registrar marca.
+- Atualizar marca pelo id.
+- Procurar marca pelo id.
+- Listar marcas filtrado pelo nome.
+- Registrar modelo.
+- Atualizar modelo pelo id.
+- Procurar modelo pelo id.
+- Listar modelos filtrado pelo nome.  
 
 # Execução do projeto 
 
-- Copie o repositorio em uma IDE.
+- Copie o repositório em uma IDE.
 - Execute o projeto.
 
 ```bash
