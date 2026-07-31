@@ -17,7 +17,15 @@ import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 
+@AllArgsConstructor
+@NoArgsConstructor
+@Getter
+@Setter
 @Entity
 @Table(name = "sales")
 public class Sale {
@@ -40,75 +48,4 @@ public class Sale {
 	private Customer customer;
 	@OneToMany(mappedBy = "sale")
 	private List<Item> items;
-	
-	public Sale() {
-		
-	}
-	
-	public Sale(String id, LocalDate saleDate, PaymentType paymentType, BigDecimal totalValue, Employee employee,
-			Customer customer, List<Item> items) {
-		this.id = id;
-		this.saleDate = saleDate;
-		this.paymentType = paymentType;
-		this.totalValue = totalValue;
-		this.employee = employee;
-		this.customer = customer;
-		this.items = items;
-	}
-
-	public String getId() {
-		return id;
-	}
-
-	public void setId(String id) {
-		this.id = id;
-	}
-
-	public LocalDate getSaleDate() {
-		return saleDate;
-	}
-
-	public void setSaleDate(LocalDate saleDate) {
-		this.saleDate = saleDate;
-	}
-
-	public PaymentType getPaymentType() {
-		return paymentType;
-	}
-
-	public void setPaymentType(PaymentType paymentType) {
-		this.paymentType = paymentType;
-	}
-
-	public BigDecimal getTotalValue() {
-		return totalValue;
-	}
-
-	public void setTotalValue(BigDecimal totalValue) {
-		this.totalValue = totalValue;
-	}
-
-	public Employee getEmployee() {
-		return employee;
-	}
-
-	public void setEmployee(Employee employee) {
-		this.employee = employee;
-	}
-
-	public Customer getCustomer() {
-		return customer;
-	}
-
-	public void setCustomer(Customer customer) {
-		this.customer = customer;
-	}
-
-	public List<Item> getItems() {
-		return items;
-	}
-
-	public void setItems(List<Item> items) {
-		this.items = items;
-	}
 }

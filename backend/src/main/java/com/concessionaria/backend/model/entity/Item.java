@@ -8,7 +8,15 @@ import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 
+@AllArgsConstructor
+@NoArgsConstructor
+@Getter
+@Setter
 @Entity
 @Table(name = "items")
 public class Item {
@@ -22,38 +30,4 @@ public class Item {
 	@ManyToOne
 	@JoinColumn(name = "vehicle_id", nullable = false)
 	private Vehicle vehicle;
-	
-	public Item() {
-
-	} 
-	
-	public Item(String id, Sale sale, Vehicle vehicle) {
-		this.id = id;
-		this.sale = sale;
-		this.vehicle = vehicle;
-	}
-
-	public String getId() {
-		return id;
-	}
-
-	public void setId(String id) {
-		this.id = id;
-	}
-
-	public Sale getSale() {
-		return sale;
-	}
-
-	public void setSale(Sale sale) {
-		this.sale = sale;
-	}
-
-	public Vehicle getVehicle() {
-		return vehicle;
-	}
-
-	public void setVehicle(Vehicle vehicle) {
-		this.vehicle = vehicle;
-	} 
 }

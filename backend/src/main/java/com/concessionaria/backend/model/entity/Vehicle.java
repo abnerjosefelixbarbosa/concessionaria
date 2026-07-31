@@ -17,7 +17,15 @@ import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 
+@AllArgsConstructor
+@NoArgsConstructor
+@Getter
+@Setter
 @Entity
 @Table(name = "vehicles")
 public class Vehicle {
@@ -42,76 +50,4 @@ public class Vehicle {
 	private Model model;
 	@OneToMany(mappedBy = "vehicle")
 	private List<Item> items;
-	
-	public Vehicle() {
-		
-	}
-
-	public Vehicle(String id, String plate, TransmissionType transmissionType,
-			VehicleStatus vehicleStatus, String color, BigDecimal price, Model model, List<Item> items) {
-		this.id = id;
-		this.plate = plate;
-		this.transmissionType = transmissionType;
-		this.vehicleStatus = vehicleStatus;
-		this.color = color;
-		this.price = price;
-		this.model = model;
-		this.items = items;
-	}
-
-	public String getId() {
-		return id;
-	}
-
-	public void setId(String id) {
-		this.id = id;
-	}
-
-	public String getPlate() {
-		return plate;
-	}
-
-	public void setPlate(String plate) {
-		this.plate = plate;
-	}
-
-	public TransmissionType getTransmissionType() {
-		return transmissionType;
-	}
-
-	public void setTransmissionType(TransmissionType transmissionType) {
-		this.transmissionType = transmissionType;
-	}
-
-	public String getColor() {
-		return color;
-	}
-
-	public void setColor(String color) {
-		this.color = color;
-	}
-
-	public BigDecimal getPrice() {
-		return price;
-	}
-
-	public void setPrice(BigDecimal price) {
-		this.price = price;
-	}
-
-	public Model getModel() {
-		return model;
-	}
-
-	public void setModel(Model model) {
-		this.model = model;
-	}
-
-	public List<Item> getItems() {
-		return items;
-	}
-
-	public void setItems(List<Item> items) {
-		this.items = items;
-	}
 }

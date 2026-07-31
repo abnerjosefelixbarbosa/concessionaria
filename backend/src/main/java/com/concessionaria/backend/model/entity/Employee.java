@@ -16,7 +16,15 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 
+@AllArgsConstructor
+@NoArgsConstructor
+@Getter
+@Setter
 @Entity
 @Table(name = "employees")
 public class Employee {
@@ -48,121 +56,4 @@ public class Employee {
 	private EmployeeType employeeType;
 	@OneToMany(mappedBy = "employee")
 	private List<Sale> sales;
-	
-	public Employee() {
-		
-	}
-	
-	public Employee(String id, String name, String matriculation, String email, String phone, LocalDate birthDate,
-			String cpf, BigDecimal salary, Integer commission, EmployeeStatus employeeStatus, EmployeeType employeeType,
-			List<Sale> sales) {
-		this.id = id;
-		this.name = name;
-		this.matriculation = matriculation;
-		this.email = email;
-		this.phone = phone;
-		this.birthDate = birthDate;
-		this.cpf = cpf;
-		this.salary = salary;
-		this.commission = commission;
-		this.employeeStatus = employeeStatus;
-		this.employeeType = employeeType;
-		this.sales = sales;
-	}
-
-	public String getId() {
-		return id;
-	}
-
-	public void setId(String id) {
-		this.id = id;
-	}
-
-	public String getName() {
-		return name;
-	}
-
-	public void setName(String name) {
-		this.name = name;
-	}
-
-	public String getMatriculation() {
-		return matriculation;
-	}
-
-	public void setMatriculation(String matriculation) {
-		this.matriculation = matriculation;
-	}
-
-	public String getEmail() {
-		return email;
-	}
-
-	public void setEmail(String email) {
-		this.email = email;
-	}
-
-	public String getPhone() {
-		return phone;
-	}
-
-	public void setPhone(String phone) {
-		this.phone = phone;
-	}
-
-	public LocalDate getBirthDate() {
-		return birthDate;
-	}
-
-	public void setBirthDate(LocalDate birthDate) {
-		this.birthDate = birthDate;
-	}
-
-	public String getCpf() {
-		return cpf;
-	}
-
-	public void setCpf(String cpf) {
-		this.cpf = cpf;
-	}
-
-	public BigDecimal getSalary() {
-		return salary;
-	}
-
-	public void setSalary(BigDecimal salary) {
-		this.salary = salary;
-	}
-
-	public Integer getCommission() {
-		return commission;
-	}
-
-	public void setCommission(Integer commission) {
-		this.commission = commission;
-	}
-
-	public EmployeeStatus getEmployeeStatus() {
-		return employeeStatus;
-	}
-
-	public void setEmployeeStatus(EmployeeStatus employeeStatus) {
-		this.employeeStatus = employeeStatus;
-	}
-
-	public EmployeeType getEmployeeType() {
-		return employeeType;
-	}
-
-	public void setEmployeeType(EmployeeType employeeType) {
-		this.employeeType = employeeType;
-	}
-
-	public List<Sale> getSales() {
-		return sales;
-	}
-
-	public void setSales(List<Sale> sales) {
-		this.sales = sales;
-	}
 }

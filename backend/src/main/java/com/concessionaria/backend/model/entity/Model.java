@@ -11,7 +11,15 @@ import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 
+@AllArgsConstructor
+@NoArgsConstructor
+@Getter
+@Setter
 @Entity
 @Table(name = "models")
 public class Model {
@@ -26,47 +34,4 @@ public class Model {
 	private Brand brand;
 	@OneToMany(mappedBy = "model")
 	private List<Vehicle> vehicles;
-	
-	public Model() {
-		
-	}
-	
-	public Model(String id, String name, Brand brand, List<Vehicle> vehicles) {
-		this.id = id;
-		this.name = name;
-		this.brand = brand;
-		this.vehicles = vehicles;
-	}
-
-	public String getId() {
-		return id;
-	}
-
-	public void setId(String id) {
-		this.id = id;
-	}
-
-	public String getName() {
-		return name;
-	}
-
-	public void setName(String name) {
-		this.name = name;
-	}
-
-	public Brand getBrand() {
-		return brand;
-	}
-
-	public void setBrand(Brand brand) {
-		this.brand = brand;
-	}
-
-	public List<Vehicle> getVehicles() {
-		return vehicles;
-	}
-
-	public void setVehicles(List<Vehicle> vehicles) {
-		this.vehicles = vehicles;
-	}
 }
