@@ -6,10 +6,12 @@ import java.util.List;
 import com.concessionaria.backend.model.entity.enums.TransmissionType;
 import com.concessionaria.backend.model.entity.enums.VehicleStatus;
 
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.EnumType;
 import jakarta.persistence.Enumerated;
+import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
@@ -48,6 +50,6 @@ public class Vehicle {
 	@ManyToOne
 	@JoinColumn(name = "model_id", nullable = false)
 	private Model model;
-	@OneToMany(mappedBy = "vehicle")
+	@OneToMany(mappedBy = "vehicle", cascade = {CascadeType.MERGE}, fetch = FetchType.LAZY)
 	private List<Item> items;
 }

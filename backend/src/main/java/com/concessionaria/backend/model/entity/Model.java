@@ -2,8 +2,10 @@ package com.concessionaria.backend.model.entity;
 
 import java.util.List;
 
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
+import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
@@ -32,6 +34,6 @@ public class Model {
 	@ManyToOne
 	@JoinColumn(name = "brand_id", nullable = false)
 	private Brand brand;
-	@OneToMany(mappedBy = "model")
+	@OneToMany(mappedBy = "model", cascade = {CascadeType.MERGE}, fetch = FetchType.LAZY)
 	private List<Vehicle> vehicles;
 }

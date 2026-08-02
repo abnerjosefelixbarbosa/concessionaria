@@ -6,10 +6,12 @@ import java.util.List;
 
 import com.concessionaria.backend.model.entity.enums.PaymentType;
 
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.EnumType;
 import jakarta.persistence.Enumerated;
+import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
@@ -46,6 +48,6 @@ public class Sale {
 	@ManyToOne
 	@JoinColumn(name = "customer_id", nullable = false)
 	private Customer customer;
-	@OneToMany(mappedBy = "sale")
+	@OneToMany(mappedBy = "sale", cascade = {CascadeType.MERGE}, fetch = FetchType.LAZY)
 	private List<Item> items;
 }
