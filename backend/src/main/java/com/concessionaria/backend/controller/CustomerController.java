@@ -70,14 +70,14 @@ public class CustomerController {
 		return ResponseEntity.status(HttpStatus.OK).body(response);
 	}
 	
-	@ApiResponses(value = { @ApiResponse(responseCode = "200", description = "lista varios clientes filtrados pelo nome."),
+	@ApiResponses(value = { @ApiResponse(responseCode = "200", description = "lista varios clientes pelo nome e tipo de cliente."),
 			@ApiResponse(responseCode = "400", description = "retorna um erro de requesição."),
 			@ApiResponse(responseCode = "404", description = "retorna um erro de conteudo não encontrado.") })
 	@ResponseStatus(value = HttpStatus.OK)
-	@Operation(summary = "listar clientes filtrados pelo nome.", description = "lista varios clientes filtrados pelo nome.")
-	@GetMapping(value = "/list-customers-filtered-by-name")
-	public ResponseEntity<Page<CustomerResponseDTO>> listCustomersFilteredByName(@RequestParam(defaultValue = "") String name, @RequestParam(required = false) CustomerType customerType, Pageable pageable) {
-		Page<CustomerResponseDTO> response = customerService.listCustomersFilteredByName(name, customerType, pageable);
+	@Operation(summary = "listar clientes pelo nome e tipo de cliente.", description = "lista varios clientes pelo nome e tipo de cliente.")
+	@GetMapping(value = "/list-customers-by-name-and-customer-type")
+	public ResponseEntity<Page<CustomerResponseDTO>> listCustomersByNameAndCustomerType(@RequestParam(defaultValue = "") String name, @RequestParam(required = false) CustomerType customerType, Pageable pageable) {
+		Page<CustomerResponseDTO> response = customerService.listCustomersByNameAndCustomerType(name, customerType, pageable);
 
 		return ResponseEntity.status(HttpStatus.OK).body(response);
 	}
