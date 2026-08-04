@@ -22,8 +22,8 @@ public interface EmployeeRepository extends JpaRepository<Employee, String> {
 			WHERE (UPPER(e.name) LIKE UPPER(CONCAT('%', :name, '%')))
 			AND (:employeeStatus IS NULL OR e.employeeStatus = :employeeStatus)
 			AND (:employeeType IS NULL OR e.employeeType = :employeeType)
-			""")
-	Page<Employee> listEmployeesFilteredByNameAndEmployeeStatusAndEmployeeType(@Param("name") String name,
+	""")
+	Page<Employee> listEmployeesByNameAndEmployeeStatusAndEmployeeType(@Param("name") String name,
 			@Param("employeeStatus") EmployeeStatus employeeStatus, @Param("employeeType") EmployeeType employeeType,
 			Pageable pageable);
 }

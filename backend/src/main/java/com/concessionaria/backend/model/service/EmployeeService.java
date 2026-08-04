@@ -15,6 +15,6 @@ public interface EmployeeService {
 
 	EmployeeResponseDTO findEmployeeById(String id);
 
-	Page<EmployeeResponseDTO> listEmployeesFilteredByNameAndEmployeeStatusAndEmployeeType(String name,
+	Page<EmployeeResponseDTO> listEmployeesByNameAndEmployeeStatusAndEmployeeType(String name,
 			EmployeeStatus employeeStatus, EmployeeType employeeType, Pageable pageable);
 }

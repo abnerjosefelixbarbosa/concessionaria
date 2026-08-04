@@ -60,9 +60,9 @@ public class EmployeeServiceImpl implements EmployeeService {
 		return EmployeeMapper.toEmployeeResponseDTO(employeeFound);
 	}
 
-	public Page<EmployeeResponseDTO> listEmployeesFilteredByNameAndEmployeeStatusAndEmployeeType(String name,
+	public Page<EmployeeResponseDTO> listEmployeesByNameAndEmployeeStatusAndEmployeeType(String name,
 			EmployeeStatus employeeStatus, EmployeeType employeeType, Pageable pageable) {
-		Page<Employee> page = employeeRepository.listEmployeesFilteredByNameAndEmployeeStatusAndEmployeeType(name,
+		Page<Employee> page = employeeRepository.listEmployeesByNameAndEmployeeStatusAndEmployeeType(name,
 				employeeStatus, employeeType, pageable);
 
 		return page.map(EmployeeMapper::toEmployeeResponseDTO);
