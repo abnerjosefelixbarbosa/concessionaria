@@ -43,7 +43,7 @@ class ListCustomersByNameAndCustomerTypeTI {
 	
 	@Test
 	@DisplayName("Should list customers by name and customer type and return status 200.")
-	void listCustomersFilteredByNameTest1() throws Exception {
+	void listCustomersByNameAndCustomerTypeTest1() throws Exception {
 		Customer customer1 = new Customer(null, "nome1", "99863221465", "email1@gmail.com", "81911111111", CustomerType.PF, null);
 
 		Customer customer2 = new Customer(null, "nome2", "81899898000183", "email2@gmail.com", "81922222222", CustomerType.PJ, null);
@@ -59,7 +59,7 @@ class ListCustomersByNameAndCustomerTypeTI {
 
 	@Test
 	@DisplayName("Should list customers by name and customer type when name is 'Nome' and return status 200.")
-	void listCustomersFilteredByNameTest2() throws Exception {
+	void listCustomersByNameAndCustomerTypeTest2() throws Exception {
 		Customer customer1 = new Customer(null, "nome1", "99863221465", "email1@gmail.com", "81911111111", CustomerType.PF, null);
 
 		Customer customer2 = new Customer(null, "nome2", "81899898000183", "email2@gmail.com", "81922222222", CustomerType.PJ, null);
@@ -75,7 +75,7 @@ class ListCustomersByNameAndCustomerTypeTI {
 	
 	@Test
 	@DisplayName("Should list customers by name and customer type when customer type is 'PF' and return status 200.")
-	void listCustomersFilteredByNameTest3() throws Exception {
+	void listCustomersByNameAndCustomerTypeTest3() throws Exception {
 		Customer customer1 = new Customer(null, "nome1", "99863221465", "email1@gmail.com", "81911111111", CustomerType.PF, null);
 
 		Customer customer2 = new Customer(null, "nome2", "81899898000183", "email2@gmail.com", "81922222222", CustomerType.PJ, null);
