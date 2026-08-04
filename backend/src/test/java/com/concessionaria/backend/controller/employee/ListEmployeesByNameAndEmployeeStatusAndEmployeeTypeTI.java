@@ -28,7 +28,7 @@ import com.concessionaria.backend.model.repository.EmployeeRepository;
 @SpringBootTest
 @ActiveProfiles("test")
 @AutoConfigureMockMvc
-public class ListEmployeesFilteredByNameAndEmployeeStatusAndEmployeeTypeTI {
+public class ListEmployeesByNameAndEmployeeStatusAndEmployeeTypeTI {
 	@Autowired
 	private MockMvc mockMvc;
 	@Autowired
@@ -45,8 +45,8 @@ public class ListEmployeesFilteredByNameAndEmployeeStatusAndEmployeeTypeTI {
 	}
 	
 	@Test
-	@DisplayName("Should list employees filtered by name and employee status and employee type and return status 200.")
-	void listEmployeesFilteredByNameAndEmployeeStatusAndEmployeeTypeTest1() throws Exception {
+	@DisplayName("Should list employees by name and employee status and employee type and return status 200.")
+	void listEmployeesByNameAndEmployeeStatusAndEmployeeTypeTest1() throws Exception {
 		Employee employee1 = new Employee(null, "name1", "1111111111", "email1@gmail.com", "81911111111",
 				LocalDate.now().withYear(1991), "09458274400", new BigDecimal("1500.00"), 100, EmployeeStatus.ACTIVE,
 				EmployeeType.SALLER, null);
@@ -67,14 +67,14 @@ public class ListEmployeesFilteredByNameAndEmployeeStatusAndEmployeeTypeTI {
 
 		employeeRepository.saveAll(employees);
 
-		mockMvc.perform(get("/employees/list-employees-filtered-by-name-and-employee-status-and-employee-type").contentType(MediaType.APPLICATION_JSON)
+		mockMvc.perform(get("/employees/list-employees-by-name-and-employee-status-and-employee-type").contentType(MediaType.APPLICATION_JSON)
 				.accept(MediaType.APPLICATION_JSON)).andExpect(jsonPath("$.totalElements").value(4))
 				.andExpect(status().isOk()).andDo(print());
 	}
 
 	@Test
-	@DisplayName("Should list employees filtered by name and employee status and employee type when name contains 'Nome' and return status 200.")
-	void listEmployeesFilteredByNameAndEmployeeStatusAndEmployeeTypeTest2() throws Exception {
+	@DisplayName("Should list employees by name and employee status and employee type when name contains 'Nome' and return status 200.")
+	void listEmployeesByNameAndEmployeeStatusAndEmployeeTypeTest2() throws Exception {
 		Employee employee1 = new Employee(null, "nome1", "1111111111", "email1@gmail.com", "81911111111",
 				LocalDate.now().withYear(1991), "09458274400", new BigDecimal("1500.00"), 100, EmployeeStatus.ACTIVE,
 				EmployeeType.SALLER, null);
@@ -95,14 +95,14 @@ public class ListEmployeesFilteredByNameAndEmployeeStatusAndEmployeeTypeTI {
 
 		employeeRepository.saveAll(employees);
 
-		mockMvc.perform(get("/employees/list-employees-filtered-by-name-and-employee-status-and-employee-type").queryParam("name", "Nome")
+		mockMvc.perform(get("/employees/list-employees-by-name-and-employee-status-and-employee-type").queryParam("name", "Nome")
 				.contentType(MediaType.APPLICATION_JSON).accept(MediaType.APPLICATION_JSON))
 				.andExpect(jsonPath("$.totalElements").value(4)).andExpect(status().isOk()).andDo(print());
 	}
 	
 	@Test
-	@DisplayName("Should list employees filtered by name and employee status and employee type when employee status is active and return status 200.")
-	void listEmployeesFilteredByNameAndEmployeeStatusAndEmployeeTypeTest3() throws Exception {
+	@DisplayName("Should list employees by name and employee status and employee type when employee status is active and return status 200.")
+	void listEmployeesByNameAndEmployeeStatusAndEmployeeTypeTest3() throws Exception {
 		Employee employee1 = new Employee(null, "name1", "1111111111", "email1@gmail.com", "81911111111",
 				LocalDate.now().withYear(1991), "09458274400", new BigDecimal("1500.00"), 100, EmployeeStatus.ACTIVE,
 				EmployeeType.SALLER, null);
@@ -123,14 +123,14 @@ public class ListEmployeesFilteredByNameAndEmployeeStatusAndEmployeeTypeTI {
 
 		employeeRepository.saveAll(employees);
 
-		mockMvc.perform(get("/employees/list-employees-filtered-by-name-and-employee-status-and-employee-type").queryParam("employeeStatus", "ACTIVE")
+		mockMvc.perform(get("/employees/list-employees-by-name-and-employee-status-and-employee-type").queryParam("employeeStatus", "ACTIVE")
 				.contentType(MediaType.APPLICATION_JSON).accept(MediaType.APPLICATION_JSON))
 				.andExpect(jsonPath("$.totalElements").value(4)).andExpect(status().isOk()).andDo(print());
 	}
 
 	@Test
-	@DisplayName("Should list employees filtered by name and employee status and employee type when employee type is saller and return status 200")
-	void listEmployeesFilteredByNameAndEmployeeStatusAndEmployeeTypeTest4() throws Exception {
+	@DisplayName("Should list employees by name and employee status and employee type when employee type is saller and return status 200")
+	void listEmployeesByNameAndEmployeeStatusAndEmployeeTypeTest4() throws Exception {
 		Employee employee1 = new Employee(null, "name1", "1111111111", "email1@gmail.com", "81911111111",
 				LocalDate.now().withYear(1991), "09458274400", new BigDecimal("1500.00"), 100, EmployeeStatus.ACTIVE,
 				EmployeeType.SALLER, null);
@@ -151,7 +151,7 @@ public class ListEmployeesFilteredByNameAndEmployeeStatusAndEmployeeTypeTI {
 
 		employeeRepository.saveAll(employees);
 
-		mockMvc.perform(get("/employees/list-employees-filtered-by-name-and-employee-status-and-employee-type").queryParam("employeeType", "SALLER")
+		mockMvc.perform(get("/employees/list-employees-by-name-and-employee-status-and-employee-type").queryParam("employeeType", "SALLER")
 				.contentType(MediaType.APPLICATION_JSON).accept(MediaType.APPLICATION_JSON))
 				.andExpect(jsonPath("$.totalElements").value(2)).andExpect(status().isOk()).andDo(print());
 	}
