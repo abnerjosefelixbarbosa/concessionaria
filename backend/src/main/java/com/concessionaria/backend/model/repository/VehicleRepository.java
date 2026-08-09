@@ -7,5 +7,5 @@ import com.concessionaria.backend.model.entity.Vehicle;
 
 @Repository
 public interface VehicleRepository extends JpaRepository<Vehicle, String> {
-
+	boolean existsByPlate(String plate);
 }
