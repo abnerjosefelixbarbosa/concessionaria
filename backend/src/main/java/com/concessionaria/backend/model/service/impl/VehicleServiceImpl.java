@@ -53,6 +53,13 @@ public class VehicleServiceImpl implements VehicleService {
 
 		return VehicleMapper.toBrandResponseDTO(vehicleSaved);
 	}
+	
+	public VehicleResponseDTO findVehicleById(String id) {
+		Vehicle vehicleFound = vehicleRepository.findById(id)
+				.orElseThrow(() -> new NotFoundException("Id deve ser existente."));
+
+		return VehicleMapper.toBrandResponseDTO(vehicleFound);
+	}
 
 	private void validateVehicle(Vehicle vehicle) {
 		if (vehicleRepository.existsByPlate(vehicle.getPlate())) {

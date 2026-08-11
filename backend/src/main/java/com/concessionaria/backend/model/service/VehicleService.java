@@ -7,4 +7,6 @@ public interface VehicleService {
 	VehicleResponseDTO registerVehicle(VehicleRequestDTO dto);
 	
 	VehicleResponseDTO updateVehicleById(String id, VehicleRequestDTO dto);
+	
+	VehicleResponseDTO findVehicleById(String id);
 }
