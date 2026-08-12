@@ -1,11 +1,16 @@
 package com.concessionaria.backend.model.service.impl;
 
+import java.math.BigDecimal;
+
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import com.concessionaria.backend.model.dto.VehicleRequestDTO;
 import com.concessionaria.backend.model.dto.VehicleResponseDTO;
 import com.concessionaria.backend.model.entity.Model;
 import com.concessionaria.backend.model.entity.Vehicle;
+import com.concessionaria.backend.model.entity.enums.TransmissionType;
 import com.concessionaria.backend.model.exception.ApplicationException;
 import com.concessionaria.backend.model.exception.NotFoundException;
 import com.concessionaria.backend.model.mapper.VehicleMapper;
@@ -59,6 +64,12 @@ public class VehicleServiceImpl implements VehicleService {
 				.orElseThrow(() -> new NotFoundException("Id deve ser existente."));
 
 		return VehicleMapper.toBrandResponseDTO(vehicleFound);
+	}
+	
+	public Page<VehicleResponseDTO> listVehicleByTransmissionTypeAndPrice(TransmissionType transmissionType, BigDecimal price, Pageable pageable) {	
+		Page<Vehicle> page = vehicleRepository.listVehicleByTransmissionTypeAndPrice(transmissionType, price, pageable);
+
+		return page.map(VehicleMapper::toBrandResponseDTO);
 	}
 
 	private void validateVehicle(Vehicle vehicle) {
