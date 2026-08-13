@@ -70,9 +70,15 @@ public class ModelServiceImpl implements ModelService {
 		return ModelMapper.toModelResponseDTO(modelFound);
 	}
 
+	public Model findModelByName(String name) {
+		Model modelFound = modelRepository.findByName(name).orElseThrow(() -> new NotFoundException("Nome do modelo deve ser existente."));
+
+		return modelFound;
+	}
+
 	public Page<ModelResponseDTO> listModelsFilteredByName(String name, Pageable pageable) {
 		Page<Model> page = modelRepository.findAllByNameContainsIgnoreCase(name, pageable);
-		
+
 		return page.map(ModelMapper::toModelResponseDTO);
 	}
 

@@ -5,6 +5,7 @@ import org.springframework.data.domain.Pageable;
 
 import com.concessionaria.backend.model.dto.ModelRequestDTO;
 import com.concessionaria.backend.model.dto.ModelResponseDTO;
+import com.concessionaria.backend.model.entity.Model;
 
 public interface ModelService {
 	ModelResponseDTO registerModel(ModelRequestDTO dto);
@@ -14,4 +15,6 @@ public interface ModelService {
 	ModelResponseDTO findModelById(String id);
 	
 	Page<ModelResponseDTO> listModelsFilteredByName(String name, Pageable pageable);
+
+	Model findModelByName(String name);
 }
