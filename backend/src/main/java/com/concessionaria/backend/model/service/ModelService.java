@@ -14,7 +14,7 @@ public interface ModelService {
 	
 	ModelResponseDTO findModelById(String id);
 	
-	Page<ModelResponseDTO> listModelsFilteredByName(String name, Pageable pageable);
+	Page<ModelResponseDTO> listModelsByName(String name, Pageable pageable);
 
 	Model findModelByName(String name);
 }

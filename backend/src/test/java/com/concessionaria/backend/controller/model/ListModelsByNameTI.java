@@ -26,7 +26,7 @@ import com.concessionaria.backend.model.repository.ModelRepository;
 @SpringBootTest
 @ActiveProfiles("test")
 @AutoConfigureMockMvc
-class ListModelsFilteredByNameTI {
+class ListModelsByNameTI {
 	@Autowired
 	private MockMvc mockMvc;
 	@Autowired
@@ -47,8 +47,8 @@ class ListModelsFilteredByNameTI {
 	}
 
 	@Test
-	@DisplayName("Should list models filtered by name and return status 200.")
-	void listModelsFilteredByNameTest1() throws Exception {
+	@DisplayName("Should list models by name and return status 200.")
+	void listModelsByNameTest1() throws Exception {
 		Brand brand1 = new Brand(null, "nome1", null);
 
 		Brand brand2 = new Brand(null, "nome2", null);
@@ -61,14 +61,14 @@ class ListModelsFilteredByNameTI {
 
 		modelRepository.saveAll(List.of(model1, model2));
 
-		mockMvc.perform(get("/models/list-models-filtered-by-name").contentType(MediaType.APPLICATION_JSON)
+		mockMvc.perform(get("/models/list-models-by-name").contentType(MediaType.APPLICATION_JSON)
 				.accept(MediaType.APPLICATION_JSON))
 				.andExpectAll(status().isOk(), jsonPath("$.numberOfElements").value("2")).andDo(print());
 	}
 	
 	@Test
-	@DisplayName("Should list models filtered by name when name is 'Nome' and return status 200.")
-	void listModelsFilteredByNameTest2() throws Exception {
+	@DisplayName("Should list models by name when name is 'Nome' and return status 200.")
+	void listModelsByNameTest2() throws Exception {
 		Brand brand1 = new Brand(null, "nome1", null);
 
 		Brand brand2 = new Brand(null, "nome2", null);
@@ -81,7 +81,7 @@ class ListModelsFilteredByNameTI {
 
 		modelRepository.saveAll(List.of(model1, model2));
 
-		mockMvc.perform(get("/models/list-models-filtered-by-name").queryParam("name", "Nome").contentType(MediaType.APPLICATION_JSON)
+		mockMvc.perform(get("/models/list-models-by-name").queryParam("name", "Nome").contentType(MediaType.APPLICATION_JSON)
 				.accept(MediaType.APPLICATION_JSON))
 				.andExpectAll(status().isOk(), jsonPath("$.numberOfElements").value("2")).andDo(print());
 	}

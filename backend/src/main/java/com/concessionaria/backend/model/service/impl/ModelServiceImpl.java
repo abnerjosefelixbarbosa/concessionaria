@@ -76,8 +76,8 @@ public class ModelServiceImpl implements ModelService {
 		return modelFound;
 	}
 
-	public Page<ModelResponseDTO> listModelsFilteredByName(String name, Pageable pageable) {
-		Page<Model> page = modelRepository.findAllByNameContainsIgnoreCase(name, pageable);
+	public Page<ModelResponseDTO> listModelsByName(String name, Pageable pageable) {
+		Page<Model> page = modelRepository.listModelsByName(name, pageable);
 
 		return page.map(ModelMapper::toModelResponseDTO);
 	}

@@ -43,19 +43,20 @@ public class ModelController {
 
 		return ResponseEntity.status(HttpStatus.CREATED).body(response);
 	}
-	
+
 	@Operation(summary = "atualizar modelo pelo id.", description = "atualiza um modelo pelo id.")
 	@ApiResponses(value = { @ApiResponse(responseCode = "200", description = "atualiza um modelo pelo id."),
 			@ApiResponse(responseCode = "400", description = "retorna um erro de requesição."),
 			@ApiResponse(responseCode = "404", description = "retorna um erro de conteudo não encontrado.") })
 	@ResponseStatus(value = HttpStatus.OK)
 	@PutMapping(value = "/update-model-by-id/{id}")
-	public ResponseEntity<ModelResponseDTO> updateModelById(@PathVariable String id, @RequestBody @Valid ModelRequestDTO dto) {
+	public ResponseEntity<ModelResponseDTO> updateModelById(@PathVariable String id,
+			@RequestBody @Valid ModelRequestDTO dto) {
 		ModelResponseDTO response = modelService.updateModelById(id, dto);
 
 		return ResponseEntity.status(HttpStatus.OK).body(response);
 	}
-	
+
 	@Operation(summary = "procurar modelo pelo id.", description = "procura um modelo pelo id.")
 	@ApiResponses(value = { @ApiResponse(responseCode = "200", description = "procura um modelo pelo id."),
 			@ApiResponse(responseCode = "400", description = "retorna um erro de requesição."),
@@ -67,15 +68,16 @@ public class ModelController {
 
 		return ResponseEntity.status(HttpStatus.OK).body(response);
 	}
-	
-	@Operation(summary = "listar modelos filtrados pelo nome.", description = "lista varios modelos filtrados pelo nome.")
-	@ApiResponses(value = { @ApiResponse(responseCode = "200", description = "lista varios modelos filtrados pelo nome."),
+
+	@Operation(summary = "listar modelos pelo nome.", description = "lista varios modelos pelo nome.")
+	@ApiResponses(value = { @ApiResponse(responseCode = "200", description = "lista varios modelos pelo nome."),
 			@ApiResponse(responseCode = "400", description = "retorna um erro de requesição."),
 			@ApiResponse(responseCode = "404", description = "retorna um erro de conteudo não encontrado.") })
 	@ResponseStatus(value = HttpStatus.OK)
-	@GetMapping(value = "/list-models-filtered-by-name")
-	public ResponseEntity<Page<ModelResponseDTO>> listModelsFilteredByName(@RequestParam(defaultValue = "") String name, Pageable pageable) {
-		Page<ModelResponseDTO> response = modelService.listModelsFilteredByName(name, pageable);
+	@GetMapping(value = "/list-models-by-name")
+	public ResponseEntity<Page<ModelResponseDTO>> listModelsByName(@RequestParam(defaultValue = "") String name,
+			Pageable pageable) {
+		Page<ModelResponseDTO> response = modelService.listModelsByName(name, pageable);
 
 		return ResponseEntity.status(HttpStatus.OK).body(response);
 	}
