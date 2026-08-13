@@ -58,8 +58,9 @@ public class BrandServiceImpl implements BrandService {
 		return BrandMapper.toBrandResponseDTO(brandFound);
 	}
 
-	public Page<BrandResponseDTO> listBrandsFilteredByName(String name, Pageable pageable) {
-		Page<Brand> page = brandRepository.findAllByNameContainsIgnoreCase(name, pageable);
+	public Page<BrandResponseDTO> listBrandsByName(String name, Pageable pageable) {
+		//Page<Brand> page = brandRepository.findAllByNameContainsIgnoreCase(name, pageable);
+		Page<Brand> page = brandRepository.listBrandsByName(name, pageable);
 
 		return page.map(BrandMapper::toBrandResponseDTO);
 	}
