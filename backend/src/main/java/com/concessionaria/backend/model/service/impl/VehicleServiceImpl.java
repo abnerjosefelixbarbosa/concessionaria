@@ -18,6 +18,8 @@ import com.concessionaria.backend.model.repository.VehicleRepository;
 import com.concessionaria.backend.model.service.ModelService;
 import com.concessionaria.backend.model.service.VehicleService;
 
+import jakarta.transaction.Transactional;
+
 @Service
 public class VehicleServiceImpl implements VehicleService {
 	private final VehicleRepository vehicleRepository;
@@ -28,6 +30,7 @@ public class VehicleServiceImpl implements VehicleService {
 		this.modelService = modelService;
 	}
 
+	@Transactional
 	public VehicleResponseDTO registerVehicle(VehicleRequestDTO dto) {
 		Vehicle vehicle = VehicleMapper.toVehicle(dto);
 
@@ -42,6 +45,7 @@ public class VehicleServiceImpl implements VehicleService {
 		return VehicleMapper.toBrandResponseDTO(vehicleSaved);
 	}
 
+	@Transactional
 	public VehicleResponseDTO updateVehicleById(String id, VehicleRequestDTO dto) {
 		Vehicle vehicle = VehicleMapper.toVehicle(dto);
 

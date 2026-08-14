@@ -40,7 +40,7 @@ class ListBrandsByNameTI {
 	
 	@Test
 	@DisplayName("Should list brands by name and return status 200.")
-	void shouldListBrandsByNameTest1() throws Exception {
+	void listBrandsByNameTest1() throws Exception {
 		Brand brand1 = new Brand(null, "nome1", null);
 
 		Brand brand2 = new Brand(null, "nome2", null);
@@ -49,9 +49,9 @@ class ListBrandsByNameTI {
 
 		brandRepository.save(brand2);
 
-		mockMvc.perform(get("/brands/list-brands-by-name").contentType(MediaType.APPLICATION_JSON)
-				.accept(MediaType.APPLICATION_JSON)).andExpect(jsonPath("$.totalElements").value(2))
-				.andExpect(status().isOk()).andDo(print());
+		mockMvc.perform(get("/brands/list-brands-by-name")
+				.contentType(MediaType.APPLICATION_JSON).accept(MediaType.APPLICATION_JSON))
+				.andExpect(jsonPath("$.totalElements").value(2)).andExpect(status().isOk()).andDo(print());
 	}
 
 	@Test

@@ -14,15 +14,13 @@ import com.concessionaria.backend.model.entity.Brand;
 @Repository
 public interface BrandRepository extends JpaRepository<Brand, String> {
 	boolean existsByName(String name);
-	
-	Page<Brand> findAllByNameContainsIgnoreCase(String name, Pageable pageable);
 
 	Optional<Brand> findByNameIgnoreCase(String name);
 
-	@Query(""" 
-	SELECT b
-	FROM Brand b
-	WHERE (UPPER(b.name) LIKE UPPER(CONCAT('%', :name, '%')))		
-	""")
+	@Query("""
+			SELECT b
+			FROM Brand b
+			WHERE (UPPER(b.name) LIKE UPPER(CONCAT('%', :name, '%')))
+			""")
 	Page<Brand> listBrandsByName(@Param("name") String name, Pageable pageable);
 }

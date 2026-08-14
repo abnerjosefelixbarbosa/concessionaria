@@ -15,11 +15,11 @@ public interface CustomerRepository extends JpaRepository<Customer, String> {
 	boolean existsByNameOrDocumentOrEmailOrPhone(String name, String document, String email, String phone);
 
 	@Query("""
-			SELECT c
-			FROM Customer c
-			WHERE (UPPER(c.name) LIKE UPPER(CONCAT('%', :name, '%')))
-			AND (:customerType IS NULL OR c.customerType = :customerType)
-	""")
+					SELECT c
+					FROM Customer c
+					WHERE (UPPER(c.name) LIKE UPPER(CONCAT('%', :name, '%')))
+					AND (:customerType IS NULL OR c.customerType = :customerType)
+			""")
 	Page<Customer> listCustomersByNameAndCustomerType(@Param("name") String name,
 			@Param("customerType") CustomerType customerType, Pageable pageable);
 }

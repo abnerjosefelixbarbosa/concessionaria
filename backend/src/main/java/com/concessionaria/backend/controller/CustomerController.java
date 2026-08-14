@@ -76,7 +76,7 @@ public class CustomerController {
 	@ResponseStatus(value = HttpStatus.OK)
 	@Operation(summary = "listar clientes pelo nome e tipo de cliente.", description = "lista varios clientes pelo nome e tipo de cliente.")
 	@GetMapping(value = "/list-customers-by-name-and-customer-type")
-	public ResponseEntity<Page<CustomerResponseDTO>> listCustomersByNameAndCustomerType(@RequestParam(defaultValue = "") String name, @RequestParam(required = false) CustomerType customerType, Pageable pageable) {
+	public ResponseEntity<Page<CustomerResponseDTO>> listCustomersByNameAndCustomerType(@RequestParam(defaultValue = "") String name, @RequestParam(defaultValue = "") CustomerType customerType, Pageable pageable) {
 		Page<CustomerResponseDTO> response = customerService.listCustomersByNameAndCustomerType(name, customerType, pageable);
 
 		return ResponseEntity.status(HttpStatus.OK).body(response);

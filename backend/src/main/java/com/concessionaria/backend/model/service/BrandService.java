@@ -13,8 +13,8 @@ public interface BrandService {
 	BrandResponseDTO updateBrandById(String id, BrandRequestDTO dto);
 
 	BrandResponseDTO findBrandById(String id);
-
+	
 	Page<BrandResponseDTO> listBrandsByName(String name, Pageable pageable);
-
+	
 	Brand findByName(String name);
 }

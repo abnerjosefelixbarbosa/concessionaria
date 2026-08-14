@@ -76,8 +76,6 @@ public class BrandController {
 	@ResponseStatus(value = HttpStatus.OK)
 	@GetMapping(value = "/list-brands-by-name")
 	public ResponseEntity<Page<BrandResponseDTO>> listBrandsByName(@RequestParam(defaultValue = "") String name, Pageable pageable) {
-		System.out.println(name);
-		
 		Page<BrandResponseDTO> response = brandService.listBrandsByName(name, pageable);
 
 		return ResponseEntity.status(HttpStatus.OK).body(response);
