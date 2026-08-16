@@ -21,6 +21,9 @@ import com.concessionaria.backend.model.dto.VehicleResponseDTO;
 import com.concessionaria.backend.model.entity.enums.TransmissionType;
 import com.concessionaria.backend.model.service.VehicleService;
 
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.responses.ApiResponse;
+import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import jakarta.validation.Valid;
 
 @RestController
@@ -32,6 +35,10 @@ public class VehicleController {
 		this.vehicleService = vehicleService;
 	}
 
+	@Operation(summary = "registrar veículo.", description = "registra um veículo.")
+	@ApiResponses(value = { @ApiResponse(responseCode = "201", description = "retorna um veículo registrado."),
+			@ApiResponse(responseCode = "400", description = "retorna um erro de requesição."),
+			@ApiResponse(responseCode = "404", description = "retorna um erro de conteudo não encontrado.") })
 	@ResponseStatus(value = HttpStatus.CREATED)
 	@PostMapping(value = "/register-vehicle")
 	public ResponseEntity<VehicleResponseDTO> registerVehicle(@RequestBody @Valid VehicleRequestDTO dto) {
@@ -40,6 +47,10 @@ public class VehicleController {
 		return ResponseEntity.status(HttpStatus.CREATED).body(response);
 	}
 
+	@Operation(summary = "atualizar veículo pelo id.", description = "atualiza um veículo pelo id.")
+	@ApiResponses(value = { @ApiResponse(responseCode = "200", description = "retorna um veículo atualizado."),
+			@ApiResponse(responseCode = "400", description = "retorna um erro de requesição."),
+			@ApiResponse(responseCode = "404", description = "retorna um erro de conteudo não encontrado.") })
 	@ResponseStatus(value = HttpStatus.OK)
 	@PutMapping(value = "/update-vehicle-by-id/{id}")
 	public ResponseEntity<VehicleResponseDTO> updateVehicleById(@PathVariable String id,
@@ -49,6 +60,10 @@ public class VehicleController {
 		return ResponseEntity.status(HttpStatus.OK).body(response);
 	}
 
+	@Operation(summary = "procurar veículo pelo id.", description = "procura um veículo pelo id.")
+	@ApiResponses(value = { @ApiResponse(responseCode = "200", description = "retorna um veículo procurado."),
+			@ApiResponse(responseCode = "400", description = "retorna um erro de requesição."),
+			@ApiResponse(responseCode = "404", description = "retorna um erro de conteudo não encontrado.") })
 	@ResponseStatus(value = HttpStatus.OK)
 	@GetMapping(value = "/find-vehicle-by-id/{id}")
 	public ResponseEntity<VehicleResponseDTO> findVehicleById(@PathVariable String id) {
@@ -57,6 +72,10 @@ public class VehicleController {
 		return ResponseEntity.status(HttpStatus.OK).body(response);
 	}
 
+	@Operation(summary = "listar varios veículos.", description = "lista varios veículos.")
+	@ApiResponses(value = { @ApiResponse(responseCode = "200", description = "retorna varios veículos listados."),
+			@ApiResponse(responseCode = "400", description = "retorna um erro de requesição."),
+			@ApiResponse(responseCode = "404", description = "retorna um erro de conteudo não encontrado.") })
 	@ResponseStatus(value = HttpStatus.OK)
 	@GetMapping(value = "/list-vehicle-by-transmission-type-and-price")
 	public ResponseEntity<Page<VehicleResponseDTO>> listVehicleByTransmissionTypeAndPrice(
