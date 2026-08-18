@@ -60,7 +60,7 @@ class RegisterModelTI {
 
 		String json = objectMapper.writeValueAsString(dto);
 
-		mockMvc.perform(post("/models/register-model").contentType(MediaType.APPLICATION_JSON)
+		mockMvc.perform(post("/models").contentType(MediaType.APPLICATION_JSON)
 				.accept(MediaType.APPLICATION_JSON).content(json)).andExpect(status().isCreated()).andDo(print());
 	}
 
@@ -75,7 +75,7 @@ class RegisterModelTI {
 
 		String json = objectMapper.writeValueAsString(dto);
 
-		mockMvc.perform(post("/models/register-model").contentType(MediaType.APPLICATION_JSON)
+		mockMvc.perform(post("/models").contentType(MediaType.APPLICATION_JSON)
 				.accept(MediaType.APPLICATION_JSON).content(json)).andExpect(status().isBadRequest())
 				.andExpect(jsonPath("$.name").value("Nome deve ser obrigatório.")).andDo(print());
 	}
@@ -91,7 +91,7 @@ class RegisterModelTI {
 
 		String json = objectMapper.writeValueAsString(dto);
 
-		mockMvc.perform(post("/models/register-model").contentType(MediaType.APPLICATION_JSON)
+		mockMvc.perform(post("/models").contentType(MediaType.APPLICATION_JSON)
 				.accept(MediaType.APPLICATION_JSON).content(json)).andExpect(status().isBadRequest())
 				.andExpect(jsonPath("$.name").value("Nome deve ser obrigatório.")).andDo(print());
 	}
@@ -107,7 +107,7 @@ class RegisterModelTI {
 
 		String json = objectMapper.writeValueAsString(dto);
 
-		mockMvc.perform(post("/models/register-model").contentType(MediaType.APPLICATION_JSON)
+		mockMvc.perform(post("/models").contentType(MediaType.APPLICATION_JSON)
 				.accept(MediaType.APPLICATION_JSON).content(json)).andExpect(status().isBadRequest())
 				.andExpect(jsonPath("$.name").value("Nome deve ter até 30 caracteres.")).andDo(print());
 	}
@@ -127,7 +127,7 @@ class RegisterModelTI {
 
 		String json = objectMapper.writeValueAsString(dto);
 
-		mockMvc.perform(post("/models/register-model").contentType(MediaType.APPLICATION_JSON)
+		mockMvc.perform(post("/models").contentType(MediaType.APPLICATION_JSON)
 				.accept(MediaType.APPLICATION_JSON).content(json)).andExpect(status().isBadRequest())
 				.andExpect(jsonPath("$.message").value("Nome não deve ser repetido.")).andDo(print());
 	}
@@ -143,7 +143,7 @@ class RegisterModelTI {
 
 		String json = objectMapper.writeValueAsString(dto);
 
-		mockMvc.perform(post("/models/register-model").contentType(MediaType.APPLICATION_JSON)
+		mockMvc.perform(post("/models").contentType(MediaType.APPLICATION_JSON)
 				.accept(MediaType.APPLICATION_JSON).content(json)).andExpect(status().isNotFound())
 				.andExpect(jsonPath("$.message").value("Nome da marca deve ser existente.")).andDo(print());
 	}

@@ -22,5 +22,5 @@ public interface BrandRepository extends JpaRepository<Brand, String> {
 			FROM Brand b
 			WHERE (UPPER(b.name) LIKE UPPER(CONCAT('%', :name, '%')))
 			""")
-	Page<Brand> listBrandsByName(@Param("name") String name, Pageable pageable);
+	Page<Brand> listBrands(@Param("name") String name, Pageable pageable);
 }

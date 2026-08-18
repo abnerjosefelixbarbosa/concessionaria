@@ -38,7 +38,7 @@ public class CustomerController {
 			@ApiResponse(responseCode = "404", description = "retorna um erro de conteudo não encontrado.") })
 	@ResponseStatus(value = HttpStatus.CREATED)
 	@Operation(summary = "registrar cliente.", description = "registra um cliente.")
-	@PostMapping(value = "/register-customer")
+	@PostMapping
 	public ResponseEntity<CustomerResponseDTO> registerCustomer(@RequestBody @Valid CustomerRequestDTO dto) {
 		CustomerResponseDTO response = customerService.registerCustomer(dto);
 
@@ -50,7 +50,7 @@ public class CustomerController {
 			@ApiResponse(responseCode = "404", description = "retorna um erro de conteudo não encontrado.") })
 	@ResponseStatus(value = HttpStatus.OK)
 	@Operation(summary = "atualizar cliente pelo id.", description = "atualiza um cliente pelo id.")
-	@PutMapping(value = "/update-customer-by-id/{id}")
+	@PutMapping("/{id}")
 	public ResponseEntity<CustomerResponseDTO> updateCustomerById(@PathVariable String id,
 			@RequestBody @Valid CustomerRequestDTO dto) {
 		CustomerResponseDTO response = customerService.updateCustomerById(id, dto);
@@ -63,21 +63,21 @@ public class CustomerController {
 			@ApiResponse(responseCode = "404", description = "retorna um erro de conteudo não encontrado.") })
 	@ResponseStatus(value = HttpStatus.OK)
 	@Operation(summary = "procurar cliente pelo id.", description = "procura um cliente pelo id.")
-	@GetMapping(value = "/find-customer-by-id/{id}")
+	@GetMapping("/{id}")
 	public ResponseEntity<CustomerResponseDTO> findCustomerById(@PathVariable String id) {
 		CustomerResponseDTO response = customerService.findCustomerById(id);
 
 		return ResponseEntity.status(HttpStatus.OK).body(response);
 	}
 	
-	@ApiResponses(value = { @ApiResponse(responseCode = "200", description = "lista varios clientes pelo nome e tipo de cliente."),
+	@ApiResponses(value = { @ApiResponse(responseCode = "200", description = "lista varios clientes."),
 			@ApiResponse(responseCode = "400", description = "retorna um erro de requesição."),
 			@ApiResponse(responseCode = "404", description = "retorna um erro de conteudo não encontrado.") })
 	@ResponseStatus(value = HttpStatus.OK)
-	@Operation(summary = "listar clientes pelo nome e tipo de cliente.", description = "lista varios clientes pelo nome e tipo de cliente.")
-	@GetMapping(value = "/list-customers-by-name-and-customer-type")
-	public ResponseEntity<Page<CustomerResponseDTO>> listCustomersByNameAndCustomerType(@RequestParam(defaultValue = "") String name, @RequestParam(defaultValue = "") CustomerType customerType, Pageable pageable) {
-		Page<CustomerResponseDTO> response = customerService.listCustomersByNameAndCustomerType(name, customerType, pageable);
+	@Operation(summary = "listar clientes.", description = "lista varios clientes.")
+	@GetMapping
+	public ResponseEntity<Page<CustomerResponseDTO>> listCustomers(@RequestParam(defaultValue = "") String name, @RequestParam(defaultValue = "") CustomerType customerType, Pageable pageable) {
+		Page<CustomerResponseDTO> response = customerService.listCustomers(name, customerType, pageable);
 
 		return ResponseEntity.status(HttpStatus.OK).body(response);
 	}

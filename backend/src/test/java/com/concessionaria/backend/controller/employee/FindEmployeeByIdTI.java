@@ -54,7 +54,7 @@ class FindEmployeeByIdTI {
 
 		this.employeeRepository.saveAll(employees);
 
-		this.mockMvc.perform(get(String.format("/employees/find-employee-by-id/%s", employees.get(0).getId()))
+		this.mockMvc.perform(get(String.format("/employees/%s", employees.get(0).getId()))
 				.contentType(MediaType.APPLICATION_JSON).accept(MediaType.APPLICATION_JSON)).andExpect(status().isOk())
 				.andDo(print());
 	}
@@ -70,7 +70,7 @@ class FindEmployeeByIdTI {
 
 		employeeRepository.saveAll(employees);
 
-		mockMvc.perform(get(String.format("/employees/find-employee-by-id/1")).contentType(MediaType.APPLICATION_JSON)
+		mockMvc.perform(get(String.format("/employees/1")).contentType(MediaType.APPLICATION_JSON)
 				.accept(MediaType.APPLICATION_JSON)).andExpect(jsonPath("$.message").value("Id deve ser existente."))
 				.andExpect(status().isNotFound()).andDo(print());
 	}

@@ -24,7 +24,7 @@ import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import jakarta.validation.Valid;
 
 @RestController
-@RequestMapping(value = "/brands")
+@RequestMapping("/brands")
 public class BrandController {
 	private final BrandService brandService;
 
@@ -36,8 +36,8 @@ public class BrandController {
 			@ApiResponse(responseCode = "400", description = "retorna um erro de requesição."),
 			@ApiResponse(responseCode = "404", description = "retorna um erro de conteudo não encontrado.") })
 	@Operation(summary = "registrar marca.", description = "registra uma marca.")
-	@ResponseStatus(value = HttpStatus.CREATED)
-	@PostMapping(value = "/register-brand")
+	@ResponseStatus(HttpStatus.CREATED)
+	@PostMapping
 	public ResponseEntity<BrandResponseDTO> registerBrand(@RequestBody @Valid BrandRequestDTO dto) {
 		BrandResponseDTO response = brandService.registerBrand(dto);
 
@@ -48,8 +48,8 @@ public class BrandController {
 			@ApiResponse(responseCode = "400", description = "retorna um erro de requesição."),
 			@ApiResponse(responseCode = "404", description = "retorna um erro de conteudo não encontrado.") })
 	@Operation(summary = "atualizar marca pelo id.", description = "atualiza uma marca pelo id.")
-	@ResponseStatus(value = HttpStatus.OK)
-	@PutMapping(value = "/update-brand-by-id/{id}")
+	@ResponseStatus(HttpStatus.OK)
+	@PutMapping("/{id}")
 	public ResponseEntity<BrandResponseDTO> updateBrandById(@PathVariable String id,
 			@RequestBody @Valid BrandRequestDTO dto) {
 		BrandResponseDTO response = brandService.updateBrandById(id, dto);
@@ -61,22 +61,22 @@ public class BrandController {
 			@ApiResponse(responseCode = "400", description = "retorna um erro de requesição."),
 			@ApiResponse(responseCode = "404", description = "retorna um erro de conteudo não encontrado.") })
 	@Operation(summary = "procurar marca pelo id.", description = "procura uma marca pelo id.")
-	@ResponseStatus(value = HttpStatus.OK)
-	@GetMapping(value = "/find-brand-by-id/{id}")
+	@ResponseStatus(HttpStatus.OK)
+	@GetMapping("/{id}")
 	public ResponseEntity<BrandResponseDTO> findBrandById(@PathVariable String id) {
 		BrandResponseDTO response = brandService.findBrandById(id);
 
 		return ResponseEntity.status(HttpStatus.OK).body(response);
 	}
 	
-	@ApiResponses(value = { @ApiResponse(responseCode = "200", description = "lista varias marcas pelo nome."),
+	@ApiResponses(value = { @ApiResponse(responseCode = "200", description = "lista varias marcas."),
 			@ApiResponse(responseCode = "400", description = "retorna um erro de requesição."),
 			@ApiResponse(responseCode = "404", description = "retorna um erro de conteudo não encontrado.") })
-	@Operation(summary = "listar marcas pelo nome.", description = "lista varias marcas pelo nome.")
-	@ResponseStatus(value = HttpStatus.OK)
-	@GetMapping(value = "/list-brands-by-name")
-	public ResponseEntity<Page<BrandResponseDTO>> listBrandsByName(@RequestParam(defaultValue = "") String name, Pageable pageable) {
-		Page<BrandResponseDTO> response = brandService.listBrandsByName(name, pageable);
+	@Operation(summary = "listar marcas.", description = "lista varias marcas.")
+	@ResponseStatus(HttpStatus.OK)
+	@GetMapping
+	public ResponseEntity<Page<BrandResponseDTO>> listBrands(@RequestParam(defaultValue = "") String name, Pageable pageable) {
+		Page<BrandResponseDTO> response = brandService.listBrands(name, pageable);
 
 		return ResponseEntity.status(HttpStatus.OK).body(response);
 	}

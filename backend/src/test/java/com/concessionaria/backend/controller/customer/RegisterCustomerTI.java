@@ -51,7 +51,7 @@ class RegisterCustomerTI {
 
 		String json = objectMapper.writeValueAsString(dto);
 
-		mockMvc.perform(post("/customers/register-customer").contentType(MediaType.APPLICATION_JSON)
+		mockMvc.perform(post("/customers").contentType(MediaType.APPLICATION_JSON)
 				.accept(MediaType.APPLICATION_JSON).content(json)).andExpect(status().isCreated()).andDo(print());
 	}
 
@@ -62,7 +62,7 @@ class RegisterCustomerTI {
 
 		String json = objectMapper.writeValueAsString(dto);
 
-		mockMvc.perform(post("/customers/register-customer").contentType(MediaType.APPLICATION_JSON)
+		mockMvc.perform(post("/customers").contentType(MediaType.APPLICATION_JSON)
 				.accept(MediaType.APPLICATION_JSON).content(json)).andExpect(status().isBadRequest())
 				.andExpect(jsonPath("$.name").value("Nome deve ser obrigatório.")).andDo(print());
 	}
@@ -74,7 +74,7 @@ class RegisterCustomerTI {
 
 		String json = objectMapper.writeValueAsString(dto);
 
-		mockMvc.perform(post("/customers/register-customer").contentType(MediaType.APPLICATION_JSON)
+		mockMvc.perform(post("/customers").contentType(MediaType.APPLICATION_JSON)
 				.accept(MediaType.APPLICATION_JSON).content(json)).andExpect(status().isBadRequest())
 				.andExpect(jsonPath("$.name").value("Nome deve ser obrigatório.")).andDo(print());
 	}
@@ -88,7 +88,7 @@ class RegisterCustomerTI {
 
 		String json = objectMapper.writeValueAsString(dto);
 
-		mockMvc.perform(post("/customers/register-customer").contentType(MediaType.APPLICATION_JSON)
+		mockMvc.perform(post("/customers").contentType(MediaType.APPLICATION_JSON)
 				.accept(MediaType.APPLICATION_JSON).content(json)).andExpect(status().isBadRequest())
 				.andExpect(jsonPath("$.name").value("Nome deve ter até 100 caracteres.")).andDo(print());
 	}
@@ -104,7 +104,7 @@ class RegisterCustomerTI {
 
 		String json = objectMapper.writeValueAsString(dto);
 
-		mockMvc.perform(post("/customers/register-customer").contentType(MediaType.APPLICATION_JSON)
+		mockMvc.perform(post("/customers").contentType(MediaType.APPLICATION_JSON)
 				.accept(MediaType.APPLICATION_JSON).content(json)).andExpect(status().isBadRequest())
 				.andExpect(jsonPath("$.message").value("Nome, documento, email ou telefone não deve ser repetido."))
 				.andDo(print());
@@ -117,7 +117,7 @@ class RegisterCustomerTI {
 
 		String json = objectMapper.writeValueAsString(dto);
 
-		mockMvc.perform(post("/customers/register-customer").contentType(MediaType.APPLICATION_JSON)
+		mockMvc.perform(post("/customers").contentType(MediaType.APPLICATION_JSON)
 				.accept(MediaType.APPLICATION_JSON).content(json)).andExpect(status().isBadRequest())
 				.andExpect(jsonPath("$.document").value("Documento deve ser obrigatório.")).andDo(print());
 	}
@@ -129,7 +129,7 @@ class RegisterCustomerTI {
 
 		String json = objectMapper.writeValueAsString(dto);
 
-		mockMvc.perform(post("/customers/register-customer").contentType(MediaType.APPLICATION_JSON)
+		mockMvc.perform(post("/customers").contentType(MediaType.APPLICATION_JSON)
 				.accept(MediaType.APPLICATION_JSON).content(json)).andExpect(status().isBadRequest())
 				.andExpect(jsonPath("$.document").value("Documento deve ser obrigatório.")).andDo(print());
 	}
@@ -141,7 +141,7 @@ class RegisterCustomerTI {
 
 		String json = objectMapper.writeValueAsString(dto);
 
-		mockMvc.perform(post("/customers/register-customer").contentType(MediaType.APPLICATION_JSON)
+		mockMvc.perform(post("/customers").contentType(MediaType.APPLICATION_JSON)
 				.accept(MediaType.APPLICATION_JSON).content(json)).andExpect(status().isBadRequest())
 				.andExpect(jsonPath("$.message").value("Documento deve ser CPF ou CNPJ valido.")).andDo(print());
 	}
@@ -153,7 +153,7 @@ class RegisterCustomerTI {
 
 		String json = objectMapper.writeValueAsString(dto);
 
-		mockMvc.perform(post("/customers/register-customer").contentType(MediaType.APPLICATION_JSON)
+		mockMvc.perform(post("/customers").contentType(MediaType.APPLICATION_JSON)
 				.accept(MediaType.APPLICATION_JSON).content(json)).andExpect(status().isBadRequest())
 				.andExpect(jsonPath("$.message").value("Documento deve ser CPF ou CNPJ valido.")).andDo(print());
 	}
@@ -169,7 +169,7 @@ class RegisterCustomerTI {
 
 		String json = objectMapper.writeValueAsString(dto);
 
-		mockMvc.perform(post("/customers/register-customer").contentType(MediaType.APPLICATION_JSON)
+		mockMvc.perform(post("/customers").contentType(MediaType.APPLICATION_JSON)
 				.accept(MediaType.APPLICATION_JSON).content(json)).andExpect(status().isBadRequest())
 				.andExpect(jsonPath("$.message").value("Nome, documento, email ou telefone não deve ser repetido."))
 				.andDo(print());
@@ -182,7 +182,7 @@ class RegisterCustomerTI {
 
 		String json = objectMapper.writeValueAsString(dto);
 
-		mockMvc.perform(post("/customers/register-customer").contentType(MediaType.APPLICATION_JSON)
+		mockMvc.perform(post("/customers").contentType(MediaType.APPLICATION_JSON)
 				.accept(MediaType.APPLICATION_JSON).content(json)).andExpect(status().isBadRequest())
 				.andExpect(jsonPath("$.email").value("Email deve ser obrigatório.")).andDo(print());
 	}
@@ -194,7 +194,7 @@ class RegisterCustomerTI {
 
 		String json = objectMapper.writeValueAsString(dto);
 
-		mockMvc.perform(post("/customers/register-customer").contentType(MediaType.APPLICATION_JSON)
+		mockMvc.perform(post("/customers").contentType(MediaType.APPLICATION_JSON)
 				.accept(MediaType.APPLICATION_JSON).content(json)).andExpect(status().isBadRequest())
 				.andExpect(jsonPath("$.email").value("Email deve ser obrigatório.")).andDo(print());
 	}
@@ -206,7 +206,7 @@ class RegisterCustomerTI {
 
 		String json = objectMapper.writeValueAsString(dto);
 
-		mockMvc.perform(post("/customers/register-customer").contentType(MediaType.APPLICATION_JSON)
+		mockMvc.perform(post("/customers").contentType(MediaType.APPLICATION_JSON)
 				.accept(MediaType.APPLICATION_JSON).content(json)).andExpect(status().isBadRequest())
 				.andExpect(jsonPath("$.email").value("Email deve ser valido.")).andDo(print());
 	}
@@ -222,7 +222,7 @@ class RegisterCustomerTI {
 
 		String json = objectMapper.writeValueAsString(dto);
 
-		mockMvc.perform(post("/customers/register-customer").contentType(MediaType.APPLICATION_JSON)
+		mockMvc.perform(post("/customers").contentType(MediaType.APPLICATION_JSON)
 				.accept(MediaType.APPLICATION_JSON).content(json)).andExpect(status().isBadRequest())
 				.andExpect(jsonPath("$.message").value("Nome, documento, email ou telefone não deve ser repetido."))
 				.andDo(print());
@@ -235,7 +235,7 @@ class RegisterCustomerTI {
 
 		String json = objectMapper.writeValueAsString(dto);
 
-		mockMvc.perform(post("/customers/register-customer").contentType(MediaType.APPLICATION_JSON)
+		mockMvc.perform(post("/customers").contentType(MediaType.APPLICATION_JSON)
 				.accept(MediaType.APPLICATION_JSON).content(json)).andExpect(status().isBadRequest())
 				.andExpect(jsonPath("$.phone").value("Telefone deve ser obrigatório.")).andDo(print());
 	}
@@ -247,7 +247,7 @@ class RegisterCustomerTI {
 
 		String json = objectMapper.writeValueAsString(dto);
 
-		mockMvc.perform(post("/customers/register-customer").contentType(MediaType.APPLICATION_JSON)
+		mockMvc.perform(post("/customers").contentType(MediaType.APPLICATION_JSON)
 				.accept(MediaType.APPLICATION_JSON).content(json)).andExpect(status().isBadRequest())
 				.andExpect(jsonPath("$.phone").value("Telefone deve ser obrigatório.")).andDo(print());
 	}
@@ -260,7 +260,7 @@ class RegisterCustomerTI {
 
 		String json = objectMapper.writeValueAsString(dto);
 
-		mockMvc.perform(post("/customers/register-customer").contentType(MediaType.APPLICATION_JSON)
+		mockMvc.perform(post("/customers").contentType(MediaType.APPLICATION_JSON)
 				.accept(MediaType.APPLICATION_JSON).content(json)).andExpect(status().isBadRequest())
 				.andExpect(jsonPath("$.phone").value("Telefone deve ter até 30 caracteres.")).andDo(print());
 	}
@@ -276,7 +276,7 @@ class RegisterCustomerTI {
 
 		String json = objectMapper.writeValueAsString(dto);
 
-		mockMvc.perform(post("/customers/register-customer").contentType(MediaType.APPLICATION_JSON)
+		mockMvc.perform(post("/customers").contentType(MediaType.APPLICATION_JSON)
 				.accept(MediaType.APPLICATION_JSON).content(json)).andExpect(status().isBadRequest())
 				.andExpect(jsonPath("$.message").value("Nome, documento, email ou telefone não deve ser repetido."))
 				.andDo(print());
@@ -289,7 +289,7 @@ class RegisterCustomerTI {
 
 		String json = objectMapper.writeValueAsString(dto);
 
-		mockMvc.perform(post("/customers/register-customer").contentType(MediaType.APPLICATION_JSON)
+		mockMvc.perform(post("/customers").contentType(MediaType.APPLICATION_JSON)
 				.accept(MediaType.APPLICATION_JSON).content(json)).andExpect(status().isBadRequest())
 				.andExpect(jsonPath("$.customerType").value("Tipo de cliente deve ser obrigatório."))
 				.andDo(print());

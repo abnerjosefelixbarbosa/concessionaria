@@ -25,7 +25,7 @@ import com.concessionaria.backend.model.repository.CustomerRepository;
 @SpringBootTest
 @ActiveProfiles("test")
 @AutoConfigureMockMvc
-class ListCustomersByNameAndCustomerTypeTI {
+class ListCustomersTI {
 	@Autowired
 	private MockMvc mockMvc;
 	@Autowired
@@ -42,8 +42,8 @@ class ListCustomersByNameAndCustomerTypeTI {
 	}
 	
 	@Test
-	@DisplayName("Should list customers by name and customer type and return status 200.")
-	void listCustomersByNameAndCustomerTypeTest1() throws Exception {
+	@DisplayName("Should list customers and return status 200.")
+	void listCustomersTest1() throws Exception {
 		Customer customer1 = new Customer(null, "nome1", "99863221465", "email1@gmail.com", "81911111111", CustomerType.PF, null);
 
 		Customer customer2 = new Customer(null, "nome2", "81899898000183", "email2@gmail.com", "81922222222", CustomerType.PJ, null);
@@ -52,14 +52,14 @@ class ListCustomersByNameAndCustomerTypeTI {
 
 		customerRepository.save(customer2);
 
-		mockMvc.perform(get("/customers/list-customers-by-name-and-customer-type").contentType(MediaType.APPLICATION_JSON)
+		mockMvc.perform(get("/customers").contentType(MediaType.APPLICATION_JSON)
 				.accept(MediaType.APPLICATION_JSON)).andExpect(jsonPath("$.totalElements").value(2))
 				.andExpect(status().isOk()).andDo(print());
 	}
 
 	@Test
-	@DisplayName("Should list customers by name and customer type when name is 'Nome' and return status 200.")
-	void listCustomersByNameAndCustomerTypeTest2() throws Exception {
+	@DisplayName("Should list customers when name is 'Nome' and return status 200.")
+	void listCustomersTest2() throws Exception {
 		Customer customer1 = new Customer(null, "nome1", "99863221465", "email1@gmail.com", "81911111111", CustomerType.PF, null);
 
 		Customer customer2 = new Customer(null, "nome2", "81899898000183", "email2@gmail.com", "81922222222", CustomerType.PJ, null);
@@ -68,14 +68,14 @@ class ListCustomersByNameAndCustomerTypeTI {
 		
 		customerRepository.saveAll(List.of(customer1, customer2, customer3));
 
-		mockMvc.perform(get("/customers/list-customers-by-name-and-customer-type").queryParam("name", "Nome")
+		mockMvc.perform(get("/customers").queryParam("name", "Nome")
 				.contentType(MediaType.APPLICATION_JSON).accept(MediaType.APPLICATION_JSON))
 				.andExpect(jsonPath("$.totalElements").value(3)).andExpect(status().isOk()).andDo(print());
 	}
 	
 	@Test
-	@DisplayName("Should list customers by name and customer type when customer type is 'PF' and return status 200.")
-	void listCustomersByNameAndCustomerTypeTest3() throws Exception {
+	@DisplayName("Should list customers when customer type is 'PF' and return status 200.")
+	void listCustomersTest3() throws Exception {
 		Customer customer1 = new Customer(null, "nome1", "99863221465", "email1@gmail.com", "81911111111", CustomerType.PF, null);
 
 		Customer customer2 = new Customer(null, "nome2", "81899898000183", "email2@gmail.com", "81922222222", CustomerType.PJ, null);
@@ -84,7 +84,7 @@ class ListCustomersByNameAndCustomerTypeTI {
 		
 		customerRepository.saveAll(List.of(customer1, customer2, customer3));
 
-		mockMvc.perform(get("/customers/list-customers-by-name-and-customer-type").queryParam("customerType",  "PF")
+		mockMvc.perform(get("/customers").queryParam("customerType",  "PF")
 				.contentType(MediaType.APPLICATION_JSON).accept(MediaType.APPLICATION_JSON))
 				.andExpect(jsonPath("$.totalElements").value(2)).andExpect(status().isOk()).andDo(print());
 	}

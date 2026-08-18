@@ -15,6 +15,6 @@ public interface CustomerService {
 	CustomerResponseDTO updateCustomerById(String id, @Valid CustomerRequestDTO dto);
 
 	CustomerResponseDTO findCustomerById(String id);
-	
-	Page<CustomerResponseDTO> listCustomersByNameAndCustomerType(String name, CustomerType customerType, Pageable pageable);
+
+	Page<CustomerResponseDTO> listCustomers(String name, CustomerType customerType, Pageable pageable);
 }

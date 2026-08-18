@@ -20,7 +20,7 @@ public interface VehicleRepository extends JpaRepository<Vehicle, String> {
 	SELECT v
 	FROM Vehicle v
 	WHERE (v.transmissionType = :transmissionType OR :transmissionType IS NULL)
-	AND ((v.price >= 0 AND v.price <= :price) OR :price IS NULL) 		
+	AND ((v.price <= :price) OR :price IS NULL) 		
 	""")
 	Page<Vehicle> listVehicleByTransmissionTypeAndPrice(@Param("transmissionType") TransmissionType transmissionType, @Param("price") BigDecimal price, Pageable pageable);
 }

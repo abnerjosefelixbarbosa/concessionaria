@@ -26,7 +26,7 @@ import com.concessionaria.backend.model.repository.ModelRepository;
 @SpringBootTest
 @ActiveProfiles("test")
 @AutoConfigureMockMvc
-class ListModelsByNameTI {
+class ListModelsTI {
 	@Autowired
 	private MockMvc mockMvc;
 	@Autowired
@@ -61,7 +61,7 @@ class ListModelsByNameTI {
 
 		modelRepository.saveAll(List.of(model1, model2));
 
-		mockMvc.perform(get("/models/list-models-by-name").contentType(MediaType.APPLICATION_JSON)
+		mockMvc.perform(get("/models").contentType(MediaType.APPLICATION_JSON)
 				.accept(MediaType.APPLICATION_JSON))
 				.andExpectAll(status().isOk(), jsonPath("$.numberOfElements").value("2")).andDo(print());
 	}
@@ -81,7 +81,7 @@ class ListModelsByNameTI {
 
 		modelRepository.saveAll(List.of(model1, model2));
 
-		mockMvc.perform(get("/models/list-models-by-name").queryParam("name", "Nome").contentType(MediaType.APPLICATION_JSON)
+		mockMvc.perform(get("/models").queryParam("name", "Nome").contentType(MediaType.APPLICATION_JSON)
 				.accept(MediaType.APPLICATION_JSON))
 				.andExpectAll(status().isOk(), jsonPath("$.numberOfElements").value("2")).andDo(print());
 	}

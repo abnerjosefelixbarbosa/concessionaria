@@ -62,8 +62,8 @@ public class CustomerServiceImpl implements CustomerService {
 		return CustomerMapper.toCustomerResponseDTO(customerFound);
 	}
 	
-	public Page<CustomerResponseDTO> listCustomersByNameAndCustomerType(String name, CustomerType customerType, Pageable pageable) {	
-		Page<Customer> page = customerRepository.listCustomersByNameAndCustomerType(name, customerType, pageable);
+	public Page<CustomerResponseDTO> listCustomers(String name, CustomerType customerType, Pageable pageable) {	
+		Page<Customer> page = customerRepository.listCustomers(name, customerType, pageable);
 
 		return page.map(CustomerMapper::toCustomerResponseDTO);
 	}

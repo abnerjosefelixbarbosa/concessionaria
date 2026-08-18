@@ -55,7 +55,7 @@ class FindModelByIdTI {
 
 		Model modelSaved = modelRepository.save(model);
 
-		mockMvc.perform(get("/models/find-model-by-id/" + modelSaved.getId()).contentType(MediaType.APPLICATION_JSON)
+		mockMvc.perform(get("/models/" + modelSaved.getId()).contentType(MediaType.APPLICATION_JSON)
 				.accept(MediaType.APPLICATION_JSON)).andExpect(status().isOk()).andDo(print());
 	}
 
@@ -70,7 +70,7 @@ class FindModelByIdTI {
 
 		Model modelSaved = modelRepository.save(model);
 
-		mockMvc.perform(get("/models/find-model-by-id/1" + modelSaved.getId()).contentType(MediaType.APPLICATION_JSON)
+		mockMvc.perform(get("/models/1" + modelSaved.getId()).contentType(MediaType.APPLICATION_JSON)
 				.accept(MediaType.APPLICATION_JSON))
 				.andExpectAll(status().isNotFound(), jsonPath("$.message").value("Id deve ser existente."))
 				.andDo(print());

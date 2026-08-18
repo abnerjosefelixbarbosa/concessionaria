@@ -36,7 +36,7 @@ public class VehicleController {
 	}
 
 	@Operation(summary = "registrar veículo.", description = "registra um veículo.")
-	@ApiResponses(value = { @ApiResponse(responseCode = "201", description = "retorna um veículo registrado."),
+	@ApiResponses(value = { @ApiResponse(responseCode = "201", description = "registra um veículo."),
 			@ApiResponse(responseCode = "400", description = "retorna um erro de requesição."),
 			@ApiResponse(responseCode = "404", description = "retorna um erro de conteudo não encontrado.") })
 	@ResponseStatus(value = HttpStatus.CREATED)
@@ -48,7 +48,7 @@ public class VehicleController {
 	}
 
 	@Operation(summary = "atualizar veículo pelo id.", description = "atualiza um veículo pelo id.")
-	@ApiResponses(value = { @ApiResponse(responseCode = "200", description = "retorna um veículo atualizado."),
+	@ApiResponses(value = { @ApiResponse(responseCode = "200", description = "atualiza um veículo pelo id."),
 			@ApiResponse(responseCode = "400", description = "retorna um erro de requesição."),
 			@ApiResponse(responseCode = "404", description = "retorna um erro de conteudo não encontrado.") })
 	@ResponseStatus(value = HttpStatus.OK)
@@ -61,7 +61,7 @@ public class VehicleController {
 	}
 
 	@Operation(summary = "procurar veículo pelo id.", description = "procura um veículo pelo id.")
-	@ApiResponses(value = { @ApiResponse(responseCode = "200", description = "retorna um veículo procurado."),
+	@ApiResponses(value = { @ApiResponse(responseCode = "200", description = "procura um veículo pelo id."),
 			@ApiResponse(responseCode = "400", description = "retorna um erro de requesição."),
 			@ApiResponse(responseCode = "404", description = "retorna um erro de conteudo não encontrado.") })
 	@ResponseStatus(value = HttpStatus.OK)
@@ -73,12 +73,12 @@ public class VehicleController {
 	}
 
 	@Operation(summary = "listar varios veículos.", description = "lista varios veículos.")
-	@ApiResponses(value = { @ApiResponse(responseCode = "200", description = "retorna varios veículos listados."),
+	@ApiResponses(value = { @ApiResponse(responseCode = "200", description = "lista varios veículos."),
 			@ApiResponse(responseCode = "400", description = "retorna um erro de requesição."),
 			@ApiResponse(responseCode = "404", description = "retorna um erro de conteudo não encontrado.") })
 	@ResponseStatus(value = HttpStatus.OK)
 	@GetMapping(value = "/list-vehicle-by-transmission-type-and-price")
-	public ResponseEntity<Page<VehicleResponseDTO>> listVehicleByTransmissionTypeAndPrice(
+	public ResponseEntity<Page<VehicleResponseDTO>> listVehicle(
 			@RequestParam(defaultValue = "") TransmissionType transmissionType, @RequestParam(defaultValue = "") BigDecimal price,
 			Pageable pageable) {
 		Page<VehicleResponseDTO> response = vehicleService.listVehicleByTransmissionTypeAndPrice(transmissionType, price, pageable);

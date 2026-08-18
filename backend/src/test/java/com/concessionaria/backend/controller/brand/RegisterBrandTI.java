@@ -50,7 +50,7 @@ class RegisterBrandTI {
 
 		String json = objectMapper.writeValueAsString(dto);
 
-		mockMvc.perform(post("/brands/register-brand").contentType(MediaType.APPLICATION_JSON)
+		mockMvc.perform(post("/brands").contentType(MediaType.APPLICATION_JSON)
 				.accept(MediaType.APPLICATION_JSON).content(json)).andExpect(status().isCreated()).andDo(print());
 	}
 	
@@ -61,7 +61,7 @@ class RegisterBrandTI {
 
 		String json = objectMapper.writeValueAsString(dto);
 
-		mockMvc.perform(post("/brands/register-brand").contentType(MediaType.APPLICATION_JSON)
+		mockMvc.perform(post("/brands").contentType(MediaType.APPLICATION_JSON)
 				.accept(MediaType.APPLICATION_JSON).content(json)).andExpect(status().isBadRequest())
 				.andExpect(jsonPath("$.name").value("Nome deve ser obrigatório.")).andDo(print());
 	}
@@ -73,7 +73,7 @@ class RegisterBrandTI {
 
 		String json = objectMapper.writeValueAsString(dto);
 
-		mockMvc.perform(post("/brands/register-brand").contentType(MediaType.APPLICATION_JSON)
+		mockMvc.perform(post("/brands").contentType(MediaType.APPLICATION_JSON)
 				.accept(MediaType.APPLICATION_JSON).content(json)).andExpect(status().isBadRequest())
 				.andExpect(jsonPath("$.name").value("Nome deve ser obrigatório.")).andDo(print());
 	}
@@ -85,7 +85,7 @@ class RegisterBrandTI {
 
 		String json = objectMapper.writeValueAsString(dto);
 
-		mockMvc.perform(post("/brands/register-brand").contentType(MediaType.APPLICATION_JSON)
+		mockMvc.perform(post("/brands").contentType(MediaType.APPLICATION_JSON)
 				.accept(MediaType.APPLICATION_JSON).content(json)).andExpect(status().isBadRequest())
 				.andExpect(jsonPath("$.name").value("Nome deve ter até 30 caracteres.")).andDo(print());
 	}
@@ -101,7 +101,7 @@ class RegisterBrandTI {
 
 		String json = objectMapper.writeValueAsString(dto);
 
-		mockMvc.perform(post("/brands/register-brand").contentType(MediaType.APPLICATION_JSON)
+		mockMvc.perform(post("/brands").contentType(MediaType.APPLICATION_JSON)
 				.accept(MediaType.APPLICATION_JSON).content(json)).andExpect(status().isBadRequest())
 				.andExpect(jsonPath("$.message").value("Nome deve não deve ser repetido.")).andDo(print());
 	}

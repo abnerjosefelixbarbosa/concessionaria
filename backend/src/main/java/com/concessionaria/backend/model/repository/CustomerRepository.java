@@ -20,6 +20,6 @@ public interface CustomerRepository extends JpaRepository<Customer, String> {
 					WHERE (UPPER(c.name) LIKE UPPER(CONCAT('%', :name, '%')))
 					AND (:customerType IS NULL OR c.customerType = :customerType)
 			""")
-	Page<Customer> listCustomersByNameAndCustomerType(@Param("name") String name,
-			@Param("customerType") CustomerType customerType, Pageable pageable);
+	Page<Customer> listCustomers(@Param("name") String name, @Param("customerType") CustomerType customerType,
+			Pageable pageable);
 }

@@ -10,7 +10,10 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.boot.webmvc.test.autoconfigure.AutoConfigureMockMvc;
 import org.springframework.http.MediaType;
+import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.web.servlet.MockMvc;
 
 import com.concessionaria.backend.model.dto.BrandRequestDTO;
@@ -19,6 +22,9 @@ import com.concessionaria.backend.model.repository.BrandRepository;
 
 import tools.jackson.databind.ObjectMapper;
 
+@SpringBootTest
+@ActiveProfiles("test")
+@AutoConfigureMockMvc
 class UpdateBrandByIdTI {
 	@Autowired
 	private MockMvc mockMvc;
@@ -48,7 +54,7 @@ class UpdateBrandByIdTI {
 
 		String json = objectMapper.writeValueAsString(dto);
 
-		mockMvc.perform(put("/brands/update-brand-by-id/" + id).contentType(MediaType.APPLICATION_JSON)
+		mockMvc.perform(put("/brands/" + id).contentType(MediaType.APPLICATION_JSON)
 				.accept(MediaType.APPLICATION_JSON).content(json)).andExpect(status().isOk()).andDo(print());
 	}
 	
@@ -63,7 +69,7 @@ class UpdateBrandByIdTI {
 
 		String json = objectMapper.writeValueAsString(dto);
 
-		mockMvc.perform(put("/brands/update-brand-by-id/1" + id).contentType(MediaType.APPLICATION_JSON)
+		mockMvc.perform(put("/brands/1" + id).contentType(MediaType.APPLICATION_JSON)
 				.accept(MediaType.APPLICATION_JSON).content(json)).andExpect(status().isNotFound())
 				.andExpect(jsonPath("$.message").value("Id deve ser existente.")).andDo(print());
 	}
@@ -79,7 +85,7 @@ class UpdateBrandByIdTI {
 
 		String json = objectMapper.writeValueAsString(dto);
 
-		mockMvc.perform(put("/brands/update-brand-by-id/" + id).contentType(MediaType.APPLICATION_JSON)
+		mockMvc.perform(put("/brands/" + id).contentType(MediaType.APPLICATION_JSON)
 				.accept(MediaType.APPLICATION_JSON).content(json)).andExpect(status().isBadRequest())
 				.andExpect(jsonPath("$.name").value("Nome deve ser obrigatório.")).andDo(print());
 	}
@@ -95,7 +101,7 @@ class UpdateBrandByIdTI {
 
 		String json = objectMapper.writeValueAsString(dto);
 
-		mockMvc.perform(put("/brands/update-brand-by-id/" + id).contentType(MediaType.APPLICATION_JSON)
+		mockMvc.perform(put("/brands/" + id).contentType(MediaType.APPLICATION_JSON)
 				.accept(MediaType.APPLICATION_JSON).content(json)).andExpect(status().isBadRequest())
 				.andExpect(jsonPath("$.name").value("Nome deve ser obrigatório.")).andDo(print());
 	}
@@ -111,7 +117,7 @@ class UpdateBrandByIdTI {
 
 		String json = objectMapper.writeValueAsString(dto);
 
-		mockMvc.perform(put("/brands/update-brand-by-id/" + id).contentType(MediaType.APPLICATION_JSON)
+		mockMvc.perform(put("/brands/" + id).contentType(MediaType.APPLICATION_JSON)
 				.accept(MediaType.APPLICATION_JSON).content(json)).andExpect(status().isBadRequest())
 				.andExpect(jsonPath("$.name").value("Nome deve ter até 30 caracteres.")).andDo(print());
 	}
@@ -127,7 +133,7 @@ class UpdateBrandByIdTI {
 
 		String json = objectMapper.writeValueAsString(dto);
 
-		mockMvc.perform(put("/brands/update-brand-by-id/" + id).contentType(MediaType.APPLICATION_JSON)
+		mockMvc.perform(put("/brands/" + id).contentType(MediaType.APPLICATION_JSON)
 				.accept(MediaType.APPLICATION_JSON).content(json)).andExpect(status().isBadRequest())
 				.andExpect(jsonPath("$.message").value("Nome deve não deve ser repetido.")).andDo(print());
 	}

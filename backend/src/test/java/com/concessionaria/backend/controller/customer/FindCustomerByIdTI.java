@@ -46,7 +46,7 @@ class FindCustomerByIdTI {
 
 		String id = customerRepository.save(customer).getId();
 
-		mockMvc.perform(get("/customers/find-customer-by-id/" + id).contentType(MediaType.APPLICATION_JSON)
+		mockMvc.perform(get("/customers/" + id).contentType(MediaType.APPLICATION_JSON)
 				.accept(MediaType.APPLICATION_JSON)).andExpect(status().isOk()).andDo(print());
 	}
 
@@ -57,7 +57,7 @@ class FindCustomerByIdTI {
 
 		String id = customerRepository.save(customer).getId();
 
-		mockMvc.perform(get("/customers/find-customer-by-id/1" + id))
+		mockMvc.perform(get("/customers/1" + id))
 				.andExpect(jsonPath("$.message").value("Id deve ser existente.")).andExpect(status().isNotFound())
 				.andDo(print());
 	}
