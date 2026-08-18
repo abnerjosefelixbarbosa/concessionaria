@@ -30,7 +30,7 @@ import com.concessionaria.backend.model.repository.VehicleRepository;
 @SpringBootTest
 @ActiveProfiles("test")
 @AutoConfigureMockMvc
-class ListVehicleByTransmissionTypeAndPriceTI {
+class ListVehiclesTI {
 	@Autowired
 	private MockMvc mockMvc;
 	@Autowired
@@ -55,8 +55,8 @@ class ListVehicleByTransmissionTypeAndPriceTI {
 	}
 
 	@Test
-	@DisplayName("Should list vehicle by transmission type and price and return status 200.")
-	void listVehicleByTransmissionTypeAndPriceTest1() throws Exception {
+	@DisplayName("Should list vehicles and return status 200.")
+	void listVehiclesTest1() throws Exception {
 		Brand brand = new Brand(null, "nome1", null);
 
 		brand = brandRepository.save(brand);
@@ -80,7 +80,7 @@ class ListVehicleByTransmissionTypeAndPriceTI {
 		
 		vehicleRepository.save(vehicle3);
 		
-		mockMvc.perform(get("/vehicles/list-vehicle-by-transmission-type-and-price").contentType(MediaType.APPLICATION_JSON)
+		mockMvc.perform(get("/vehicles").contentType(MediaType.APPLICATION_JSON)
 				.accept(MediaType.APPLICATION_JSON)).andExpectAll(
 						status().isOk(),
 						jsonPath("$.numberOfElements").value("3")
@@ -88,8 +88,8 @@ class ListVehicleByTransmissionTypeAndPriceTI {
 	}
 	
 	@Test
-	@DisplayName("Should list vehicle by transmission type and price when transmission type contains 'MANUAL' and return status 200.")
-	void listVehicleByTransmissionTypeAndPriceTest2() throws Exception {
+	@DisplayName("Should list vehicles when transmission type contains 'MANUAL' and return status 200.")
+	void listVehiclesTest2() throws Exception {
 		Brand brand = new Brand(null, "nome1", null);
 
 		brand = brandRepository.save(brand);
@@ -113,7 +113,7 @@ class ListVehicleByTransmissionTypeAndPriceTI {
 		
 		vehicleRepository.save(vehicle3);
 		
-		mockMvc.perform(get("/vehicles/list-vehicle-by-transmission-type-and-price").queryParam("transmissionType", TransmissionType.MANUAL.name()).contentType(MediaType.APPLICATION_JSON)
+		mockMvc.perform(get("/vehicles").queryParam("transmissionType", TransmissionType.MANUAL.name()).contentType(MediaType.APPLICATION_JSON)
 				.accept(MediaType.APPLICATION_JSON)).andExpectAll(
 						status().isOk(),
 						jsonPath("$.numberOfElements").value("2")
@@ -121,8 +121,8 @@ class ListVehicleByTransmissionTypeAndPriceTI {
 	}
 	
 	@Test
-	@DisplayName("Should list vehicle by transmission type and price when price is '8000' return status 200.")
-	void listVehicleByTransmissionTypeAndPriceTest3() throws Exception {
+	@DisplayName("Should list vehicles when price is '8000' return status 200.")
+	void listVehiclesTest3() throws Exception {
 		Brand brand = new Brand(null, "nome1", null);
 
 		brand = brandRepository.save(brand);
@@ -146,10 +146,109 @@ class ListVehicleByTransmissionTypeAndPriceTI {
 		
 		vehicleRepository.save(vehicle3);
 		
-		mockMvc.perform(get("/vehicles/list-vehicle-by-transmission-type-and-price").queryParam("price", "8000").contentType(MediaType.APPLICATION_JSON)
+		mockMvc.perform(get("/vehicles").queryParam("price", "8000").contentType(MediaType.APPLICATION_JSON)
 				.accept(MediaType.APPLICATION_JSON)).andExpectAll(
 						status().isOk(),
 						jsonPath("$.numberOfElements").value("2")
+				).andDo(print());
+	}
+	
+	@Test
+	@DisplayName("Should list vehicles when plate is '1111-AAA' return status 200.")
+	void listVehiclesTest4() throws Exception {
+		Brand brand = new Brand(null, "nome1", null);
+
+		brand = brandRepository.save(brand);
+
+		Model model = new Model(null, "nome1", brand, null);
+
+		model = modelRepository.save(model);
+		
+		Vehicle vehicle1 = new Vehicle(null, "1111-AAA", TransmissionType.MANUAL, VehicleStatus.FOR_SALE, "cor1",
+				new BigDecimal("10000.00"), model, null);
+		
+		Vehicle vehicle2 = new Vehicle(null, "2222-AAA", TransmissionType.MANUAL, VehicleStatus.FOR_SALE, "cor2",
+				new BigDecimal("5000.00"), model, null);
+		
+		Vehicle vehicle3 = new Vehicle(null, "3333-AAA", TransmissionType.AUTOMATIC, VehicleStatus.SOLD, "cor3",
+				new BigDecimal("8000.00"), model, null);
+
+		vehicleRepository.save(vehicle1);
+		
+		vehicleRepository.save(vehicle2);
+		
+		vehicleRepository.save(vehicle3);
+		
+		mockMvc.perform(get("/vehicles").queryParam("plate", "1111-AAA").contentType(MediaType.APPLICATION_JSON)
+				.accept(MediaType.APPLICATION_JSON)).andExpectAll(
+						status().isOk(),
+						jsonPath("$.numberOfElements").value("1")
+				).andDo(print());
+	}
+	
+	@Test
+	@DisplayName("Should list vehicles when vehicle status is 'SOLD' return status 200.")
+	void listVehiclesTest5() throws Exception {
+		Brand brand = new Brand(null, "nome1", null);
+
+		brand = brandRepository.save(brand);
+
+		Model model = new Model(null, "nome1", brand, null);
+
+		model = modelRepository.save(model);
+		
+		Vehicle vehicle1 = new Vehicle(null, "1111-AAA", TransmissionType.MANUAL, VehicleStatus.FOR_SALE, "cor1",
+				new BigDecimal("10000.00"), model, null);
+		
+		Vehicle vehicle2 = new Vehicle(null, "2222-AAA", TransmissionType.MANUAL, VehicleStatus.FOR_SALE, "cor2",
+				new BigDecimal("5000.00"), model, null);
+		
+		Vehicle vehicle3 = new Vehicle(null, "3333-AAA", TransmissionType.AUTOMATIC, VehicleStatus.SOLD, "cor3",
+				new BigDecimal("8000.00"), model, null);
+
+		vehicleRepository.save(vehicle1);
+		
+		vehicleRepository.save(vehicle2);
+		
+		vehicleRepository.save(vehicle3);
+		
+		mockMvc.perform(get("/vehicles").queryParam("vehicleStatus", VehicleStatus.SOLD.name()).contentType(MediaType.APPLICATION_JSON)
+				.accept(MediaType.APPLICATION_JSON)).andExpectAll(
+						status().isOk(),
+						jsonPath("$.numberOfElements").value("1")
+				).andDo(print());
+	}
+	
+	@Test
+	@DisplayName("Should list vehicles when color is 'cor1' return status 200.")
+	void listVehiclesTest7() throws Exception {
+		Brand brand = new Brand(null, "nome1", null);
+
+		brand = brandRepository.save(brand);
+
+		Model model = new Model(null, "nome1", brand, null);
+
+		model = modelRepository.save(model);
+		
+		Vehicle vehicle1 = new Vehicle(null, "1111-AAA", TransmissionType.MANUAL, VehicleStatus.FOR_SALE, "cor1",
+				new BigDecimal("10000.00"), model, null);
+		
+		Vehicle vehicle2 = new Vehicle(null, "2222-AAA", TransmissionType.MANUAL, VehicleStatus.FOR_SALE, "cor2",
+				new BigDecimal("5000.00"), model, null);
+		
+		Vehicle vehicle3 = new Vehicle(null, "3333-AAA", TransmissionType.AUTOMATIC, VehicleStatus.SOLD, "cor3",
+				new BigDecimal("8000.00"), model, null);
+
+		vehicleRepository.save(vehicle1);
+		
+		vehicleRepository.save(vehicle2);
+		
+		vehicleRepository.save(vehicle3);
+		
+		mockMvc.perform(get("/vehicles").queryParam("color", "cor1").contentType(MediaType.APPLICATION_JSON)
+				.accept(MediaType.APPLICATION_JSON)).andExpectAll(
+						status().isOk(),
+						jsonPath("$.numberOfElements").value("1")
 				).andDo(print());
 	}
 }

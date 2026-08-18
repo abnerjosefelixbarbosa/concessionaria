@@ -11,16 +11,22 @@ import org.springframework.stereotype.Repository;
 
 import com.concessionaria.backend.model.entity.Vehicle;
 import com.concessionaria.backend.model.entity.enums.TransmissionType;
+import com.concessionaria.backend.model.entity.enums.VehicleStatus;
 
 @Repository
 public interface VehicleRepository extends JpaRepository<Vehicle, String> {
 	boolean existsByPlate(String plate);
-	
+
 	@Query("""
-	SELECT v
-	FROM Vehicle v
-	WHERE (v.transmissionType = :transmissionType OR :transmissionType IS NULL)
-	AND ((v.price <= :price) OR :price IS NULL) 		
-	""")
-	Page<Vehicle> listVehicleByTransmissionTypeAndPrice(@Param("transmissionType") TransmissionType transmissionType, @Param("price") BigDecimal price, Pageable pageable);
+			SELECT v
+			FROM Vehicle v
+			WHERE (v.transmissionType = :transmissionType OR :transmissionType IS NULL)
+			AND ((v.price <= :price) OR :price IS NULL)
+			AND (v.vehicleStatus = :vehicleStatus OR :vehicleStatus IS NULL)
+			AND (UPPER(v.color) LIKE UPPER(CONCAT('%', :color, '%')))
+			AND (UPPER(v.plate) LIKE UPPER(CONCAT('%', :plate, '%')))
+			""")
+	Page<Vehicle> listVehicles(@Param("transmissionType") TransmissionType transmissionType,
+			@Param("price") BigDecimal price, @Param("vehicleStatus") VehicleStatus vehicleStatus,
+			@Param("color") String color, @Param("plate") String plate, Pageable pageable);
 }

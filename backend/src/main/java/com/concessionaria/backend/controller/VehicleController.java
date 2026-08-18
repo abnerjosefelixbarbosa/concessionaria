@@ -19,6 +19,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.concessionaria.backend.model.dto.VehicleRequestDTO;
 import com.concessionaria.backend.model.dto.VehicleResponseDTO;
 import com.concessionaria.backend.model.entity.enums.TransmissionType;
+import com.concessionaria.backend.model.entity.enums.VehicleStatus;
 import com.concessionaria.backend.model.service.VehicleService;
 
 import io.swagger.v3.oas.annotations.Operation;
@@ -39,8 +40,8 @@ public class VehicleController {
 	@ApiResponses(value = { @ApiResponse(responseCode = "201", description = "registra um veículo."),
 			@ApiResponse(responseCode = "400", description = "retorna um erro de requesição."),
 			@ApiResponse(responseCode = "404", description = "retorna um erro de conteudo não encontrado.") })
-	@ResponseStatus(value = HttpStatus.CREATED)
-	@PostMapping(value = "/register-vehicle")
+	@ResponseStatus(HttpStatus.CREATED)
+	@PostMapping
 	public ResponseEntity<VehicleResponseDTO> registerVehicle(@RequestBody @Valid VehicleRequestDTO dto) {
 		VehicleResponseDTO response = vehicleService.registerVehicle(dto);
 
@@ -51,8 +52,8 @@ public class VehicleController {
 	@ApiResponses(value = { @ApiResponse(responseCode = "200", description = "atualiza um veículo pelo id."),
 			@ApiResponse(responseCode = "400", description = "retorna um erro de requesição."),
 			@ApiResponse(responseCode = "404", description = "retorna um erro de conteudo não encontrado.") })
-	@ResponseStatus(value = HttpStatus.OK)
-	@PutMapping(value = "/update-vehicle-by-id/{id}")
+	@ResponseStatus(HttpStatus.OK)
+	@PutMapping("/{id}")
 	public ResponseEntity<VehicleResponseDTO> updateVehicleById(@PathVariable String id,
 			@RequestBody @Valid VehicleRequestDTO dto) {
 		VehicleResponseDTO response = vehicleService.updateVehicleById(id, dto);
@@ -64,8 +65,8 @@ public class VehicleController {
 	@ApiResponses(value = { @ApiResponse(responseCode = "200", description = "procura um veículo pelo id."),
 			@ApiResponse(responseCode = "400", description = "retorna um erro de requesição."),
 			@ApiResponse(responseCode = "404", description = "retorna um erro de conteudo não encontrado.") })
-	@ResponseStatus(value = HttpStatus.OK)
-	@GetMapping(value = "/find-vehicle-by-id/{id}")
+	@ResponseStatus(HttpStatus.OK)
+	@GetMapping("/{id}")
 	public ResponseEntity<VehicleResponseDTO> findVehicleById(@PathVariable String id) {
 		VehicleResponseDTO response = vehicleService.findVehicleById(id);
 
@@ -76,12 +77,15 @@ public class VehicleController {
 	@ApiResponses(value = { @ApiResponse(responseCode = "200", description = "lista varios veículos."),
 			@ApiResponse(responseCode = "400", description = "retorna um erro de requesição."),
 			@ApiResponse(responseCode = "404", description = "retorna um erro de conteudo não encontrado.") })
-	@ResponseStatus(value = HttpStatus.OK)
-	@GetMapping(value = "/list-vehicle-by-transmission-type-and-price")
-	public ResponseEntity<Page<VehicleResponseDTO>> listVehicle(
-			@RequestParam(defaultValue = "") TransmissionType transmissionType, @RequestParam(defaultValue = "") BigDecimal price,
-			Pageable pageable) {
-		Page<VehicleResponseDTO> response = vehicleService.listVehicleByTransmissionTypeAndPrice(transmissionType, price, pageable);
+	@ResponseStatus(HttpStatus.OK)
+	@GetMapping
+	public ResponseEntity<Page<VehicleResponseDTO>> listVehicles(
+			@RequestParam(defaultValue = "") TransmissionType transmissionType,
+			@RequestParam(defaultValue = "") BigDecimal price,
+			@RequestParam(defaultValue = "") VehicleStatus vehicleStatus, @RequestParam(defaultValue = "") String color,
+			@RequestParam(defaultValue = "") String plate, Pageable pageable) {
+		Page<VehicleResponseDTO> response = vehicleService.listVehicles(transmissionType, price, vehicleStatus, color,
+				plate, pageable);
 
 		return ResponseEntity.status(HttpStatus.OK).body(response);
 	}

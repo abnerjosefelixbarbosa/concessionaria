@@ -11,6 +11,7 @@ import com.concessionaria.backend.model.dto.VehicleResponseDTO;
 import com.concessionaria.backend.model.entity.Model;
 import com.concessionaria.backend.model.entity.Vehicle;
 import com.concessionaria.backend.model.entity.enums.TransmissionType;
+import com.concessionaria.backend.model.entity.enums.VehicleStatus;
 import com.concessionaria.backend.model.exception.ApplicationException;
 import com.concessionaria.backend.model.exception.NotFoundException;
 import com.concessionaria.backend.model.mapper.VehicleMapper;
@@ -62,16 +63,18 @@ public class VehicleServiceImpl implements VehicleService {
 
 		return VehicleMapper.toBrandResponseDTO(vehicleSaved);
 	}
-	
+
 	public VehicleResponseDTO findVehicleById(String id) {
 		Vehicle vehicleFound = vehicleRepository.findById(id)
 				.orElseThrow(() -> new NotFoundException("Id deve ser existente."));
 
 		return VehicleMapper.toBrandResponseDTO(vehicleFound);
 	}
-	
-	public Page<VehicleResponseDTO> listVehicleByTransmissionTypeAndPrice(TransmissionType transmissionType, BigDecimal price, Pageable pageable) {	
-		Page<Vehicle> page = vehicleRepository.listVehicleByTransmissionTypeAndPrice(transmissionType, price, pageable);
+
+	public Page<VehicleResponseDTO> listVehicles(TransmissionType transmissionType, BigDecimal price,
+			VehicleStatus vehicleStatus, String color, String plate, Pageable pageable) {
+		Page<Vehicle> page = vehicleRepository.listVehicles(transmissionType, price, vehicleStatus, color, plate,
+				pageable);
 
 		return page.map(VehicleMapper::toBrandResponseDTO);
 	}
