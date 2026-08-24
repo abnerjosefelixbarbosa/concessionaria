@@ -7,5 +7,5 @@ import com.concessionaria.backend.model.entity.Item;
 
 @Repository
 public interface ItemRepository extends JpaRepository<Item, String> {
-
+	
 }

@@ -2,6 +2,7 @@ package com.concessionaria.backend.model.service.impl;
 
 import java.math.BigDecimal;
 
+import org.springframework.beans.BeanUtils;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
@@ -70,6 +71,13 @@ public class VehicleServiceImpl implements VehicleService {
 
 		return VehicleMapper.toBrandResponseDTO(vehicleFound);
 	}
+	
+	public Vehicle findVehicleByPlate(String plate) {
+		Vehicle vehicle = vehicleRepository.findByPlate(plate)
+				.orElseThrow(() -> new NotFoundException("Lista de itens deve ter placa de veiculo existente."));
+		
+		return vehicle;
+	}
 
 	public Page<VehicleResponseDTO> listVehicles(TransmissionType transmissionType, BigDecimal price,
 			VehicleStatus vehicleStatus, String color, String plate, Pageable pageable) {
@@ -77,6 +85,15 @@ public class VehicleServiceImpl implements VehicleService {
 				pageable);
 
 		return page.map(VehicleMapper::toBrandResponseDTO);
+	}
+	
+	@Transactional
+	public void updateVehicleByPlate(String plate, Vehicle vehicle) {
+		Vehicle vehicleFound = findVehicleByPlate(plate);
+		
+		BeanUtils.copyProperties(vehicle, vehicleFound, "id");
+		
+		vehicleRepository.save(vehicleFound);
 	}
 
 	private void validateVehicle(Vehicle vehicle) {

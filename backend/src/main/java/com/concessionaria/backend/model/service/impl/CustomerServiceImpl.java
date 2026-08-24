@@ -67,6 +67,13 @@ public class CustomerServiceImpl implements CustomerService {
 
 		return page.map(CustomerMapper::toCustomerResponseDTO);
 	}
+	
+    public Customer findCustomerByDocument(String document) {
+		Customer customerFound = customerRepository.findByDocument(document)
+				.orElseThrow(() -> new NotFoundException("Documento deve ser existente."));
+		
+		return customerFound;
+	}
 
 	private void validateCustomer(Customer customer) {
 		if (!validateDocument(customer.getDocument())) {

@@ -1,5 +1,7 @@
 package com.concessionaria.backend.model.repository;
 
+import java.util.Optional;
+
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
@@ -25,4 +27,6 @@ public interface EmployeeRepository extends JpaRepository<Employee, String> {
 			""")
 	Page<Employee> listEmployees(@Param("name") String name, @Param("employeeStatus") EmployeeStatus employeeStatus,
 			@Param("employeeType") EmployeeType employeeType, Pageable pageable);
+
+	Optional<Employee> findByMatriculation(String matriculation);
 }

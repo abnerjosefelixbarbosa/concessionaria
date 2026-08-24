@@ -60,12 +60,18 @@ public class EmployeeServiceImpl implements EmployeeService {
 		return EmployeeMapper.toEmployeeResponseDTO(employeeFound);
 	}
 
-	public Page<EmployeeResponseDTO> listEmployees(String name,
-			EmployeeStatus employeeStatus, EmployeeType employeeType, Pageable pageable) {
-		Page<Employee> page = employeeRepository.listEmployees(name,
-				employeeStatus, employeeType, pageable);
+	public Page<EmployeeResponseDTO> listEmployees(String name, EmployeeStatus employeeStatus,
+			EmployeeType employeeType, Pageable pageable) {
+		Page<Employee> page = employeeRepository.listEmployees(name, employeeStatus, employeeType, pageable);
 
 		return page.map(EmployeeMapper::toEmployeeResponseDTO);
+	}
+	
+	public Employee findEmployeeByMatriculation(String matriculation) {
+		Employee employeeFound = employeeRepository.findByMatriculation(matriculation)
+				.orElseThrow(() -> new NotFoundException("Matricula do funcionário deve ser existente."));
+
+		return employeeFound;
 	}
 
 	private void validateEmployee(Employee employee) {

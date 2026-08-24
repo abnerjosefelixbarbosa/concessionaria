@@ -1,6 +1,7 @@
 package com.concessionaria.backend.model.repository;
 
 import java.math.BigDecimal;
+import java.util.Optional;
 
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -29,4 +30,6 @@ public interface VehicleRepository extends JpaRepository<Vehicle, String> {
 	Page<Vehicle> listVehicles(@Param("transmissionType") TransmissionType transmissionType,
 			@Param("price") BigDecimal price, @Param("vehicleStatus") VehicleStatus vehicleStatus,
 			@Param("color") String color, @Param("plate") String plate, Pageable pageable);
+
+	Optional<Vehicle> findByPlate(String plate);
 }

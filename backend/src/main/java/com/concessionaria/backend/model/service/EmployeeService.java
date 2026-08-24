@@ -5,6 +5,7 @@ import org.springframework.data.domain.Pageable;
 
 import com.concessionaria.backend.model.dto.EmployeeRequestDTO;
 import com.concessionaria.backend.model.dto.EmployeeResponseDTO;
+import com.concessionaria.backend.model.entity.Employee;
 import com.concessionaria.backend.model.entity.enums.EmployeeStatus;
 import com.concessionaria.backend.model.entity.enums.EmployeeType;
 
@@ -17,4 +18,6 @@ public interface EmployeeService {
 
 	Page<EmployeeResponseDTO> listEmployees(String name, EmployeeStatus employeeStatus, EmployeeType employeeType,
 			Pageable pageable);
+
+	Employee findEmployeeByMatriculation(String matriculation);
 }
