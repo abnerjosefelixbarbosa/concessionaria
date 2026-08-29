@@ -7,4 +7,6 @@ public interface SaleService {
 
 	SaleResponseDTO registerSale(SaleRequestDTO dto);
 
+	void deleterSaleById(String id);
+
 }
