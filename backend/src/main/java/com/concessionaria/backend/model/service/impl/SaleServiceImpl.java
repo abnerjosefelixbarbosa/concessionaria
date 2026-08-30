@@ -3,6 +3,8 @@ package com.concessionaria.backend.model.service.impl;
 import java.math.BigDecimal;
 import java.util.List;
 
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import com.concessionaria.backend.model.dto.SaleRequestDTO;
@@ -13,6 +15,7 @@ import com.concessionaria.backend.model.entity.Item;
 import com.concessionaria.backend.model.entity.Sale;
 import com.concessionaria.backend.model.entity.Vehicle;
 import com.concessionaria.backend.model.entity.enums.EmployeeType;
+import com.concessionaria.backend.model.entity.enums.PaymentType;
 import com.concessionaria.backend.model.entity.enums.VehicleStatus;
 import com.concessionaria.backend.model.exception.ApplicationException;
 import com.concessionaria.backend.model.exception.NotFoundException;
@@ -69,6 +72,12 @@ public class SaleServiceImpl implements SaleService {
 		Sale sale = saleRepository.findById(id).orElseThrow(() -> new NotFoundException("Id deve ser existente."));
 
 		saleRepository.delete(sale);
+	}
+	
+	public Page<SaleResponseDTO> listSales(PaymentType paymentType, Pageable pageable) {
+		Page<Sale> page = saleRepository.listSales(paymentType, pageable);
+		
+		return page.map(SaleMapper::toSaleResponseDTO);
 	}
 
 	private List<Item> mapItems(SaleRequestDTO dto, Sale sale) {
