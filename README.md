@@ -197,6 +197,10 @@ Método:
 
 POST
 
+Status:
+
+201
+
 Path:
 
 `/brands`
@@ -235,9 +239,13 @@ Método:
 
 PUT
 
+Status:
+
+200
+
 Path:
 
-`/brands/5609a5c0-8334-4379-94b6-ac7a55d6c755`
+`/brands/{id}`
 
 Parametro:
 
@@ -288,9 +296,13 @@ Método:
 
 GET
 
+Status:
+
+200
+
 Path:
 
-`/brands/5609a5c0-8334-4379-94b6-ac7a55d6c755`
+`/brands/{id}`
 
 Parametro:
 
@@ -322,6 +334,10 @@ Método:
 
 GET
 
+Status:
+
+200
+
 Path:
 
 `/brands`
@@ -338,6 +354,227 @@ Corpo da resposta:
     {
       "id": "5609a5c0-8334-4379-94b6-ac7a55d6c755",
       "name": "Volkswagen"
+    }
+  ],
+  "empty": false,
+  "first": true,
+  "last": true,
+  "number": 0,
+  "numberOfElements": 1,
+  "pageable": {
+    "offset": 0,
+    "pageNumber": 0,
+    "pageSize": 20,
+    "paged": true,
+    "sort": {
+      "empty": true,
+      "sorted": false,
+      "unsorted": true
+    },
+    "unpaged": false
+  },
+  "size": 20,
+  "sort": {
+    "empty": true,
+    "sorted": false,
+    "unsorted": true
+  },
+  "totalElements": 1,
+  "totalPages": 1
+}
+```
+
+## Modelo
+
+### Registrar modelo
+
+Método: 
+
+POST
+
+Status:
+
+201
+
+Path:
+
+`/models`
+
+Corpo da requisição:
+
+```json
+{
+  "name": "Polo",
+  "brandName": "Volkswagen"
+}
+```
+
+Corpo da resposta:
+
+```json
+{
+  "id": "4f7913af-4e06-4745-954a-6e2c6f664ff7",
+  "name": "Polo",
+  "brandName": "Volkswagen"
+}
+```
+
+Corpo de erro da requisição:
+
+```json
+{
+  "localDateTime": "2026-09-03 18:12",
+  "status": 400,
+  "message": "Nome não deve ser repetido.",
+  "path": "/models"
+}
+```
+
+Corpo de erro de conteúdo não encontrado:
+
+```json
+{
+  "localDateTime": "2026-09-03 18:08",
+  "status": 404,
+  "message": "Nome da marca deve ser existente.",
+  "path": "/models"
+}
+```
+
+### Atualizar modelo pelo id
+
+Método: 
+
+PUT
+
+Status:
+
+200
+
+Path:
+
+`/models/{id}`
+
+Parametro:
+
+- id
+
+Corpo de requisição:
+
+```json
+{
+  "name": "Polo Track",
+  "brandName": "Volkswagen"
+}
+```
+
+Corpo de resposta:
+
+```json
+{
+  "id": "4f7913af-4e06-4745-954a-6e2c6f664ff7",
+  "name": "Polo Track",
+  "brandName": "Volkswagen"
+}
+```
+
+Corpo de erro da requisição:
+
+```json
+{
+  "localDateTime": "2026-09-03 18:12",
+  "status": 400,
+  "message": "Nome não deve ser repetido.",
+  "path": "/models"
+}
+```
+
+Corpo de erro de conteúdo não encontrado:
+
+```json
+{
+  "localDateTime": "2026-09-03 18:08",
+  "status": 404,
+  "message": "Nome da marca deve ser existente.",
+  "path": "/models"
+}
+```
+
+```json
+{
+  "localDateTime": "2026-09-03 18:45",
+  "status": 404,
+  "message": "Id deve ser existente.",
+  "path": "/models/4f7913af-4e06-4745-954a-6e2c6f664ff71"
+}
+```
+
+### Procurar modelo pelo id
+
+Método: 
+
+GET
+
+Status:
+
+200
+
+Path:
+
+`/models/{id}`
+
+Parametro:
+
+- id
+
+Corpo de resposta:
+
+```json
+{
+  "id": "4f7913af-4e06-4745-954a-6e2c6f664ff7",
+  "name": "Polo",
+  "brandName": "Volkswagen"
+}
+```
+
+Corpo de erro de conteúdo não encontrado:
+
+```json
+{
+  "localDateTime": "2026-09-03 18:45",
+  "status": 404,
+  "message": "Id deve ser existente.",
+  "path": "/models/4f7913af-4e06-4745-954a-6e2c6f664ff71"
+}
+```
+
+### Listar modelos
+
+Método: 
+
+GET
+
+Status:
+
+200
+
+Path:
+
+`/models`
+
+Parametro:
+
+- nome
+
+Corpo de resposta:
+
+```json
+{
+  "content": [
+    {
+      "id": "4f7913af-4e06-4745-954a-6e2c6f664ff7",
+      "name": "Polo",
+      "brandName": "Volkswagen"
     }
   ],
   "empty": false,
