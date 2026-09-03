@@ -9,17 +9,17 @@ Aplicativo web para gerenciamento de concessionaria.
 ```mermaid
 classDiagram
 
-Employee "1..1" -- "0..*" Sale
+Employee "1" -- "*" Sale
 
-Customer "1..1" -- "0..*" Sale
+Customer "1" -- "*" Sale
 
-Item "0..*" -- "1..1" Vehicle 
+Item "*" --  "1" Vehicle 
 
-Item "0..*" -- "1..1" Sale 
+Item "*" -- "1" Sale 
 
-Model "1..1" -- "0..*" Vehicle 
+Model "1" -- "*" Vehicle 
 
-Brand "1..1" -- "0..*" Model
+Brand "1" -- "*" Model
 
 CustomerType -- Customer
 
@@ -81,7 +81,7 @@ class Item {
 class Vehicle {
 <<Entity>>
 - String id
-- String placa
+- String plate
 - TransmissionType transmissionType
 - VehicleStatus vehicleStatus
 - String color
@@ -134,6 +134,8 @@ class CustomerType {
 <<Enum>>
 PF,PJ;
 }
+
+
 ```
 
 # Recursos do projeto
