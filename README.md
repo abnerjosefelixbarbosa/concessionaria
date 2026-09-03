@@ -153,20 +153,27 @@ PF,PJ;
 
 - Registrar funcionário.
 - Atualizar funcionário pelo id.
-- Listar funcionário filtrado pelo nome, status do funcionário e tipo do funcionário.
+- Listar funcionários.
 - Procurar funcionário pelo id.
 - Registrar cliente.
 - Atualizar cliente pelo id.
-- Listar cliente filtrado pelo nome e tipo do cliente.
+- Listar clientes.
 - Procurar cliente pelo id.
 - Registrar marca.
 - Atualizar marca pelo id.
 - Procurar marca pelo id.
-- Listar marcas filtrado pelo nome.
+- Listar marcas.
 - Registrar modelo.
 - Atualizar modelo pelo id.
 - Procurar modelo pelo id.
-- Listar modelos filtrado pelo nome.  
+- Listar modelos.
+- Registrar veículo.
+- Atualizar veículo pelo id.
+- Listrar veículos.
+- Procurar veículo pelo id.
+- Registrar venda
+- Listar vendas
+- Deletar vendas pelo id.   
 
 # Execução do projeto 
 
@@ -178,9 +185,188 @@ PF,PJ;
 git clone https://github.com/abnerjosefelixbarbosa/api-controle-de-estoque.git
 ```
 
-# Documentação 
+# Documentação da API
 
-[![Swagger UI](https://img.shields.io/badge/Swagger-UI-85EA2D?logo=swagger&logoColor=black)](https://concessionaria-xgd0.onrender.com/swagger-ui/index.html)
+Documentação da API concessionaria
+
+## Marca
+
+### Registar marca
+
+Método: 
+
+POST
+
+Path:
+
+`/brands`
+
+Corpo da requisição:
+
+```json
+{
+  "name": "Volkswagen"
+}
+```
+
+Corpo da resposta:
+
+```json
+{
+  "id": "5609a5c0-8334-4379-94b6-ac7a55d6c755",
+  "name": "Volkswagen"
+}
+```
+
+Corpo de resposta para error de requisção:
+
+```json
+{
+  "localDateTime": "2026-09-03 15:41",
+  "status": 400,
+  "message": "Nome deve não deve ser repetido.",
+  "path": "/brands"
+}
+```
+
+### Atualizar marca pelo id
+
+Método: 
+
+PUT
+
+Path:
+
+`/brands/5609a5c0-8334-4379-94b6-ac7a55d6c755`
+
+Parametro:
+
+- id
+
+Corpo da requisição:
+
+```json
+{
+  "name": "Fiat"
+}
+```
+
+Corpo da resposta:
+
+```json
+{
+  "id": "5609a5c0-8334-4379-94b6-ac7a55d6c755",
+  "name": "Fiat"
+}
+```
+
+Corpo de resposta para error de requisção:
+
+```json
+{
+  "localDateTime": "2026-09-03 16:01",
+  "status": 400,
+  "message": "Nome deve não deve ser repetido.",
+  "path": "/brands/5609a5c0-8334-4379-94b6-ac7a55d6c755"
+}
+```
+
+Corpo de resposta para erro de conteúdo não encontrado:
+
+```json
+{
+  "localDateTime": "2026-09-03 16:42",
+  "status": 404,
+  "message": "Id deve ser existente.",
+  "path": "/brands/5609a5c0-8334-4379-94b6-ac7a55d6c7551"
+}
+```
+
+### Procurar marca pelo id
+
+Método: 
+
+GET
+
+Path:
+
+`/brands/5609a5c0-8334-4379-94b6-ac7a55d6c755`
+
+Parametro:
+
+- id
+
+Corpo da resposta:
+
+```json
+{
+  "id": "5609a5c0-8334-4379-94b6-ac7a55d6c755",
+  "name": "Fiat"
+}
+```
+
+Corpo de resposta para erro de conteúdo não encontrado:
+
+```json
+{
+  "localDateTime": "2026-09-03 16:42",
+  "status": 404,
+  "message": "Id deve ser existente.",
+  "path": "/brands/5609a5c0-8334-4379-94b6-ac7a55d6c7551"
+}
+```
+
+### Listar marcas
+
+Método: 
+
+GET
+
+Path:
+
+`/brands`
+
+Parametro:
+
+- nome
+
+Corpo da resposta:
+
+```json
+{
+  "content": [
+    {
+      "id": "5609a5c0-8334-4379-94b6-ac7a55d6c755",
+      "name": "Volkswagen"
+    }
+  ],
+  "empty": false,
+  "first": true,
+  "last": true,
+  "number": 0,
+  "numberOfElements": 1,
+  "pageable": {
+    "offset": 0,
+    "pageNumber": 0,
+    "pageSize": 20,
+    "paged": true,
+    "sort": {
+      "empty": true,
+      "sorted": false,
+      "unsorted": true
+    },
+    "unpaged": false
+  },
+  "size": 20,
+  "sort": {
+    "empty": true,
+    "sorted": false,
+    "unsorted": true
+  },
+  "totalElements": 1,
+  "totalPages": 1
+}
+```
 
 # Autor
 
