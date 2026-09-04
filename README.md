@@ -205,7 +205,7 @@ Path:
 
 `/brands`
 
-Corpo da requisição:
+Corpo de requisição:
 
 ```json
 {
@@ -213,7 +213,7 @@ Corpo da requisição:
 }
 ```
 
-Corpo da resposta:
+Corpo de resposta:
 
 ```json
 {
@@ -251,7 +251,7 @@ Parametro:
 
 - id
 
-Corpo da requisição:
+Corpo de requisição:
 
 ```json
 {
@@ -259,7 +259,7 @@ Corpo da requisição:
 }
 ```
 
-Corpo da resposta:
+Corpo de resposta:
 
 ```json
 {
@@ -308,7 +308,7 @@ Parametro:
 
 - id
 
-Corpo da resposta:
+Corpo de resposta:
 
 ```json
 {
@@ -346,7 +346,7 @@ Parametro:
 
 - nome
 
-Corpo da resposta:
+Corpo de resposta:
 
 ```json
 {
@@ -400,7 +400,7 @@ Path:
 
 `/models`
 
-Corpo da requisição:
+Corpo de requisição:
 
 ```json
 {
@@ -409,7 +409,7 @@ Corpo da requisição:
 }
 ```
 
-Corpo da resposta:
+Corpo de resposta:
 
 ```json
 {
@@ -419,7 +419,7 @@ Corpo da resposta:
 }
 ```
 
-Corpo de erro da requisição:
+Corpo de resposta para erro de requisição:
 
 ```json
 {
@@ -430,7 +430,7 @@ Corpo de erro da requisição:
 }
 ```
 
-Corpo de erro de conteúdo não encontrado:
+Corpo de resposta para erro de conteúdo não encontrado:
 
 ```json
 {
@@ -478,7 +478,7 @@ Corpo de resposta:
 }
 ```
 
-Corpo de erro da requisição:
+Corpo de resposta para erro de requisição:
 
 ```json
 {
@@ -489,7 +489,7 @@ Corpo de erro da requisição:
 }
 ```
 
-Corpo de erro de conteúdo não encontrado:
+Corpo de resposta para erro de conteúdo não encontrado:
 
 ```json
 {
@@ -537,7 +537,7 @@ Corpo de resposta:
 }
 ```
 
-Corpo de erro de conteúdo não encontrado:
+Corpo de resposta para erro de conteúdo não encontrado:
 
 ```json
 {
@@ -575,6 +575,255 @@ Corpo de resposta:
       "id": "4f7913af-4e06-4745-954a-6e2c6f664ff7",
       "name": "Polo",
       "brandName": "Volkswagen"
+    }
+  ],
+  "empty": false,
+  "first": true,
+  "last": true,
+  "number": 0,
+  "numberOfElements": 1,
+  "pageable": {
+    "offset": 0,
+    "pageNumber": 0,
+    "pageSize": 20,
+    "paged": true,
+    "sort": {
+      "empty": true,
+      "sorted": false,
+      "unsorted": true
+    },
+    "unpaged": false
+  },
+  "size": 20,
+  "sort": {
+    "empty": true,
+    "sorted": false,
+    "unsorted": true
+  },
+  "totalElements": 1,
+  "totalPages": 1
+}
+```
+
+## Veículo
+
+### Registrar veículo
+
+Método: 
+
+POST
+
+Status:
+
+201
+
+Path:
+
+`/vehicles`
+
+Corpo de requisição:
+
+```json
+{
+  "plate": "AAA-1111",
+  "transmissionType": "MANUAL",
+  "vehicleStatus": "FOR_SALE",
+  "color": "Preto",
+  "price": 5000.00,
+  "modelName": "Polo"
+}
+```
+
+Corpo de resposta:
+
+```json
+{
+  "id": "0b0b48ff-a9e7-40f7-8ab2-0954fcb172c9",
+  "plate": "AAA-1111",
+  "transmissionType": "MANUAL",
+  "vehicleStatus": "FOR_SALE",
+  "color": "Preto",
+  "price": 5000,
+  "modelName": "Polo"
+}
+```
+
+Corpo de resposta para erro de requisição
+
+```json
+{
+  "localDateTime": "2026-09-04 15:43",
+  "status": 400,
+  "message": "Placa não deve ser repetida.",
+  "path": "/vehicles"
+}
+```
+
+Corpo de resposta para erro de conteúdo não encontrado
+
+```json
+{
+  "localDateTime": "2026-09-04 16:57",
+  "status": 404,
+  "message": "Nome do modelo deve ser existente.",
+  "path": "/vehicles"
+}
+```
+
+### Atualizar veículo pelo id
+
+Método: 
+
+PUT
+
+Status:
+
+200
+
+Path:
+
+`/vehicles/{id}`
+
+Paramtro:
+
+- id
+
+Corpo de requisição:
+
+```json
+{
+  "plate": "AAA-1112",
+  "transmissionType": "MANUAL",
+  "vehicleStatus": "FOR_SALE",
+  "color": "Preto",
+  "price": 5000.00,
+  "modelName": "Polo"
+}
+```
+
+Corpo de resposta:
+
+```json
+{
+  "id": "0b0b48ff-a9e7-40f7-8ab2-0954fcb172c9",
+  "plate": "AAA-1112",
+  "transmissionType": "MANUAL",
+  "vehicleStatus": "FOR_SALE",
+  "color": "Preto",
+  "price": 5000.00,
+  "modelName": "Polo"
+}
+```
+
+Corpo de resposta para erro de requisição
+
+```json
+{
+  "localDateTime": "2026-09-04 15:43",
+  "status": 400,
+  "message": "Placa não deve ser repetida.",
+  "path": "/vehicles"
+}
+```
+
+Corpo de resposta para erro de conteúdo não encontrado
+
+```json
+{
+  "localDateTime": "2026-09-04 16:57",
+  "status": 404,
+  "message": "Nome do modelo deve ser existente.",
+  "path": "/vehicles"
+}
+```
+
+```json
+{
+  "localDateTime": "2026-09-04 16:35",
+  "status": 404,
+  "message": "Id deve ser existente.",
+  "path": "/vehicles/0b0b48ff-a9e7-40f7-8ab2-0954fcb172c91"
+}
+```
+
+### Procurar veículo pelo id
+
+Método: 
+
+GET
+
+Status:
+
+200
+
+Path:
+
+`/vehicles/{id}`
+
+Paramtro:
+
+- id
+
+Corpo de resposta:
+
+```json
+{
+  "id": "0b0b48ff-a9e7-40f7-8ab2-0954fcb172c9",
+  "plate": "AAA-1111",
+  "transmissionType": "MANUAL",
+  "vehicleStatus": "FOR_SALE",
+  "color": "Preto",
+  "price": 5000,
+  "modelName": "Polo"
+}
+```
+
+Corpo de resposta para erro de conteúdo não encontrado
+
+```json
+{
+  "localDateTime": "2026-09-04 16:35",
+  "status": 404,
+  "message": "Id deve ser existente.",
+  "path": "/vehicles/0b0b48ff-a9e7-40f7-8ab2-0954fcb172c91"
+}
+```
+
+### Listar veículos
+
+Método: 
+
+GET
+
+Status:
+
+200
+
+Path:
+
+`/vehicles`
+
+Paramtro:
+
+- tipo de transmisão
+- preço
+- status do veículo
+- cor
+- placa
+
+Corpo de resposta:
+
+```json
+{
+  "content": [
+    {
+      "id": "0b0b48ff-a9e7-40f7-8ab2-0954fcb172c9",
+      "plate": "AAA-1111",
+      "transmissionType": "MANUAL",
+      "vehicleStatus": "FOR_SALE",
+      "color": "Preto",
+      "price": 5000,
+      "modelName": "Polo"
     }
   ],
   "empty": false,
