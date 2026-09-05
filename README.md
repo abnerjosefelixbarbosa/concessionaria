@@ -854,6 +854,473 @@ Corpo de resposta:
 }
 ```
 
+## Funcionário
+
+### Registrar funcionário
+
+Método: 
+
+POST
+
+Status:
+
+201
+
+Path:
+
+`/employees`
+
+Corpo de requisição:
+
+```json
+{
+  "name": "Raphael Norte Frotté",
+  "matriculation": "3061391536",
+  "email": "raphael.frotte@gmail.com",
+  "phone": "81971862916",
+  "birthDate": "1998-09-05",
+  "cpf": "24174612420",
+  "salary": 3000.00,
+  "commission": 12,
+  "employeeStatus": "ACTIVE",
+  "employeeType": "SALLER"
+}
+```
+
+Corpo de resposta:
+
+```json
+{
+  "id": "b6682a86-a784-4773-8825-b2b5b7920180",
+  "name": "Raphael Norte Frotté",
+  "matriculation": "3061391536",
+  "email": "raphael.frotte@gmail.com",
+  "phone": "81971862916",
+  "birthDate": "1998-09-05",
+  "cpf": "24174612420",
+  "salary": 3000,
+  "commission": 12,
+  "employeeStatus": "ACTIVE",
+  "employeeType": "SALLER"
+}
+```
+
+Corpo de resposta para erro de requisição
+
+```json
+{
+  "localDateTime": "2026-09-05 16:58",
+  "status": 400,
+  "message": "Nome, matrícula, email, telefone ou cpf não deve ser repetido.",
+  "path": "/employees"
+}
+```
+
+### Atualizar funcionário pelo id
+
+Método: 
+
+PUT
+
+Status:
+
+200
+
+Path:
+
+`/employees/{id}`
+
+Parametro:
+
+- id
+
+Corpo de requisição:
+
+```json
+{
+  "name": "Robson Knupp Mayerhofer",
+  "matriculation": "5255598908",
+  "email": "robson.mayerhofer@gmail.com",
+  "phone": "81987548812",
+  "birthDate": "1993-09-05",
+  "cpf": "28671494446",
+  "salary": 3000.00,
+  "commission": 15,
+  "employeeStatus": "ACTIVE",
+  "employeeType": "SALLER"
+}
+```
+
+Corpo de resposta:
+
+```json
+{
+  "id": "b6682a86-a784-4773-8825-b2b5b7920180",
+  "name": "Robson Knupp Mayerhofer",
+  "matriculation": "5255598908",
+  "email": "robson.mayerhofer@gmail.com",
+  "phone": "81987548812",
+  "birthDate": "1993-09-05",
+  "cpf": "28671494446",
+  "salary": 3000,
+  "commission": 15,
+  "employeeStatus": "ACTIVE",
+  "employeeType": "SALLER"
+}
+```
+
+Corpo de resposta para erro de requisição:
+
+```json
+{
+  "localDateTime": "2026-09-05 16:58",
+  "status": 400,
+  "message": "Nome, matrícula, email, telefone ou cpf não deve ser repetido.",
+  "path": "/employees"
+}
+```
+
+Corpo de resposta para erro de não encontrado:
+
+```json
+{
+  "localDateTime": "2026-09-05 18:54",
+  "status": 404,
+  "message": "Id deve ser existente.",
+  "path": "/employees/b6682a86-a784-4773-8825-b2b5b79201801"
+}
+```
+
+### Procurar funcionário pelo id
+
+Método: 
+
+GET
+
+Status:
+
+200
+
+Path:
+
+`/employees/{id}`
+
+Parametro:
+
+- id
+
+Corpo de resposta:
+
+```json
+{
+  "id": "b6682a86-a784-4773-8825-b2b5b7920180",
+  "name": "Raphael Norte Frotté",
+  "matriculation": "3061391536",
+  "email": "raphael.frotte@gmail.com",
+  "phone": "81971862916",
+  "birthDate": "1998-09-05",
+  "cpf": "24174612420",
+  "salary": 3000,
+  "commission": 12,
+  "employeeStatus": "ACTIVE",
+  "employeeType": "SALLER"
+}
+```
+
+Corpo de resposta para erro de não encontrado:
+
+```json
+{
+  "localDateTime": "2026-09-05 18:54",
+  "status": 404,
+  "message": "Id deve ser existente.",
+  "path": "/employees/b6682a86-a784-4773-8825-b2b5b79201801"
+}
+```
+
+### Listar funcionários
+
+Método: 
+
+GET
+
+Status:
+
+200
+
+Path:
+
+`/employees`
+
+Parametro:
+
+- nome
+- status de funcionario
+- tipo de funcionario
+
+Corpo de resposta:
+
+```json
+{
+  "content": [
+    {
+      "id": "b6682a86-a784-4773-8825-b2b5b7920180",
+      "name": "Raphael Norte Frotté",
+      "matriculation": "3061391536",
+      "email": "raphael.frotte@gmail.com",
+      "phone": "81971862916",
+      "birthDate": "1998-09-05",
+      "cpf": "24174612420",
+      "salary": 3000,
+      "commission": 12,
+      "employeeStatus": "ACTIVE",
+      "employeeType": "SALLER"
+    }
+  ],
+  "empty": false,
+  "first": true,
+  "last": true,
+  "number": 0,
+  "numberOfElements": 1,
+  "pageable": {
+    "offset": 0,
+    "pageNumber": 0,
+    "pageSize": 20,
+    "paged": true,
+    "sort": {
+      "empty": true,
+      "sorted": false,
+      "unsorted": true
+    },
+    "unpaged": false
+  },
+  "size": 20,
+  "sort": {
+    "empty": true,
+    "sorted": false,
+    "unsorted": true
+  },
+  "totalElements": 1,
+  "totalPages": 1
+}
+```
+
+## Cliente
+
+### Registrar cliente
+
+Método: 
+
+POST
+
+Status:
+
+201
+
+Path:
+
+`/employees`
+
+Corpo de requição:
+
+```json
+{
+  "name": "Alan Youssef Alvarenga",
+  "document": "32643861434",
+  "email": "alan.alvarenga@gmail.com.br",
+  "phone": "81981684308",
+  "customerType": "PF"
+}
+```
+
+Corpo de resposta:
+
+```json
+{
+  "id": "7a9b25a3-b9b9-4967-8a08-1d406a394299",
+  "name": "Alan Youssef Alvarenga",
+  "document": "32643861434",
+  "email": "alan.alvarenga@gmail.com.br",
+  "phone": "81981684308",
+  "customerType": "PF"
+}
+```
+
+Corpo de resposta para erro de requisição:
+
+```json
+{
+  "localDateTime": "2026-09-05 18:33",
+  "status": 400,
+  "message": "Nome, documento, email ou telefone não deve ser repetido.",
+  "path": "/customers"
+}
+```
+
+### Atualizar cliente pelo id
+
+Método: 
+
+PUT
+
+Status:
+
+200
+
+Path:
+
+`/employees/{id}`
+
+Corpo de requição:
+
+```json
+{
+  "name": "Everaldo Pires Vogas",
+  "document": "49438977465",
+  "email": "everaldo.vogas@gmail.com",
+  "phone": "87981873455",
+  "customerType": "PF"
+}
+```
+
+Corpo de resposta:
+
+```json
+{
+  "id": "7a9b25a3-b9b9-4967-8a08-1d406a394299",
+  "name": "Everaldo Pires Vogas",
+  "document": "49438977465",
+  "email": "everaldo.vogas@gmail.com",
+  "phone": "87981873455",
+  "customerType": "PF"
+}
+```
+
+Corpo de resposta para erro de requisição:
+
+```json
+{
+  "localDateTime": "2026-09-05 18:33",
+  "status": 400,
+  "message": "Nome, documento, email ou telefone não deve ser repetido.",
+  "path": "/customers"
+}
+```
+
+Corpo de resposta para erro de não encontrado:
+
+```json
+{
+  "localDateTime": "2026-09-05 19:31",
+  "status": 404,
+  "message": "Id deve ser existente.",
+  "path": "/customers/7a9b25a3-b9b9-4967-8a08-1d406a3942991"
+}
+```
+
+### Procurar cliente pelo id
+
+Método: 
+
+GET
+
+Status:
+
+200
+
+Path:
+
+`/employees/{id}`
+
+Parametro:
+
+- id
+
+Corpo de resposta:
+
+```json
+{
+  "id": "7a9b25a3-b9b9-4967-8a08-1d406a394299",
+  "name": "Alan Youssef Alvarenga",
+  "document": "32643861434",
+  "email": "alan.alvarenga@gmail.com.br",
+  "phone": "81981684308",
+  "customerType": "PF"
+}
+```
+
+Corpo de resposta para erro de não encontrado:
+
+```json
+{
+  "localDateTime": "2026-09-05 19:31",
+  "status": 404,
+  "message": "Id deve ser existente.",
+  "path": "/customers/7a9b25a3-b9b9-4967-8a08-1d406a3942991"
+}
+```
+
+### Listar clientes
+
+Método: 
+
+GET
+
+Status:
+
+200
+
+Path:
+
+`/employees`
+
+Parametro:
+
+- nome
+- tipo de cliente
+
+Corpo de resposta:
+
+```json
+{
+  "content": [
+    {
+      "id": "7a9b25a3-b9b9-4967-8a08-1d406a394299",
+      "name": "Alan Youssef Alvarenga",
+      "document": "32643861434",
+      "email": "alan.alvarenga@gmail.com.br",
+      "phone": "81981684308",
+      "customerType": "PF"
+    }
+  ],
+  "empty": false,
+  "first": true,
+  "last": true,
+  "number": 0,
+  "numberOfElements": 1,
+  "pageable": {
+    "offset": 0,
+    "pageNumber": 0,
+    "pageSize": 20,
+    "paged": true,
+    "sort": {
+      "empty": true,
+      "sorted": false,
+      "unsorted": true
+    },
+    "unpaged": false
+  },
+  "size": 20,
+  "sort": {
+    "empty": true,
+    "sorted": false,
+    "unsorted": true
+  },
+  "totalElements": 1,
+  "totalPages": 1
+}
+```
+
 # Autor
 
 Abner José Felix Barbosa
