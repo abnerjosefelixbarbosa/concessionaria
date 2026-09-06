@@ -1321,6 +1321,158 @@ Corpo de resposta:
 }
 ```
 
+## Venda
+
+### Registrar venda
+
+Método: 
+
+POST
+
+Status:
+
+201
+
+Path:
+
+`/sales`
+
+Corpo de requisição:
+
+```json
+{
+  "paymentType": "CASH",
+  "matriculation": "5255598908",
+  "document": "49438977465",
+  "items": [
+    {
+      "plate": "AAA-1111"
+    },
+    {
+      "plate": "AAA-2222"
+    }
+  ]
+}
+```
+
+Corpo de resposta:
+
+```json
+{
+  "id": "adff0bad-350c-40a6-8d54-a678313c5ced",
+  "saleDate": "2026-09-06",
+  "paymentType": "CASH",
+  "totalValue": 8000,
+  "employeeName": "Robson Knupp Mayerhofer",
+  "customerName": "Everaldo Pires Vogas"
+}
+```
+
+Corpo de resposta para erro de requisição:
+
+```json
+{
+  "localDateTime": "2026-09-06 15:23",
+  "status": 400,
+  "message": "Lista de itens deve ter veiculos a venda.",
+  "path": "/sales"
+}
+```
+
+### Deletar venda
+
+Método: 
+
+DELETE
+
+Status:
+
+204
+
+Path:
+
+`/sales/{id}`
+
+Paramentro:
+
+- id
+
+Corpo de resposta:
+
+```json
+```
+
+Corpo de resposta para erro de não encontrado:
+
+```json
+{
+  "localDateTime": "2026-09-06 15:00",
+  "status": 404,
+  "message": "Id deve ser existente.",
+  "path": "/sales/adff0bad-350c-40a6-8d54-a678313c5ced1"
+}
+```
+
+### Listar vendas
+
+Método: 
+
+GET
+
+Status:
+
+200
+
+Path:
+
+`/sales`
+
+Parametro:
+
+- tipo de pagamento
+
+Corpo de resposta:
+
+```json
+{
+  "content": [
+    {
+      "id": "adff0bad-350c-40a6-8d54-a678313c5ced",
+      "saleDate": "2026-09-06",
+      "paymentType": "CASH",
+      "totalValue": 8000,
+      "employeeName": "Robson Knupp Mayerhofer",
+      "customerName": "Everaldo Pires Vogas"
+    }
+  ],
+  "empty": false,
+  "first": true,
+  "last": true,
+  "number": 0,
+  "numberOfElements": 1,
+  "pageable": {
+    "offset": 0,
+    "pageNumber": 0,
+    "pageSize": 20,
+    "paged": true,
+    "sort": {
+      "empty": true,
+      "sorted": false,
+      "unsorted": true
+    },
+    "unpaged": false
+  },
+  "size": 20,
+  "sort": {
+    "empty": true,
+    "sorted": false,
+    "unsorted": true
+  },
+  "totalElements": 1,
+  "totalPages": 1
+}
+```
+
 # Autor
 
 Abner José Felix Barbosa
