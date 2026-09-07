@@ -59,10 +59,12 @@ public class VehicleServiceImpl implements VehicleService {
 
 		Vehicle vehicleFound = vehicleRepository.findById(id)
 				.orElseThrow(() -> new NotFoundException("Id deve ser existente."));
+		
+		BeanUtils.copyProperties(vehicle, vehicleFound, "id");
 
-		Vehicle vehicleSaved = vehicleRepository.save(vehicleFound);
+		vehicleRepository.save(vehicleFound);
 
-		return VehicleMapper.toBrandResponseDTO(vehicleSaved);
+		return VehicleMapper.toBrandResponseDTO(vehicleFound);
 	}
 
 	public VehicleResponseDTO findVehicleById(String id) {
